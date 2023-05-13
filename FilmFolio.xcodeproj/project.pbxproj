@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CBA00ED82A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */; };
 		CBCEEEDA2A0A85E400CF7186 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEED92A0A85E400CF7186 /* AppDelegate.swift */; };
 		CBCEEEDC2A0A85E400CF7186 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEEDB2A0A85E400CF7186 /* SceneDelegate.swift */; };
 		CBCEEEDE2A0A85E400CF7186 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEEDD2A0A85E400CF7186 /* ViewController.swift */; };
 		CBCEEEE32A0A85E500CF7186 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBCEEEE22A0A85E500CF7186 /* Assets.xcassets */; };
 		CBCEEEE62A0A85E500CF7186 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBCEEEE42A0A85E500CF7186 /* LaunchScreen.storyboard */; };
+		CBCEEEEE2A0A9E7600CF7186 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEEED2A0A9E7600CF7186 /* CardCell.swift */; };
+		CBCEEEF02A0AA93B00CF7186 /* ReuseIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEEEF2A0AA93B00CF7186 /* ReuseIdentifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UICollectionViewCompositionalLayout.swift"; sourceTree = "<group>"; };
 		CBCEEED62A0A85E400CF7186 /* FilmFolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilmFolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBCEEED92A0A85E400CF7186 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CBCEEEDB2A0A85E400CF7186 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -22,6 +26,8 @@
 		CBCEEEE22A0A85E500CF7186 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CBCEEEE52A0A85E500CF7186 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CBCEEEE72A0A85E500CF7186 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBCEEEED2A0A9E7600CF7186 /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
+		CBCEEEEF2A0AA93B00CF7186 /* ReuseIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +63,9 @@
 				CBCEEED92A0A85E400CF7186 /* AppDelegate.swift */,
 				CBCEEEDB2A0A85E400CF7186 /* SceneDelegate.swift */,
 				CBCEEEDD2A0A85E400CF7186 /* ViewController.swift */,
+				CBCEEEED2A0A9E7600CF7186 /* CardCell.swift */,
+				CBCEEEEF2A0AA93B00CF7186 /* ReuseIdentifier.swift */,
+				CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */,
 				CBCEEEE22A0A85E500CF7186 /* Assets.xcassets */,
 				CBCEEEE42A0A85E500CF7186 /* LaunchScreen.storyboard */,
 				CBCEEEE72A0A85E500CF7186 /* Info.plist */,
@@ -137,6 +146,9 @@
 				CBCEEEDE2A0A85E400CF7186 /* ViewController.swift in Sources */,
 				CBCEEEDA2A0A85E400CF7186 /* AppDelegate.swift in Sources */,
 				CBCEEEDC2A0A85E400CF7186 /* SceneDelegate.swift in Sources */,
+				CBCEEEF02A0AA93B00CF7186 /* ReuseIdentifier.swift in Sources */,
+				CBA00ED82A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift in Sources */,
+				CBCEEEEE2A0A9E7600CF7186 /* CardCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
