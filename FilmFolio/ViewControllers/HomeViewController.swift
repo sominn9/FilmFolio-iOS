@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeViewController.swift
 //  FilmFolio
 //
 //  Created by 신소민 on 2023/05/09.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ViewController: UIViewController {
+final class HomeViewController: UIViewController {
     
     // MARK: Now Playing
     
@@ -36,7 +36,7 @@ final class ViewController: UIViewController {
 
 // MARK: - Now Playing
 
-private extension ViewController {
+private extension HomeViewController {
     
     func configureNowPlayingCollectionView() {
         view.addSubview(nowPlayingCollectionView)
