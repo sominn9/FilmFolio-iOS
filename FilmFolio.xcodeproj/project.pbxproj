@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CB3719B82A33660A009D5EA2 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3719B72A33660A009D5EA2 /* Movie.swift */; };
+		CB3719BA2A336EAC009D5EA2 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3719B92A336EAC009D5EA2 /* NetworkManager.swift */; };
+		CB3719BD2A338BCA009D5EA2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3719BC2A338BCA009D5EA2 /* HomeViewModel.swift */; };
 		CBA00ED82A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */; };
 		CBCEEEDA2A0A85E400CF7186 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEED92A0A85E400CF7186 /* AppDelegate.swift */; };
 		CBCEEEDC2A0A85E400CF7186 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEEDB2A0A85E400CF7186 /* SceneDelegate.swift */; };
@@ -19,6 +21,8 @@
 
 /* Begin PBXFileReference section */
 		CB3719B72A33660A009D5EA2 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		CB3719B92A336EAC009D5EA2 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		CB3719BC2A338BCA009D5EA2 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UICollectionViewCompositionalLayout.swift"; sourceTree = "<group>"; };
 		CBCEEED62A0A85E400CF7186 /* FilmFolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilmFolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBCEEED92A0A85E400CF7186 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -65,19 +69,20 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		CB3719B52A335EF7009D5EA2 /* Others */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Others;
-			sourceTree = "<group>";
-		};
 		CB3719B62A335F1D009D5EA2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CB3719BB2A338B8F009D5EA2 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CB3719BC2A338BCA009D5EA2 /* HomeViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		CBCEEECD2A0A85E400CF7186 = {
@@ -99,13 +104,14 @@
 		CBCEEED82A0A85E400CF7186 /* FilmFolio */ = {
 			isa = PBXGroup;
 			children = (
-				CB3719B52A335EF7009D5EA2 /* Others */,
 				CB3719B22A335ED2009D5EA2 /* Models */,
-				CB3719B42A335EDE009D5EA2 /* Views */,
+				CB3719BB2A338B8F009D5EA2 /* ViewModels */,
 				CB3719B32A335ED8009D5EA2 /* ViewControllers */,
+				CB3719B42A335EDE009D5EA2 /* Views */,
 				CB3719B62A335F1D009D5EA2 /* Extensions */,
 				CBCEEED92A0A85E400CF7186 /* AppDelegate.swift */,
 				CBCEEEDB2A0A85E400CF7186 /* SceneDelegate.swift */,
+				CB3719B92A336EAC009D5EA2 /* NetworkManager.swift */,
 				CBCEEEE22A0A85E500CF7186 /* Assets.xcassets */,
 				CBCEEEE42A0A85E500CF7186 /* LaunchScreen.storyboard */,
 				CBCEEEE72A0A85E500CF7186 /* Info.plist */,
@@ -186,6 +192,8 @@
 				CBCEEEDE2A0A85E400CF7186 /* ViewController.swift in Sources */,
 				CBCEEEDA2A0A85E400CF7186 /* AppDelegate.swift in Sources */,
 				CB3719B82A33660A009D5EA2 /* Movie.swift in Sources */,
+				CB3719BD2A338BCA009D5EA2 /* HomeViewModel.swift in Sources */,
+				CB3719BA2A336EAC009D5EA2 /* NetworkManager.swift in Sources */,
 				CBCEEEDC2A0A85E400CF7186 /* SceneDelegate.swift in Sources */,
 				CBA00ED82A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift in Sources */,
 				CBCEEEEE2A0A9E7600CF7186 /* CardCell.swift in Sources */,
