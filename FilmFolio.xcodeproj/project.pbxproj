@@ -41,6 +41,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CB3719B22A335ED2009D5EA2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CB3719B32A335ED8009D5EA2 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CBCEEEDD2A0A85E400CF7186 /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CB3719B42A335EDE009D5EA2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CBCEEEED2A0A9E7600CF7186 /* CardCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CB3719B52A335EF7009D5EA2 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
+		CB3719B62A335F1D009D5EA2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		CBCEEECD2A0A85E400CF7186 = {
 			isa = PBXGroup;
 			children = (
@@ -60,12 +98,14 @@
 		CBCEEED82A0A85E400CF7186 /* FilmFolio */ = {
 			isa = PBXGroup;
 			children = (
+				CB3719B52A335EF7009D5EA2 /* Others */,
+				CB3719B22A335ED2009D5EA2 /* Models */,
+				CB3719B42A335EDE009D5EA2 /* Views */,
+				CB3719B32A335ED8009D5EA2 /* ViewControllers */,
+				CB3719B62A335F1D009D5EA2 /* Extensions */,
 				CBCEEED92A0A85E400CF7186 /* AppDelegate.swift */,
 				CBCEEEDB2A0A85E400CF7186 /* SceneDelegate.swift */,
-				CBCEEEDD2A0A85E400CF7186 /* ViewController.swift */,
-				CBCEEEED2A0A9E7600CF7186 /* CardCell.swift */,
 				CBCEEEEF2A0AA93B00CF7186 /* ReuseIdentifier.swift */,
-				CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */,
 				CBCEEEE22A0A85E500CF7186 /* Assets.xcassets */,
 				CBCEEEE42A0A85E500CF7186 /* LaunchScreen.storyboard */,
 				CBCEEEE72A0A85E500CF7186 /* Info.plist */,
