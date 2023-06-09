@@ -9,43 +9,53 @@ import UIKit
 
 final class ViewController: UIViewController {
     
-    private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout.carousel())
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.backgroundColor = .black
+    // MARK: Now Playing
+    
+    private lazy var nowPlayingCollectionView: UICollectionView = {
+        let layout = UICollectionViewCompositionalLayout.carousel()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(CardCell.self, forCellWithReuseIdentifier: CardCell.identifier)
         return collectionView
     }()
-
+    
+    private var nowPlayingDataSource: UICollectionViewDiffableDataSource<Int, Movie.ID>?
+    
+    // MARK: - Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        layout()
+        configure()
     }
     
-    func layout() {
-        view.addSubview(collectionView)
-        NSLayoutConstraint.activate([
-            collectionView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: 50)
-        ])
+    func configure() {
+        view.backgroundColor = .white
+        configureNowPlayingCollectionView()
+        configureNowPlayingDataSource()
     }
 }
 
-extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+// MARK: - Now Playing
+
+private extension ViewController {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+    func configureNowPlayingCollectionView() {
+        view.addSubview(nowPlayingCollectionView)
+        NSLayoutConstraint.activate([
+            nowPlayingCollectionView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            nowPlayingCollectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            nowPlayingCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            nowPlayingCollectionView.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: 50)
+        ])
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCell.identifier, for: indexPath)
-        guard let cardCell = cell as? CardCell else { return cell }
-        cardCell.backgroundColor = .darkGray
-        return cell
+    func configureNowPlayingDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<CardCell, Movie> { cell, indexPath, itemIdentifier in
+            cell.backgroundColor = .darkGray
+        }
+        
+        nowPlayingDataSource = UICollectionViewDiffableDataSource(collectionView: nowPlayingCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            // TODO: item 파라미터 변경하기
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: nil)
+        })
     }
 }
