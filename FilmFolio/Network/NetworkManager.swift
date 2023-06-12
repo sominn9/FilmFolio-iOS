@@ -8,16 +8,16 @@
 import Foundation
 
 protocol NetworkManager {
-    func request<T: Decodable>(_ endpoint: URLRequest, _ completion: @escaping (Result<T, Error>) -> Void)
+    func request<T: Decodable>(_ endpoint: Endpoint, _ completion: @escaping (Result<T, Error>) -> Void)
 }
 
 final class DefaultNetworkManager: NetworkManager {
     
-    static let shared = DefaultNetworkManager()
+    static let shared: NetworkManager = DefaultNetworkManager()
     
-    func request<T: Decodable>(_ endpoint: URLRequest, _ completion: @escaping (Result<T, Error>) -> Void) {
+    func request<T: Decodable>(_ endpoint: Endpoint, _ completion: @escaping (Result<T, Error>) -> Void) {
         
-        URLSession.shared.dataTask(with: endpoint) { data, response, error in
+        URLSession.shared.dataTask(with: endpoint.urlRequest()) { data, response, error in
             
             if error == nil {
                 return completion(.failure(NSError(domain: "error", code: 1)))
