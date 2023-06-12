@@ -7,17 +7,22 @@
 
 import Foundation
 
-struct HomeViewModel {
+final class HomeViewModel {
     
     private let networkManager: NetworkManager
-    private var array: [Movie] = []
+    private var nowPlaying: DataStorage<Movie>
+    
+    init(networkManager: NetworkManager, nowPlaying: DataStorage<Movie>) {
+        self.networkManager = networkManager
+        self.nowPlaying = nowPlaying
+    }
     
     func requestNowPlayMovies(_ completion: @escaping (Result<[Movie], Error>) -> Void) {
         let endpoint = EndpointCollection.nowPlaying()
-        networkManager.request(endpoint) { (result: Result<MovieResponse, Error>) in
+        networkManager.request(endpoint) { [weak self] (result: Result<MovieResponse, Error>) in
             if case let .success(response) = result {
-                completion(.success(response.movies))
-                return
+                let movies = response.movies
+                self?.nowPlaying.append(contentOf: movies)
             }
         }
     }

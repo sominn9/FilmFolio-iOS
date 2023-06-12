@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CB0DD7712A373FF9003116CE /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0DD7702A373FF9003116CE /* Endpoint.swift */; };
 		CB0DD7732A37439C003116CE /* EndpointCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0DD7722A37439C003116CE /* EndpointCollection.swift */; };
+		CB0DD7752A374D5F003116CE /* DataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0DD7742A374D5F003116CE /* DataStorage.swift */; };
 		CB3719B82A33660A009D5EA2 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3719B72A33660A009D5EA2 /* Movie.swift */; };
 		CB3719BA2A336EAC009D5EA2 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3719B92A336EAC009D5EA2 /* NetworkManager.swift */; };
 		CB3719BD2A338BCA009D5EA2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3719BC2A338BCA009D5EA2 /* HomeViewModel.swift */; };
@@ -24,6 +25,7 @@
 /* Begin PBXFileReference section */
 		CB0DD7702A373FF9003116CE /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		CB0DD7722A37439C003116CE /* EndpointCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointCollection.swift; sourceTree = "<group>"; };
+		CB0DD7742A374D5F003116CE /* DataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStorage.swift; sourceTree = "<group>"; };
 		CB3719B72A33660A009D5EA2 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		CB3719B92A336EAC009D5EA2 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CB3719BC2A338BCA009D5EA2 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				CB3719B62A335F1D009D5EA2 /* Extensions */,
 				CBCEEED92A0A85E400CF7186 /* AppDelegate.swift */,
 				CBCEEEDB2A0A85E400CF7186 /* SceneDelegate.swift */,
+				CB0DD7742A374D5F003116CE /* DataStorage.swift */,
 				CBCEEEE22A0A85E500CF7186 /* Assets.xcassets */,
 				CBCEEEE42A0A85E500CF7186 /* LaunchScreen.storyboard */,
 				CBCEEEE72A0A85E500CF7186 /* Info.plist */,
@@ -205,6 +208,7 @@
 			files = (
 				CBCEEEDE2A0A85E400CF7186 /* HomeViewController.swift in Sources */,
 				CB0DD7712A373FF9003116CE /* Endpoint.swift in Sources */,
+				CB0DD7752A374D5F003116CE /* DataStorage.swift in Sources */,
 				CBCEEEDA2A0A85E400CF7186 /* AppDelegate.swift in Sources */,
 				CB3719B82A33660A009D5EA2 /* Movie.swift in Sources */,
 				CB3719BD2A338BCA009D5EA2 /* HomeViewModel.swift in Sources */,
