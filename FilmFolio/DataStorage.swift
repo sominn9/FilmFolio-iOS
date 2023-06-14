@@ -9,7 +9,7 @@ import Foundation
 
 struct DataStorage<T> {
     
-    private var array: [T]
+    private(set) var array: [T]
     
     init(_ array: [T] = []) {
         self.array = array
@@ -17,6 +17,12 @@ struct DataStorage<T> {
     
     subscript(index: Int) -> T? {
         if index >= array.count { return nil }
+        return array[index]
+    }
+    
+    func find(by id: T.ID) -> T? where T: Identifiable {
+        let index = array.firstIndex(where: { $0.id == id })
+        guard let index else { return nil }
         return array[index]
     }
     

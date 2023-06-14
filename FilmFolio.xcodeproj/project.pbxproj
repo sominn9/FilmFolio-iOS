@@ -15,6 +15,8 @@
 		CB3719BA2A336EAC009D5EA2 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3719B92A336EAC009D5EA2 /* NetworkManager.swift */; };
 		CB3719BD2A338BCA009D5EA2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3719BC2A338BCA009D5EA2 /* HomeViewModel.swift */; };
 		CBA00ED82A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */; };
+		CBA9FB1A2A39FF6B00148F16 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA9FB192A39FF6B00148F16 /* Layout.swift */; };
+		CBA9FB1E2A3A000E00148F16 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA9FB1D2A3A000E00148F16 /* API.swift */; };
 		CBCEEEDA2A0A85E400CF7186 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEED92A0A85E400CF7186 /* AppDelegate.swift */; };
 		CBCEEEDC2A0A85E400CF7186 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEEDB2A0A85E400CF7186 /* SceneDelegate.swift */; };
 		CBCEEEDE2A0A85E400CF7186 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEEDD2A0A85E400CF7186 /* HomeViewController.swift */; };
@@ -34,6 +36,8 @@
 		CB3719B92A336EAC009D5EA2 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CB3719BC2A338BCA009D5EA2 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UICollectionViewCompositionalLayout.swift"; sourceTree = "<group>"; };
+		CBA9FB192A39FF6B00148F16 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
+		CBA9FB1D2A3A000E00148F16 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		CBCEEED62A0A85E400CF7186 /* FilmFolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilmFolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBCEEED92A0A85E400CF7186 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CBCEEEDB2A0A85E400CF7186 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,7 +74,6 @@
 				8B9F44787CF6A95C96581D70 /* Pods-FilmFolio.debug.xcconfig */,
 				8D71A93007F0008FC12639E4 /* Pods-FilmFolio.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -124,6 +127,15 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		CBA9FB182A39FF5E00148F16 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				CBA9FB192A39FF6B00148F16 /* Layout.swift */,
+				CBA9FB1D2A3A000E00148F16 /* API.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
 		CBCEEECD2A0A85E400CF7186 = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +157,7 @@
 		CBCEEED82A0A85E400CF7186 /* FilmFolio */ = {
 			isa = PBXGroup;
 			children = (
+				CBA9FB182A39FF5E00148F16 /* Constants */,
 				CB0DD76F2A373FCF003116CE /* Network */,
 				CB3719B22A335ED2009D5EA2 /* Models */,
 				CB3719BB2A338B8F009D5EA2 /* ViewModels */,
@@ -280,8 +293,10 @@
 				CB0DD7752A374D5F003116CE /* DataStorage.swift in Sources */,
 				CBCEEEDA2A0A85E400CF7186 /* AppDelegate.swift in Sources */,
 				CB3719B82A33660A009D5EA2 /* Movie.swift in Sources */,
+				CBA9FB1A2A39FF6B00148F16 /* Layout.swift in Sources */,
 				CB3719BD2A338BCA009D5EA2 /* HomeViewModel.swift in Sources */,
 				CB3719BA2A336EAC009D5EA2 /* NetworkManager.swift in Sources */,
+				CBA9FB1E2A3A000E00148F16 /* API.swift in Sources */,
 				CB0DD7732A37439C003116CE /* EndpointCollection.swift in Sources */,
 				CBCEEEDC2A0A85E400CF7186 /* SceneDelegate.swift in Sources */,
 				CBA00ED82A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift in Sources */,

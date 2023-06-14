@@ -36,28 +36,34 @@ extension UICollectionViewCompositionalLayout {
         }
     }
     
-    static func grid(inset: CGFloat = 8.0) -> UICollectionViewCompositionalLayout {
+    static func grid(spacing: CGFloat = 8.0, inset: CGFloat = 16.0) -> UICollectionViewCompositionalLayout {
         
         return UICollectionViewCompositionalLayout { _, env in
 
+            let containerWidth = env.container.effectiveContentSize.width - inset * 2.0
+            let itemSize = (containerWidth - spacing * 2.0) / 3.0
+            
             let item = NSCollectionLayoutItem(
                 layoutSize: .init(
-                    widthDimension: .fractionalWidth(1 / 3),
+                    widthDimension: .absolute(itemSize),
                     heightDimension: .fractionalHeight(1)
                 )
             )
             
-            item.contentInsets = .init(top: inset, leading: inset, bottom: inset, trailing: inset)
-            
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: .init(
                     widthDimension: .fractionalWidth(1),
-                    heightDimension: .fractionalHeight(1 / 2)
+                    heightDimension: .absolute(itemSize)
                 ),
                 subitems: [item]
             )
             
+            group.interItemSpacing = .fixed(spacing)
+            
             let section = NSCollectionLayoutSection(group: group)
+            section.interGroupSpacing = spacing
+            section.contentInsets = .init(top: 0, leading: inset, bottom: 0, trailing: inset)
+            
             return section
         }
     }

@@ -19,7 +19,7 @@ final class DefaultNetworkManager: NetworkManager {
         
         URLSession.shared.dataTask(with: endpoint.urlRequest()) { data, response, error in
             
-            if error == nil {
+            if error != nil {
                 return completion(.failure(NSError(domain: "error", code: 1)))
             }
             

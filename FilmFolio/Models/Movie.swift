@@ -23,14 +23,14 @@ struct MovieResponse: Decodable {
 
 struct Movie: Decodable, Identifiable {
     let adult: Bool
-    let backdropPath: String
+    private let backdropPath: String
     let genreIDS: [Int]
     let id: Int
     let originalLanguage: String
     let originalTitle: String
     let overview: String
     let popularity: Double
-    let posterPath: String
+    private let posterPath: String
     let releaseDate: String
     let title: String
     let video: Bool
@@ -52,5 +52,15 @@ struct Movie: Decodable, Identifiable {
         case video
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
+    }
+}
+
+extension Movie {
+    var fullBackdropPath: String {
+        return "https://image.tmdb.org/t/p/original\(backdropPath)"
+    }
+    
+    var fullPosterPath: String {
+        return "https://image.tmdb.org/t/p/original\(posterPath)"
     }
 }
