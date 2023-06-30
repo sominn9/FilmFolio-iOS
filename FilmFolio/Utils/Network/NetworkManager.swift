@@ -20,35 +20,17 @@ final class DefaultNetworkManager: NetworkManager {
     
     func request<T>(_ endpoint: Endpoint, _ completion: @escaping (Result<T, Error>) -> Void) where T: Decodable {
         
-        URLSession.shared.dataTask(with: endpoint.urlRequest()) { data, response, error in
+        URLSession.shared.dataTask(with: endpoint.urlRequest()) { [weak self] data, response, error in
             
-            if let error = error {
+            do {
+                guard let self = self else { return }
+                let data = try handle(data, response, error)
+                let result: T = try decode(data)
+                completion(.success(result))
+                
+            } catch {
                 completion(.failure(error))
-                return
             }
-            
-            guard let response = response, let data = data else {
-                completion(.failure(NetworkError.unknown))
-                return
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse else {
-                completion(.failure(NetworkError.nonHTTPResponse(response)))
-                return
-            }
-            
-            guard (200..<300) ~= httpResponse.statusCode else {
-                let code = httpResponse.statusCode
-                completion(.failure(NetworkError.invalidStatusCode(code)))
-                return
-            }
-            
-            guard let result: T = self.decode(data) else {
-                completion(.failure(NetworkError.decodeError))
-                return
-            }
-            
-            return completion(.success(result))
             
         }.resume()
     }
@@ -63,8 +45,8 @@ final class DefaultNetworkManager: NetworkManager {
                     return Result.failure(NetworkError.invalidStatusCode(code))
                 }
                 
-                guard let result: T = self?.decode(data) else {
-                    return Result.failure(NetworkError.decodeError)
+                guard let result: T = try self?.decode(data) else {
+                    return Result.failure(NetworkError.unknown)
                 }
                 
                 return Result.success(result)
@@ -87,8 +69,35 @@ final class DefaultNetworkManager: NetworkManager {
             }
     }
     
-    private func decode<T: Decodable>(_ data: Data) -> T? {
-        let decoder = JSONDecoder()
-        return try? decoder.decode(T.self, from: data)
+}
+
+private extension DefaultNetworkManager {
+    
+    func handle(_ data: Data?, _ response: URLResponse?, _ error: Error?) throws -> Data {
+        
+        if let error = error {
+            throw error
+        }
+        
+        guard let response = response, let data = data else {
+            throw NetworkError.unknown
+        }
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkError.nonHTTPResponse(response)
+        }
+        
+        guard (200..<300) ~= httpResponse.statusCode else {
+            let code = httpResponse.statusCode
+            throw NetworkError.invalidStatusCode(code)
+        }
+        
+        return data
     }
+    
+    func decode<T: Decodable>(_ data: Data) throws -> T {
+        let decoder = JSONDecoder()
+        return try decoder.decode(T.self, from: data)
+    }
+    
 }
