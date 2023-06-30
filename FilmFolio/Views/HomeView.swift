@@ -18,6 +18,7 @@ final class HomeView: UIView {
         static let gridCollectionViewHeight = 240
     }
     
+    
     // MARK: Properties
 
     lazy var nowPlayCollectionView: UICollectionView = {
@@ -128,4 +129,5 @@ private extension HomeView {
             make.height.equalTo(Metric.gridCollectionViewHeight)
         }
     }
+    
 }
