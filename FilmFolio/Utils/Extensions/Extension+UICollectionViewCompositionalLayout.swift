@@ -8,6 +8,23 @@
 import UIKit
 
 extension UICollectionViewCompositionalLayout {
+
+    /*
+       +--------------------+ +------+
+       |                    | |      |
+       |                    | |      |
+       |                    | |      |
+       |                    | |      |
+       |                    | |      |
+       |                    | |      |
+       |                    | |      | ....
+       |                    | |      |
+       |                    | |      |
+       |                    | |      |
+       |                    | |      |
+       |                    | |      |
+       +--------------------+ +------+
+    */
         
     static func carousel(spacing: CGFloat = 16.0) -> UICollectionViewCompositionalLayout {
         
@@ -36,12 +53,31 @@ extension UICollectionViewCompositionalLayout {
         }
     }
     
+    /*
+       +--------+ +--------+ +--------+
+       |        | |        | |        |
+       |        | |        | |        |
+       |        | |        | |        |
+       |        | |        | |        |
+       +--------+ +--------+ +--------+
+       +--------+ +--------+ +--------+
+       |        | |        | |        |
+       |        | |        | |        |
+       |        | |        | |        |
+       |        | |        | |        |
+       +--------+ +--------+ +--------+
+                      .
+                      .
+                      .
+    */
+    
     static func grid(spacing: CGFloat = 8.0, inset: CGFloat = 16.0) -> UICollectionViewCompositionalLayout {
         
         return UICollectionViewCompositionalLayout { _, env in
 
-            let containerWidth = env.container.effectiveContentSize.width - inset * 2.0
-            let itemSize = (containerWidth - spacing * 2.0) / 3.0
+            let contentWidth = env.container.effectiveContentSize.width - inset * 2.0
+            let count = 3.0 // column
+            let itemSize = (contentWidth - spacing * (count - 1.0)) / count
             
             let item = NSCollectionLayoutItem(
                 layoutSize: .init(
@@ -53,7 +89,7 @@ extension UICollectionViewCompositionalLayout {
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: .init(
                     widthDimension: .fractionalWidth(1),
-                    heightDimension: .absolute(itemSize)
+                    heightDimension: .absolute(itemSize * 3.0 / 2.0)
                 ),
                 subitems: [item]
             )
