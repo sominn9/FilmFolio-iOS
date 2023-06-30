@@ -10,6 +10,8 @@ import RxSwift
 
 struct HomeViewModel {
     
+    // MARK: Input & Output
+    
     struct Input {
         let fetchNowPlayMovies: Observable<Void>
         let fetchPopularMovies: Observable<Void>
@@ -45,23 +47,26 @@ struct HomeViewModel {
         
         input.fetchNowPlayMovies
             .map { EndpointCollection.nowPlaying() }
-            .subscribe(onNext: { endpoint in
-                self.fetchMovies(endpoint, \.nowPlaying)
-            })
+            .flatMap { networkManager.request($0) }
+            .map { (r: MovieResponse) in r.movies }
+            .catchAndReturn([])
+            .bind(to: nowPlaying)
             .disposed(by: disposeBag)
         
         input.fetchPopularMovies
             .map { EndpointCollection.popular() }
-            .subscribe(onNext: { endpoint in
-                self.fetchMovies(endpoint, \.popular)
-            })
+            .flatMap { networkManager.request($0) }
+            .map { (r: MovieResponse) in r.movies }
+            .catchAndReturn([])
+            .bind(to: popular)
             .disposed(by: disposeBag)
         
         input.fetchTopRatedMovies
             .map { EndpointCollection.topRated() }
-            .subscribe(onNext: { endpoint in
-                self.fetchMovies(endpoint, \.topRated)
-            })
+            .flatMap { networkManager.request($0) }
+            .map { (r: MovieResponse) in r.movies }
+            .catchAndReturn([])
+            .bind(to: topRated)
             .disposed(by: disposeBag)
         
         return HomeViewModel.Output(
@@ -71,12 +76,4 @@ struct HomeViewModel {
         )
     }
     
-    private func fetchMovies(_ endpoint: Endpoint, _ keyPath: KeyPath<HomeViewModel, PublishSubject<[Movie]>>) {
-        networkManager.request(endpoint) { (result: Result<MovieResponse, Error>) in
-            if case let .success(response) = result {
-                let movies = response.movies
-                self[keyPath: keyPath].onNext(movies)
-            }
-        }
-    }
 }
