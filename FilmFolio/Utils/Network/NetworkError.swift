@@ -9,7 +9,7 @@ import Foundation
 
 enum NetworkError: Error {
     case decodeError
-    case invalidStatusCode(Int?)
-    case noData
+    case invalidStatusCode(Int)
+    case nonHTTPResponse(URLResponse)
     case unknown
 }

@@ -23,24 +23,29 @@ final class DefaultNetworkManager: NetworkManager {
         URLSession.shared.dataTask(with: endpoint.urlRequest()) { data, response, error in
             
             if let error = error {
-                return completion(.failure(error))
+                completion(.failure(error))
+                return
             }
             
-            guard let data else {
-                return completion(.failure(NetworkError.noData))
+            guard let response = response, let data = data else {
+                completion(.failure(NetworkError.unknown))
+                return
             }
             
-            guard let response = response as? HTTPURLResponse else {
-                return completion(.failure(NetworkError.invalidStatusCode(nil)))
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(NetworkError.nonHTTPResponse(response)))
+                return
             }
             
-            guard (200..<300) ~= response.statusCode else {
-                let code = response.statusCode
-                return completion(.failure(NetworkError.invalidStatusCode(code)))
+            guard (200..<300) ~= httpResponse.statusCode else {
+                let code = httpResponse.statusCode
+                completion(.failure(NetworkError.invalidStatusCode(code)))
+                return
             }
             
             guard let result: T = self.decode(data) else {
-                return completion(.failure(NetworkError.decodeError))
+                completion(.failure(NetworkError.decodeError))
+                return
             }
             
             return completion(.success(result))
