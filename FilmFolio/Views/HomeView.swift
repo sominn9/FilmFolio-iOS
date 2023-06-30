@@ -44,7 +44,9 @@ final class HomeView: UIView {
             spacing: Metric.carouselCollectionViewSpacing
         )
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.showsVerticalScrollIndicator = false
+        collectionView.alwaysBounceVertical = false
+        collectionView.bouncesZoom = false
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.contentInset = .init(top: 0, left: Layout.padding, bottom: 0, right: 0)
         return collectionView
     }()
