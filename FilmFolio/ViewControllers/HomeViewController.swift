@@ -186,7 +186,7 @@ private extension HomeViewController {
     }
     
     func configureNowPlayingDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<CardCell, Movie> { cell, indexPath, movie in
+        let cellRegistration = UICollectionView.CellRegistration<RoundImageCell, Movie> { cell, indexPath, movie in
             cell.setup(movie.fullPosterPath)
         }
         
@@ -196,7 +196,7 @@ private extension HomeViewController {
     }
     
     func configurePopularDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<CardCell, Movie> { cell, indexPath, movie in
+        let cellRegistration = UICollectionView.CellRegistration<RoundImageCell, Movie> { cell, indexPath, movie in
             cell.setup(movie.fullPosterPath)
         }
         
@@ -206,7 +206,7 @@ private extension HomeViewController {
     }
     
     func configureTopRatedDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<CardCell, Movie> { cell, indexPath, movie in
+        let cellRegistration = UICollectionView.CellRegistration<RoundImageCell, Movie> { cell, indexPath, movie in
             cell.setup(movie.fullPosterPath)
         }
         

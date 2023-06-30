@@ -12,6 +12,7 @@
 		CB3719B82A33660A009D5EA2 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3719B72A33660A009D5EA2 /* Movie.swift */; };
 		CB3719BA2A336EAC009D5EA2 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3719B92A336EAC009D5EA2 /* NetworkManager.swift */; };
 		CB3719BD2A338BCA009D5EA2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3719BC2A338BCA009D5EA2 /* HomeViewModel.swift */; };
+		CB9574522A4ECA9E0091F112 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CB9574512A4ECA9E0091F112 /* SnapKit */; };
 		CBA00ED82A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */; };
 		CBA9FB1A2A39FF6B00148F16 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA9FB192A39FF6B00148F16 /* Layout.swift */; };
 		CBA9FB1E2A3A000E00148F16 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA9FB1D2A3A000E00148F16 /* API.swift */; };
@@ -20,7 +21,7 @@
 		CBCEEEDE2A0A85E400CF7186 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEEDD2A0A85E400CF7186 /* HomeViewController.swift */; };
 		CBCEEEE32A0A85E500CF7186 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBCEEEE22A0A85E500CF7186 /* Assets.xcassets */; };
 		CBCEEEE62A0A85E500CF7186 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBCEEEE42A0A85E500CF7186 /* LaunchScreen.storyboard */; };
-		CBCEEEEE2A0A9E7600CF7186 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEEED2A0A9E7600CF7186 /* CardCell.swift */; };
+		CBCEEEEE2A0A9E7600CF7186 /* RoundImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEEED2A0A9E7600CF7186 /* RoundImageCell.swift */; };
 		CBF40C3B2A4DE4210083610E /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = CBF40C3A2A4DE4210083610E /* RxCocoa */; };
 		CBF40C3D2A4DE4210083610E /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CBF40C3C2A4DE4210083610E /* RxSwift */; };
 /* End PBXBuildFile section */
@@ -41,7 +42,7 @@
 		CBCEEEE22A0A85E500CF7186 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CBCEEEE52A0A85E500CF7186 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CBCEEEE72A0A85E500CF7186 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CBCEEEED2A0A9E7600CF7186 /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
+		CBCEEEED2A0A9E7600CF7186 /* RoundImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB9574522A4ECA9E0091F112 /* SnapKit in Frameworks */,
 				CBF40C3D2A4DE4210083610E /* RxSwift in Frameworks */,
 				CBF40C3B2A4DE4210083610E /* RxCocoa in Frameworks */,
 			);
@@ -86,7 +88,7 @@
 		CB3719B42A335EDE009D5EA2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				CBCEEEED2A0A9E7600CF7186 /* CardCell.swift */,
+				CBCEEEED2A0A9E7600CF7186 /* RoundImageCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -178,6 +180,7 @@
 			packageProductDependencies = (
 				CBF40C3A2A4DE4210083610E /* RxCocoa */,
 				CBF40C3C2A4DE4210083610E /* RxSwift */,
+				CB9574512A4ECA9E0091F112 /* SnapKit */,
 			);
 			productName = FilmFolio;
 			productReference = CBCEEED62A0A85E400CF7186 /* FilmFolio.app */;
@@ -209,6 +212,7 @@
 			mainGroup = CBCEEECD2A0A85E400CF7186;
 			packageReferences = (
 				CBF40C392A4DE4210083610E /* XCRemoteSwiftPackageReference "RxSwift" */,
+				CB9574502A4ECA9E0091F112 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = CBCEEED72A0A85E400CF7186 /* Products */;
 			projectDirPath = "";
@@ -247,7 +251,7 @@
 				CB0DD7732A37439C003116CE /* EndpointCollection.swift in Sources */,
 				CBCEEEDC2A0A85E400CF7186 /* SceneDelegate.swift in Sources */,
 				CBA00ED82A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift in Sources */,
-				CBCEEEEE2A0A9E7600CF7186 /* CardCell.swift in Sources */,
+				CBCEEEEE2A0A9E7600CF7186 /* RoundImageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,6 +461,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CB9574502A4ECA9E0091F112 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		CBF40C392A4DE4210083610E /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
@@ -468,6 +480,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CB9574512A4ECA9E0091F112 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB9574502A4ECA9E0091F112 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
 		CBF40C3A2A4DE4210083610E /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CBF40C392A4DE4210083610E /* XCRemoteSwiftPackageReference "RxSwift" */;

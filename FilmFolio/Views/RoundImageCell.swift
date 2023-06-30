@@ -1,15 +1,33 @@
 //
-//  CardCell.swift
+//  RoundImageCell.swift
 //  FilmFolio
 //
 //  Created by 신소민 on 2023/05/10.
 //
 
+import SnapKit
 import UIKit
 
-final class CardCell: UICollectionViewCell {
+final class RoundImageCell: UICollectionViewCell {
     
-    private let imageView = UIImageView()
+    // MARK: Constants
+    
+    struct Metric {
+        static let cornerRadius: CGFloat = 8.0
+    }
+    
+    
+    // MARK: Properties
+    
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .black
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    
+    
+    // MARK: Initializing
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,6 +37,9 @@ final class CardCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    // MARK: Methods
     
     func setup(_ imageURL: String) {
         DispatchQueue.global().async {
@@ -34,26 +55,16 @@ final class CardCell: UICollectionViewCell {
     }
 }
 
-private extension CardCell {
+private extension RoundImageCell {
     
     private func configure() {
-        contentView.layer.cornerRadius = Layout.radius
+        contentView.layer.cornerRadius = Metric.cornerRadius
         contentView.layer.cornerCurve = .continuous
         contentView.layer.masksToBounds = true
-        configureImageView()
-    }
-    
-    private func configureImageView() {
-        imageView.backgroundColor = .black
-        imageView.contentMode = .scaleAspectFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        
         contentView.addSubview(imageView)
-        NSLayoutConstraint.activate([
-            imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
+        
+        imageView.snp.makeConstraints { make in
+            make.edges.equalTo(contentView)
+        }
     }
 }
