@@ -60,20 +60,20 @@ final class HomeViewController: UIViewController {
         let output = homeViewModel.transform(input)
         
         output.nowPlaying
-            .subscribe(with: self, onNext: { vc, movies in
-                vc.applySnapshot(movies, to: \.nowPlayDataSource)
+            .subscribe(with: self, onNext: { owner, movies in
+                owner.applySnapshot(movies, to: \.nowPlayDataSource)
             })
             .disposed(by: disposeBag)
         
         output.popular
-            .subscribe(with: self, onNext: { vc, movies in
-                vc.applySnapshot(movies, to: \.popularDataSource)
+            .subscribe(with: self, onNext: { owner, movies in
+                owner.applySnapshot(movies, to: \.popularDataSource)
             })
             .disposed(by: disposeBag)
         
         output.topRated
-            .subscribe(with: self, onNext: { vc, movies in
-                vc.applySnapshot(movies, to: \.topRatedDataSource)
+            .subscribe(with: self, onNext: { owner, movies in
+                owner.applySnapshot(movies, to: \.topRatedDataSource)
             })
             .disposed(by: disposeBag)
     }
@@ -123,4 +123,5 @@ private extension HomeViewController {
             cellProvider: cellProvider
         )
     }
+    
 }
