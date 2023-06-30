@@ -29,6 +29,7 @@ final class DefaultNetworkManager: NetworkManager {
                 completion(.success(result))
                 
             } catch {
+                debugPrint(error)
                 completion(.failure(error))
             }
             
@@ -42,17 +43,18 @@ final class DefaultNetworkManager: NetworkManager {
                 
                 guard (200..<300) ~= response.statusCode else {
                     let code = response.statusCode
-                    return Result.failure(NetworkError.invalidStatusCode(code))
+                    throw NetworkError.invalidStatusCode(code)
                 }
                 
                 guard let result: T = try self?.decode(data) else {
-                    return Result.failure(NetworkError.unknown)
+                    throw NetworkError.unknown
                 }
                 
                 return Result.success(result)
             }
             .catch {
-                Observable.just(Result.failure($0))
+                debugPrint($0)
+                return Observable.just(Result.failure($0))
             }
     }
     
