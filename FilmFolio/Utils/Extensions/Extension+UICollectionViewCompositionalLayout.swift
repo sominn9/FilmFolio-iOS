@@ -77,11 +77,11 @@ extension UICollectionViewCompositionalLayout {
 
             let contentWidth = env.container.effectiveContentSize.width - inset * 2.0
             let count = 3.0 // column
-            let itemSize = (contentWidth - spacing * (count - 1.0)) / count
+            let itemWidth = (contentWidth - spacing * (count - 1.0)) / count
             
             let item = NSCollectionLayoutItem(
                 layoutSize: .init(
-                    widthDimension: .absolute(itemSize),
+                    widthDimension: .absolute(itemWidth),
                     heightDimension: .fractionalHeight(1)
                 )
             )
@@ -89,7 +89,7 @@ extension UICollectionViewCompositionalLayout {
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: .init(
                     widthDimension: .fractionalWidth(1),
-                    heightDimension: .absolute(itemSize * 3.0 / 2.0)
+                    heightDimension: .absolute(itemWidth * 3.0 / 2.0)
                 ),
                 subitems: [item]
             )
