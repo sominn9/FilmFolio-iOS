@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class HomeViewController: UIViewController {
     
@@ -14,6 +16,8 @@ final class HomeViewController: UIViewController {
     private lazy var scrollView = UIScrollView()
     
     private lazy var stackView = UIStackView()
+    
+    private let disposeBag = DisposeBag()
     
     // MARK: Now Playing
     
@@ -26,7 +30,7 @@ final class HomeViewController: UIViewController {
         return collectionView
     }()
     
-    private var nowPlayingDataSource: UICollectionViewDiffableDataSource<Int, Movie.ID>?
+    private var nowPlayingDataSource: UICollectionViewDiffableDataSource<Int, Movie>?
     
     // MARK: Popular
     
@@ -38,7 +42,7 @@ final class HomeViewController: UIViewController {
         return collectionView
     }()
     
-    private var popularDataSource: UICollectionViewDiffableDataSource<Int, Movie.ID>?
+    private var popularDataSource: UICollectionViewDiffableDataSource<Int, Movie>?
     
     // MARK: Top Rated
     
@@ -50,7 +54,7 @@ final class HomeViewController: UIViewController {
         return collectionView
     }()
     
-    private var topRatedDataSource: UICollectionViewDiffableDataSource<Int, Movie.ID>?
+    private var topRatedDataSource: UICollectionViewDiffableDataSource<Int, Movie>?
     
     // MARK: - Inits
     
@@ -68,27 +72,7 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
-        
-        viewModel.requestNowPlayMovies { [unowned self] movies in
-            var snapshot = NSDiffableDataSourceSnapshot<Int, Movie.ID>()
-            snapshot.appendSections([0])
-            snapshot.appendItems(self.viewModel.nowPlaying.array.map { $0.id })
-            self.nowPlayingDataSource?.apply(snapshot)
-        }
-        
-        viewModel.requestPopularMovies { [unowned self] movies in
-            var snapshot = NSDiffableDataSourceSnapshot<Int, Movie.ID>()
-            snapshot.appendSections([0])
-            snapshot.appendItems(self.viewModel.popular.array.map { $0.id })
-            self.popularDataSource?.apply(snapshot)
-        }
-        
-        viewModel.requestTopRatedMovies { [unowned self] movies in
-            var snapshot = NSDiffableDataSourceSnapshot<Int, Movie.ID>()
-            snapshot.appendSections([0])
-            snapshot.appendItems(self.viewModel.topRated.array.map { $0.id })
-            self.topRatedDataSource?.apply(snapshot)
-        }
+        bind()
     }
     
     func configure() {
@@ -103,6 +87,43 @@ final class HomeViewController: UIViewController {
         
         configureTopRatedCollectionView()
         configureTopRatedDataSource()
+    }
+    
+    func bind() {
+        let input = HomeViewModel.Input(
+            fetchNowPlayMovies: Observable.just(()),
+            fetchPopularMovies: Observable.just(()),
+            fetchTopRatedMovies: Observable.just(())
+        )
+        
+        let output = viewModel.transform(input)
+        
+        output.nowPlaying
+            .subscribe(onNext: {
+                var snapshot = NSDiffableDataSourceSnapshot<Int, Movie>()
+                snapshot.appendSections([0])
+                snapshot.appendItems($0)
+                self.nowPlayingDataSource?.apply(snapshot)
+            })
+            .disposed(by: disposeBag)
+        
+        output.popular
+            .subscribe(onNext: {
+                var snapshot = NSDiffableDataSourceSnapshot<Int, Movie>()
+                snapshot.appendSections([0])
+                snapshot.appendItems($0)
+                self.popularDataSource?.apply(snapshot)
+            })
+            .disposed(by: disposeBag)
+        
+        output.topRated
+            .subscribe(onNext: {
+                var snapshot = NSDiffableDataSourceSnapshot<Int, Movie>()
+                snapshot.appendSections([0])
+                snapshot.appendItems($0)
+                self.topRatedDataSource?.apply(snapshot)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func configureScrollView() {
@@ -133,7 +154,7 @@ final class HomeViewController: UIViewController {
     }
 }
 
-// MARK: - Now Playing
+// MARK: - Diffable DataSource
 
 private extension HomeViewController {
     
@@ -146,22 +167,6 @@ private extension HomeViewController {
         ])
     }
     
-    func configureNowPlayingDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<CardCell, Movie> { cell, indexPath, movie in
-            cell.setup(movie.fullPosterPath)
-        }
-        
-        nowPlayingDataSource = UICollectionViewDiffableDataSource(collectionView: nowPlayingCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            let movie = self.viewModel.nowPlaying.find(by: itemIdentifier)
-            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: movie)
-        })
-    }
-}
-
-// MARK: - Popular
-
-private extension HomeViewController {
-    
     func configurePopularCollectionView() {
         stackView.addArrangedSubview(popularCollectionView)
         NSLayoutConstraint.activate([
@@ -170,22 +175,6 @@ private extension HomeViewController {
             popularCollectionView.heightAnchor.constraint(equalToConstant: 240)
         ])
     }
-    
-    func configurePopularDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<CardCell, Movie> { cell, indexPath, movie in
-            cell.setup(movie.fullPosterPath)
-        }
-        
-        popularDataSource = UICollectionViewDiffableDataSource(collectionView: popularCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            let movie = self.viewModel.popular.find(by: itemIdentifier)
-            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: movie)
-        })
-    }
-}
-
-// MARK: - Top Rated
-
-private extension HomeViewController {
     
     func configureTopRatedCollectionView() {
         stackView.addArrangedSubview(topRatedCollectionView)
@@ -196,13 +185,32 @@ private extension HomeViewController {
         ])
     }
     
+    func configureNowPlayingDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<CardCell, Movie> { cell, indexPath, movie in
+            cell.setup(movie.fullPosterPath)
+        }
+        
+        nowPlayingDataSource = UICollectionViewDiffableDataSource(collectionView: nowPlayingCollectionView, cellProvider: { collectionView, indexPath, movie in
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: movie)
+        })
+    }
+    
+    func configurePopularDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<CardCell, Movie> { cell, indexPath, movie in
+            cell.setup(movie.fullPosterPath)
+        }
+        
+        popularDataSource = UICollectionViewDiffableDataSource(collectionView: popularCollectionView, cellProvider: { collectionView, indexPath, movie in
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: movie)
+        })
+    }
+    
     func configureTopRatedDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<CardCell, Movie> { cell, indexPath, movie in
             cell.setup(movie.fullPosterPath)
         }
         
-        topRatedDataSource = UICollectionViewDiffableDataSource(collectionView: topRatedCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            let movie = self.viewModel.topRated.find(by: itemIdentifier)
+        topRatedDataSource = UICollectionViewDiffableDataSource(collectionView: topRatedCollectionView, cellProvider: { collectionView, indexPath, movie in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: movie)
         })
     }

@@ -21,7 +21,7 @@ struct MovieResponse: Decodable {
     }
 }
 
-struct Movie: Decodable, Identifiable {
+struct Movie: Decodable, Hashable {
     let adult: Bool
     private let backdropPath: String
     let genreIDS: [Int]
@@ -52,6 +52,14 @@ struct Movie: Decodable, Identifiable {
         case video
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (_ lhs: Movie, _ rhs: Movie) -> Bool {
+        lhs.id == rhs.id
     }
 }
 
