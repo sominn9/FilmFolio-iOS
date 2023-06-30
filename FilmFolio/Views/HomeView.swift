@@ -71,11 +71,14 @@ final class HomeView: UIView {
         return collectionView
     }()
     
+    private let screenSize: CGSize
+    
 
     // MARK: Initializing
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(screenSize: CGSize) {
+        self.screenSize = screenSize
+        super.init(frame: .zero)
         configure()
     }
     
@@ -156,7 +159,7 @@ private extension HomeView {
         nowPlayCollectionView.snp.makeConstraints { make in
             make.left.equalTo(parent.snp.left)
             make.right.equalTo(parent.snp.right)
-            make.bottom.equalTo(self.snp.centerY)
+            make.height.equalTo(screenSize.height * 3.0 / 7.0)
         }
         
         popularCollectionView.snp.makeConstraints { make in

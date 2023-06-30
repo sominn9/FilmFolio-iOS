@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: scene)
         
-        let homeView = HomeView()
+        let homeView = HomeView(screenSize: scene.screen.bounds.size)
         let homeViewModel = HomeViewModel(networkManager: DefaultNetworkManager.shared)
         let homeViewController = HomeViewController(view: homeView, viewModel: homeViewModel)
         
