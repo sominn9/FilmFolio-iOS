@@ -12,41 +12,64 @@ import UIKit
 
 final class HomeView: UIView {
     
-    // MARK: Constant
-    
+    // MARK: Constants
+
     struct Metric {
-        static let gridCollectionViewHeight = 240
+        static let carouselCollectionViewSpacing: CGFloat = 16.0
+        static let gridCollectionViewSpacing: CGFloat = 8.0
+        static let gridCollectionViewInset: CGFloat = 16.0
+        
+        /// Calculate the height of a collection view that shows only two rows.
+        /// - Parameters:
+        ///   - width: Collection view's container width.
+        ///   - columnCount: The number of columns in a collection view
+        /// - Returns: Height of a collection view with only 2 rows.
+        static func gridCollectionViewHeight(
+            _ width: CGFloat,
+            _ columnCount: CGFloat = 3
+        ) -> CGFloat {
+            let contentWidth = width - gridCollectionViewInset * 2.0
+            let spacingCount = columnCount - 1.0
+            let itemWidth = (contentWidth - gridCollectionViewSpacing * spacingCount) / columnCount
+            let itemHeight = itemWidth * 3.0 / 2.0
+            return itemHeight * 2.0 + gridCollectionViewSpacing
+        }
     }
     
     
     // MARK: Properties
-
+    
     lazy var nowPlayCollectionView: UICollectionView = {
-        let layout = UICollectionViewCompositionalLayout.carousel()
+        let layout = UICollectionViewCompositionalLayout.carousel(
+            spacing: Metric.carouselCollectionViewSpacing
+        )
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.contentInset = .init(top: 0, left: Layout.padding, bottom: 0, right: 0)
         return collectionView
     }()
     
     lazy var popularCollectionView: UICollectionView = {
-        let layout = UICollectionViewCompositionalLayout.grid()
+        let layout = UICollectionViewCompositionalLayout.grid(
+            spacing: Metric.gridCollectionViewSpacing,
+            inset: Metric.gridCollectionViewInset
+        )
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
     
     lazy var topRatedCollectionView: UICollectionView = {
-        let layout = UICollectionViewCompositionalLayout.grid()
+        let layout = UICollectionViewCompositionalLayout.grid(
+            spacing: Metric.gridCollectionViewSpacing,
+            inset: Metric.gridCollectionViewInset
+        )
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
     
-    
+
     // MARK: Initializing
     
     override init(frame: CGRect) {
@@ -56,6 +79,23 @@ final class HomeView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    // MARK: View Update Cycle
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let height = Metric.gridCollectionViewHeight(bounds.width)
+        
+        popularCollectionView.snp.makeConstraints {
+            $0.height.equalTo(height)
+        }
+        
+        topRatedCollectionView.snp.makeConstraints {
+            $0.height.equalTo(height)
+        }
     }
     
 }
@@ -114,19 +154,17 @@ private extension HomeView {
         nowPlayCollectionView.snp.makeConstraints { make in
             make.left.equalTo(parent.snp.left)
             make.right.equalTo(parent.snp.right)
-            make.bottom.equalTo(parent.snp.centerY).offset(-50)
+            make.bottom.equalTo(self.snp.centerY)
         }
         
         popularCollectionView.snp.makeConstraints { make in
             make.left.equalTo(parent.snp.left)
             make.right.equalTo(parent.snp.right)
-            make.height.equalTo(Metric.gridCollectionViewHeight)
         }
         
         topRatedCollectionView.snp.makeConstraints { make in
             make.left.equalTo(parent.snp.left)
             make.right.equalTo(parent.snp.right)
-            make.height.equalTo(Metric.gridCollectionViewHeight)
         }
     }
     
