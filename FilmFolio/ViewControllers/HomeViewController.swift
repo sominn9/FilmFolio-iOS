@@ -131,7 +131,7 @@ private extension HomeViewController {
         let popular = UICollectionView.SupplementaryRegistration<TitleView>(
             elementKind: ElementKind.sectionHeader
         ) { titleView, elementKind, indexPath in
-            titleView.titleLabel.rx.text.onNext("인기있는 영화")
+            titleView.titleLabel.rx.text.onNext("인기 영화")
         }
         
         let topRated = UICollectionView.SupplementaryRegistration<TitleView>(
