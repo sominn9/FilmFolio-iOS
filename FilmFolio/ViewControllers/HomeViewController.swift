@@ -128,31 +128,18 @@ private extension HomeViewController {
     
     func configureSupplementaryView() {
         
-        let nowPlay = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader) {
-            titleView, elementKind, indexPath in
-            titleView.titleLabel.rx.text.onNext("현재 상영 중")
-        }
-        
-        let popular = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader) {
-            titleView, elementKind, indexPath in
+        let popular = UICollectionView.SupplementaryRegistration<TitleView>(
+            elementKind: ElementKind.sectionHeader
+        ) { titleView, elementKind, indexPath in
             titleView.titleLabel.rx.text.onNext("인기있는 영화")
         }
         
-        let topRated = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader) {
-            titleView, elementKind, indexPath in
+        let topRated = UICollectionView.SupplementaryRegistration<TitleView>(
+            elementKind: ElementKind.sectionHeader
+        ) { titleView, elementKind, indexPath in
             titleView.titleLabel.rx.text.onNext("높은 평점의 인기 영화")
         }
-        
-        nowPlayDataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in
-            if case ElementKind.sectionHeader = elementKind {
-                return collectionView.dequeueConfiguredReusableSupplementary(
-                    using: nowPlay,
-                    for: indexPath
-                )
-            }
-            fatalError("\(elementKind) not handled!!")
-        }
-        
+
         popularDataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in
             if case ElementKind.sectionHeader = elementKind {
                 return collectionView.dequeueConfiguredReusableSupplementary(
