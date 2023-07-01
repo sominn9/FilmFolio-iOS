@@ -71,7 +71,11 @@ extension UICollectionViewCompositionalLayout {
                       .
     */
     
-    static func grid(spacing: CGFloat = 8.0, inset: CGFloat = 16.0) -> UICollectionViewCompositionalLayout {
+    static func grid(
+        spacing: CGFloat = 8.0,
+        inset: CGFloat = 16.0,
+        boundarySupplementaryItems: [NSCollectionLayoutBoundarySupplementaryItem] = []
+    ) -> UICollectionViewCompositionalLayout {
         
         return UICollectionViewCompositionalLayout { _, env in
 
@@ -99,8 +103,10 @@ extension UICollectionViewCompositionalLayout {
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = spacing
             section.contentInsets = .init(top: 0, leading: inset, bottom: 0, trailing: inset)
+            section.boundarySupplementaryItems = boundarySupplementaryItems
             
             return section
         }
     }
+    
 }

@@ -18,6 +18,7 @@ final class HomeView: UIView {
         static let carouselCollectionViewSpacing: CGFloat = 16.0
         static let gridCollectionViewSpacing: CGFloat = 8.0
         static let gridCollectionViewInset: CGFloat = 16.0
+        static let gridCollectionViewHeaderHeight: CGFloat = 44.0
         
         /// Calculate the height of a collection view that shows only two rows.
         /// - Parameters:
@@ -32,7 +33,7 @@ final class HomeView: UIView {
             let spacingCount = columnCount - 1.0
             let itemWidth = (contentWidth - gridCollectionViewSpacing * spacingCount) / columnCount
             let itemHeight = itemWidth * 3.0 / 2.0
-            return itemHeight * 2.0 + gridCollectionViewSpacing
+            return itemHeight * 2.0 + gridCollectionViewSpacing + gridCollectionViewHeaderHeight
         }
     }
     
@@ -54,7 +55,8 @@ final class HomeView: UIView {
     lazy var popularCollectionView: UICollectionView = {
         let layout = UICollectionViewCompositionalLayout.grid(
             spacing: Metric.gridCollectionViewSpacing,
-            inset: Metric.gridCollectionViewInset
+            inset: Metric.gridCollectionViewInset,
+            boundarySupplementaryItems: [.titleView(height: Metric.gridCollectionViewHeaderHeight)]
         )
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
@@ -64,7 +66,8 @@ final class HomeView: UIView {
     lazy var topRatedCollectionView: UICollectionView = {
         let layout = UICollectionViewCompositionalLayout.grid(
             spacing: Metric.gridCollectionViewSpacing,
-            inset: Metric.gridCollectionViewInset
+            inset: Metric.gridCollectionViewInset,
+            boundarySupplementaryItems: [.titleView(height: Metric.gridCollectionViewHeaderHeight)]
         )
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
