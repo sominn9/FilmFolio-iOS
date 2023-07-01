@@ -34,7 +34,7 @@ final class HomeViewController: UIViewController {
     }
     
     
-    // MARK: Methods
+    // MARK: View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,11 +42,22 @@ final class HomeViewController: UIViewController {
         bind()
     }
     
+    
+    // MARK: Methods
+    
     func configure() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         view.addSubview(homeView)
-        homeView.snp.makeConstraints({ $0.edges.equalTo(view )})
+        homeView.snp.makeConstraints {
+            $0.edges.equalTo(view)
+        }
+        
         configureDataSource()
+        configureNavigationBar()
+    }
+    
+    func configureNavigationBar() {
+        self.title = "영화"
     }
     
     func bind() {

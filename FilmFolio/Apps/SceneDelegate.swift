@@ -19,8 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let homeView = HomeView(screenSize: scene.screen.bounds.size)
         let homeViewModel = HomeViewModel(networkManager: DefaultNetworkManager.shared)
         let homeViewController = HomeViewController(view: homeView, viewModel: homeViewModel)
+        let navigationController = UINavigationController(rootViewController: homeViewController)
         
-        window?.rootViewController = homeViewController
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 

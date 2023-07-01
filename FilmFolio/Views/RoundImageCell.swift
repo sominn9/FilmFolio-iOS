@@ -53,6 +53,12 @@ final class RoundImageCell: UICollectionViewCell {
             }
         }
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+    }
+    
 }
 
 private extension RoundImageCell {

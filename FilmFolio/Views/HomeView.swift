@@ -15,6 +15,7 @@ final class HomeView: UIView {
     // MARK: Constants
 
     struct Metric {
+        static let stackViewSpacing: CGFloat = 20.0
         static let carouselCollectionViewSpacing: CGFloat = 16.0
         static let gridCollectionViewSpacing: CGFloat = 8.0
         static let gridCollectionViewInset: CGFloat = 16.0
@@ -48,7 +49,7 @@ final class HomeView: UIView {
         collectionView.alwaysBounceVertical = false
         collectionView.bouncesZoom = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.contentInset = .init(top: 0, left: Layout.padding, bottom: 0, right: 0)
+        collectionView.contentInset = .init(top: 0, left: 16.0, bottom: 0, right: 0)
         return collectionView
     }()
     
@@ -145,7 +146,7 @@ private extension HomeView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .fill
-        stackView.spacing = Layout.padding
+        stackView.spacing = Metric.stackViewSpacing
         
         parent.addSubview(stackView)
         
