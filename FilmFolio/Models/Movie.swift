@@ -23,14 +23,14 @@ struct MovieResponse: Decodable {
 
 struct Movie: Decodable, Hashable {
     let adult: Bool
-    private let backdropPath: String
+    private let _backdropPath: String
     let genreIDS: [Int]
     let id: Int
     let originalLanguage: String
     let originalTitle: String
     let overview: String
     let popularity: Double
-    private let posterPath: String
+    private let _posterPath: String
     let releaseDate: String
     let title: String
     let video: Bool
@@ -39,14 +39,14 @@ struct Movie: Decodable, Hashable {
     
     enum CodingKeys: String, CodingKey {
         case adult
-        case backdropPath = "backdrop_path"
+        case _backdropPath = "backdrop_path"
         case genreIDS = "genre_ids"
         case id
         case originalLanguage = "original_language"
         case originalTitle = "original_title"
         case overview
         case popularity
-        case posterPath = "poster_path"
+        case _posterPath = "poster_path"
         case releaseDate = "release_date"
         case title
         case video
@@ -64,11 +64,19 @@ struct Movie: Decodable, Hashable {
 }
 
 extension Movie {
-    var fullBackdropPath: String {
-        return "https://image.tmdb.org/t/p/original\(backdropPath)"
+    
+    enum Size: String {
+        case small = "w200"
+        case big = "w500"
+        case original
     }
     
-    var fullPosterPath: String {
-        return "https://image.tmdb.org/t/p/original\(posterPath)"
+    func backdropPath(size: Size) -> String {
+        return "https://image.tmdb.org/t/p/\(size.rawValue)\(_backdropPath)"
     }
+    
+    func posterPath(size: Size) -> String {
+        return "https://image.tmdb.org/t/p/\(size.rawValue)\(_posterPath)"
+    }
+    
 }

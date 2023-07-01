@@ -52,8 +52,9 @@ final class HomeViewController: UIViewController {
             $0.edges.equalTo(view)
         }
         
-        configureDataSource()
         configureNavigationBar()
+        configureDataSource()
+        configureSupplementaryView()
     }
     
     func configureNavigationBar() {
@@ -107,49 +108,40 @@ private extension HomeViewController {
     
     func configureDataSource() {
         
-        let cellRegistration = UICollectionView.CellRegistration<RoundImageCell, Movie> { roundImageCell, indexPath, movie in
-            roundImageCell.setup(movie.fullPosterPath)
-        }
-        
-        let cellProvider: UICollectionViewDiffableDataSource<Int, Movie>.CellProvider = { collectionView, indexPath, movie in
-            return collectionView.dequeueConfiguredReusableCell(
-                using: cellRegistration,
-                for: indexPath,
-                item: movie
-            )
-        }
-        
         nowPlayDataSource = UICollectionViewDiffableDataSource<Int, Movie>(
             collectionView: homeView.nowPlayCollectionView,
-            cellProvider: cellProvider
+            cellProvider: UICollectionViewDiffableDataSource<Int, Movie>.cellProvider(
+                using: UICollectionView.CellRegistration<RoundImageCell, Movie>(handler: { cell, _, movie in
+                    cell.setup(movie.posterPath(size: .big))
+                })
+            )
         )
         
         popularDataSource = UICollectionViewDiffableDataSource<Int, Movie>(
             collectionView: homeView.popularCollectionView,
-            cellProvider: cellProvider
+            cellProvider: UICollectionViewDiffableDataSource<Int, Movie>.cellProvider(
+                using: UICollectionView.CellRegistration<RoundImageCell, Movie>(handler: { cell, _, movie in
+                    cell.setup(movie.posterPath(size: .small))
+                })
+            )
         )
         
         topRatedDataSource = UICollectionViewDiffableDataSource<Int, Movie>(
             collectionView: homeView.topRatedCollectionView,
-            cellProvider: cellProvider
+            cellProvider: UICollectionViewDiffableDataSource<Int, Movie>.cellProvider(
+                using: UICollectionView.CellRegistration<RoundImageCell, Movie>(handler: { cell, _, movie in
+                    cell.setup(movie.posterPath(size: .small))
+                })
+            )
         )
-        
-        configureSupplementaryView()
     }
     
     func configureSupplementaryView() {
         
-        let popular = UICollectionView.SupplementaryRegistration<TitleView>(
-            elementKind: ElementKind.sectionHeader
-        ) { titleView, elementKind, indexPath in
-            titleView.titleLabel.rx.text.onNext("인기 영화")
-        }
-        
-        let topRated = UICollectionView.SupplementaryRegistration<TitleView>(
-            elementKind: ElementKind.sectionHeader
-        ) { titleView, elementKind, indexPath in
-            titleView.titleLabel.rx.text.onNext("높은 평점의 인기 영화")
-        }
+        let popular = UICollectionView.SupplementaryRegistration<TitleView>.registration(
+            elementKind: ElementKind.sectionHeader,
+            title: "인기 영화"
+        )
 
         popularDataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in
             if case ElementKind.sectionHeader = elementKind {
@@ -160,6 +152,11 @@ private extension HomeViewController {
             }
             fatalError("\(elementKind) not handled!!")
         }
+        
+        let topRated = UICollectionView.SupplementaryRegistration<TitleView>.registration(
+            elementKind: ElementKind.sectionHeader,
+            title: "높은 평점의 인기 영화"
+        )
         
         topRatedDataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in
             if case ElementKind.sectionHeader = elementKind {

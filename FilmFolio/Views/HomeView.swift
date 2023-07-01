@@ -47,9 +47,8 @@ final class HomeView: UIView {
         )
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.alwaysBounceVertical = false
-        collectionView.bouncesZoom = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.contentInset = .init(top: 0, left: 16.0, bottom: 0, right: 0)
+        collectionView.contentInset = .init(top: 0, left: 16.0, bottom: 0, right: 16.0)
         return collectionView
     }()
     
