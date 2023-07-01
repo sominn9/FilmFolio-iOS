@@ -35,6 +35,7 @@ final class TitleView: UICollectionReusableView {
     // MARK: Methods
     
     private func configure() {
+        self.backgroundColor = .systemBackground
         self.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.left.equalTo(self.snp.left)
