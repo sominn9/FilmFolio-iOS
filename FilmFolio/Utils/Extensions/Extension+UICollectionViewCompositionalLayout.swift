@@ -26,7 +26,10 @@ extension UICollectionViewCompositionalLayout {
        +--------------------+ +------+
     */
         
-    static func carousel(spacing: CGFloat = 16.0) -> UICollectionViewCompositionalLayout {
+    static func carousel(
+        spacing: CGFloat = 16.0,
+        inset: CGFloat = 16.0
+    ) -> UICollectionViewCompositionalLayout {
         
         return UICollectionViewCompositionalLayout { _, _ in
             
@@ -47,6 +50,7 @@ extension UICollectionViewCompositionalLayout {
             
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = spacing
+            section.contentInsets = .init(top: 0, leading: inset, bottom: 0, trailing: inset)
             section.orthogonalScrollingBehavior = .groupPaging
             
             return section

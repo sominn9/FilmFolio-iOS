@@ -17,6 +17,7 @@ final class HomeView: UIView {
     struct Metric {
         static let stackViewSpacing: CGFloat = 20.0
         static let carouselCollectionViewSpacing: CGFloat = 16.0
+        static let carouselCollectionViewInset: CGFloat = 16.0
         static let gridCollectionViewSpacing: CGFloat = 8.0
         static let gridCollectionViewInset: CGFloat = 16.0
         static let gridCollectionViewHeaderHeight: CGFloat = 44.0
@@ -43,12 +44,12 @@ final class HomeView: UIView {
     
     lazy var nowPlayCollectionView: UICollectionView = {
         let layout = UICollectionViewCompositionalLayout.carousel(
-            spacing: Metric.carouselCollectionViewSpacing
+            spacing: Metric.carouselCollectionViewSpacing,
+            inset: Metric.carouselCollectionViewInset
         )
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.alwaysBounceVertical = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.contentInset = .init(top: 0, left: 16.0, bottom: 0, right: 16.0)
         return collectionView
     }()
     
