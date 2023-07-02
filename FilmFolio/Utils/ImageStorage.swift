@@ -12,20 +12,33 @@ final class ImageStorage {
     // MARK: Singleton
     
     static let shared = ImageStorage()
-    
-    private init() { }
-    
+
     
     // MARK: Properties
     
-    private var images = NSCache<NSString, UIImage>()
+    private var cache = NSCache<NSString, UIImage>()
+    
+    var countLimit: Int = 100 {
+        didSet { cache.countLimit = countLimit }
+    }
+    
+    var totalByteLimit: Int = 5_000_000 { // 50MB
+        didSet { cache.totalCostLimit = totalByteLimit }
+    }
+    
+    
+    // MARK: Initializing
+    
+    private init() {
+        self.cache.countLimit = countLimit
+        self.cache.totalCostLimit = totalByteLimit
+    }
     
     
     // MARK: Methods
     
     func image(for urlString: String) async -> UIImage? {
-        
-        if let image = images.object(forKey: urlString as NSString) {
+        if let image = cache.object(forKey: urlString as NSString) {
             return image
         }
         
@@ -33,24 +46,20 @@ final class ImageStorage {
             return nil
         }
         
-        images.setObject(image, forKey: urlString as NSString)
+        let bytesOfImage = image.pngData()?.count ?? 0
+        cache.setObject(image, forKey: urlString as NSString, cost: bytesOfImage)
         return image
     }
     
-}
-
-private extension ImageStorage {
-    
-    func loadImage(_ urlString: String) async -> UIImage? {
+    private func loadImage(_ urlString: String) async -> UIImage? {
         guard let url = URL(string: urlString),
-              let imageSource = CGImageSourceCreateWithURL(url as NSURL, nil),
-              let cgImage = CGImageSourceCreateImageAtIndex(imageSource, 0, nil)
+              let data = try? Data(contentsOf: url)
         else {
             print("Couldn't load image - \(urlString)")
             return nil
         }
         
-        let uiImage = UIImage(cgImage: cgImage)
+        let uiImage = UIImage(data: data)
         return uiImage
     }
     
