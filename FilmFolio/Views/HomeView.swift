@@ -57,7 +57,9 @@ final class HomeView: UIView {
         let layout = UICollectionViewCompositionalLayout.grid(
             spacing: Metric.gridCollectionViewSpacing,
             inset: Metric.gridCollectionViewInset,
-            boundarySupplementaryItems: [.titleView(height: Metric.gridCollectionViewHeaderHeight)]
+            boundarySupplementaryItems: [
+                .titleView(height: Metric.gridCollectionViewHeaderHeight)
+            ]
         )
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
@@ -68,7 +70,9 @@ final class HomeView: UIView {
         let layout = UICollectionViewCompositionalLayout.grid(
             spacing: Metric.gridCollectionViewSpacing,
             inset: Metric.gridCollectionViewInset,
-            boundarySupplementaryItems: [.titleView(height: Metric.gridCollectionViewHeaderHeight)]
+            boundarySupplementaryItems: [
+                .titleView(height: Metric.gridCollectionViewHeaderHeight)
+            ]
         )
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
