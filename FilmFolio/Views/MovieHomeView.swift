@@ -1,5 +1,5 @@
 //
-//  HomeView.swift
+//  MovieHomeView.swift
 //  FilmFolio
 //
 //  Created by 신소민 on 2023/06/30.
@@ -10,7 +10,7 @@ import RxSwift
 import SnapKit
 import UIKit
 
-final class HomeView: UIView {
+final class MovieHomeView: UIView {
     
     // MARK: Constants
 
@@ -115,7 +115,7 @@ final class HomeView: UIView {
 
 // MARK: - UI
 
-private extension HomeView {
+private extension MovieHomeView {
     
     func configure() {
         // UIView -> UIScrollView -> UIStackView -> ...

@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  MovieHomeViewController.swift
 //  FilmFolio
 //
 //  Created by 신소민 on 2023/05/09.
@@ -9,12 +9,12 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class HomeViewController: UIViewController {
+final class MovieHomeViewController: UIViewController {
     
     // MARK: Properties
     
-    private let homeView: HomeView
-    private let homeViewModel: HomeViewModel
+    private let movieHomeView: MovieHomeView
+    private let movieHomeViewModel: MovieHomeViewModel
     private let disposeBag = DisposeBag()
     private var nowPlayDataSource: UICollectionViewDiffableDataSource<Int, Movie>?
     private var popularDataSource: UICollectionViewDiffableDataSource<Int, Movie>?
@@ -23,9 +23,9 @@ final class HomeViewController: UIViewController {
     
     // MARK: Initializing
     
-    init(view: HomeView, viewModel: HomeViewModel) {
-        self.homeView = view
-        self.homeViewModel = viewModel
+    init(view: MovieHomeView, viewModel: MovieHomeViewModel) {
+        self.movieHomeView = view
+        self.movieHomeViewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -47,8 +47,8 @@ final class HomeViewController: UIViewController {
     
     func configure() {
         view.backgroundColor = .systemBackground
-        view.addSubview(homeView)
-        homeView.snp.makeConstraints {
+        view.addSubview(movieHomeView)
+        movieHomeView.snp.makeConstraints {
             $0.edges.equalTo(view)
         }
         
@@ -63,13 +63,13 @@ final class HomeViewController: UIViewController {
     
     func bind() {
         
-        let input = HomeViewModel.Input(
+        let input = MovieHomeViewModel.Input(
             fetchNowPlayMovies: Observable.just(()),
             fetchPopularMovies: Observable.just(()),
             fetchTopRatedMovies: Observable.just(())
         )
         
-        let output = homeViewModel.transform(input)
+        let output = movieHomeViewModel.transform(input)
         
         output.nowPlaying
             .subscribe(with: self, onNext: { owner, movies in
@@ -94,11 +94,11 @@ final class HomeViewController: UIViewController {
 
 // MARK: - DiffableDataSource
 
-private extension HomeViewController {
+private extension MovieHomeViewController {
     
     func applySnapshot(
         _ movies: [Movie],
-        to keyPath: ReferenceWritableKeyPath<HomeViewController, UICollectionViewDiffableDataSource<Int, Movie>?>
+        to keyPath: ReferenceWritableKeyPath<MovieHomeViewController, UICollectionViewDiffableDataSource<Int, Movie>?>
     ) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Movie>()
         snapshot.appendSections([0])
@@ -109,7 +109,7 @@ private extension HomeViewController {
     func configureDataSource() {
         
         nowPlayDataSource = UICollectionViewDiffableDataSource<Int, Movie>(
-            collectionView: homeView.nowPlayCollectionView,
+            collectionView: movieHomeView.nowPlayCollectionView,
             cellProvider: UICollectionViewDiffableDataSource<Int, Movie>.cellProvider(
                 using: UICollectionView.CellRegistration<RoundImageCell, Movie>(handler: { cell, _, movie in
                     cell.setup(movie.posterPath(size: .big))
@@ -118,7 +118,7 @@ private extension HomeViewController {
         )
         
         popularDataSource = UICollectionViewDiffableDataSource<Int, Movie>(
-            collectionView: homeView.popularCollectionView,
+            collectionView: movieHomeView.popularCollectionView,
             cellProvider: UICollectionViewDiffableDataSource<Int, Movie>.cellProvider(
                 using: UICollectionView.CellRegistration<RoundImageCell, Movie>(handler: { cell, _, movie in
                     cell.setup(movie.posterPath(size: .small))
@@ -127,7 +127,7 @@ private extension HomeViewController {
         )
         
         topRatedDataSource = UICollectionViewDiffableDataSource<Int, Movie>(
-            collectionView: homeView.topRatedCollectionView,
+            collectionView: movieHomeView.topRatedCollectionView,
             cellProvider: UICollectionViewDiffableDataSource<Int, Movie>.cellProvider(
                 using: UICollectionView.CellRegistration<RoundImageCell, Movie>(handler: { cell, _, movie in
                     cell.setup(movie.posterPath(size: .small))
