@@ -25,7 +25,6 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
-        bind()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -92,13 +91,6 @@ final class HomeViewController: UIViewController {
 
         // Notify the child view controller that the move is complete.
         viewController.didMove(toParent: self)
-    }
-    
-    
-    // MARK: Binding
-    
-    private func bind() {
-        
     }
 
 }
