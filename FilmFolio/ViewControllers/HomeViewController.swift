@@ -28,13 +28,17 @@ final class HomeViewController: UIViewController {
         bind()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        switchChildView(.movie)
+    }
+    
     
     // MARK: Methods
     
     private func configure() {
         view.backgroundColor = .systemBackground
         configureNavigationBar(.movie)
-        switchChildView(.movie) // TODO: Fix
     }
     
     private func configureNavigationBar(_ title: Menus) {
@@ -63,7 +67,7 @@ final class HomeViewController: UIViewController {
     }
     
     private func switchChildView(_ title: Menus) {
-        guard let size = view.window?.screen.bounds.size else { return }
+        guard let size = view.window?.windowScene?.screen.bounds.size else { return }
         switch title {
         case .movie:
             let view = MovieHomeView(screenSize: size)
