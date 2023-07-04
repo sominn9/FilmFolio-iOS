@@ -52,13 +52,8 @@ final class MovieHomeViewController: UIViewController {
             $0.edges.equalTo(view)
         }
         
-        configureNavigationBar()
         configureDataSource()
         configureSupplementaryView()
-    }
-    
-    func configureNavigationBar() {
-        self.title = "영화"
     }
     
     func bind() {
