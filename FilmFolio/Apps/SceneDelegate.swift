@@ -13,15 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
-        
         window = UIWindow(windowScene: scene)
-        
-        let movieHomeView = MovieHomeView(screenSize: scene.screen.bounds.size)
-        let movieHomeViewModel = MovieHomeViewModel(networkManager: DefaultNetworkManager.shared)
-        let movieHomeViewController = MovieHomeViewController(view: movieHomeView, viewModel: movieHomeViewModel)
-        let navigationController = UINavigationController(rootViewController: movieHomeViewController)
-        
-        window?.rootViewController = navigationController
+        window?.rootViewController = UINavigationController(rootViewController: HomeViewController())
         window?.makeKeyAndVisible()
     }
 
