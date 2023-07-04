@@ -11,7 +11,15 @@ import SnapKit
 import UIKit
 
 final class HomeViewController: UIViewController {
-
+    
+    // MARK: Constants
+    
+    enum Menus: String, CaseIterable {
+        case movie = "영화"
+        case series = "시리즈"
+    }
+    
+    
     // MARK: View Life Cycle
     
     override func viewDidLoad() {
@@ -25,29 +33,61 @@ final class HomeViewController: UIViewController {
     
     private func configure() {
         view.backgroundColor = .systemBackground
-        configureNavigationBar("영화")
+        configureNavigationBar(.movie)
+        switchChildView(.movie) // TODO: Fix
     }
     
-    private func configureNavigationBar(_ title: String) {
+    private func configureNavigationBar(_ title: Menus) {
         
         // Create action.
-        let actionTitle = title == "영화" ? "시리즈" : "영화"
-        let action = UIAction(title: actionTitle) { [weak self] action in
-            guard let self = self else { return }
-            configureNavigationBar(actionTitle)
+        let actions = Menus.allCases.filter({ $0 != title }).map { menu in
+            return UIAction(title: menu.rawValue) { [weak self] _ in
+                guard let self = self else { return }
+                configureNavigationBar(menu)
+                switchChildView(menu)
+            }
         }
         
         // Create button.
-        let titleMenuButton = UIButton(configuration: .titleMenu(title, fontSize: 19))
+        let titleMenuButton = UIButton(configuration: .titleMenu(title.rawValue, fontSize: 19))
         titleMenuButton.showsMenuAsPrimaryAction = true
-        titleMenuButton.menu = UIMenu(children: [action])
+        titleMenuButton.menu = UIMenu(children: actions)
         titleMenuButton.configurationUpdateHandler = { button in
-            button.configuration = .titleMenu(title, fontSize: 19, state: button.state)
+            let text = button.titleLabel?.text ?? ""
+            button.configuration = .titleMenu(text, fontSize: 19, state: button.state)
         }
         
         // Create bar button item.
         let barButtonItem = UIBarButtonItem(customView: titleMenuButton)
         navigationItem.leftBarButtonItem = barButtonItem
+    }
+    
+    private func switchChildView(_ title: Menus) {
+        guard let size = view.window?.screen.bounds.size else { return }
+        switch title {
+        case .movie:
+            let view = MovieHomeView(screenSize: size)
+            let viewModel = MovieHomeViewModel(networkManager: DefaultNetworkManager.shared)
+            let viewController = MovieHomeViewController(view: view, viewModel: viewModel)
+            addChildView(viewController)
+        case .series:
+            break
+        }
+    }
+    
+    private func addChildView(_ viewController: UIViewController) {
+        
+        // Add the view controller to the container.
+        addChild(viewController)
+        view.addSubview(viewController.view)
+
+        // Create and activate the constraints for the child’s view.
+        viewController.view.snp.makeConstraints {
+            $0.edges.equalTo(view.snp.edges)
+        }
+
+        // Notify the child view controller that the move is complete.
+        viewController.didMove(toParent: self)
     }
     
     
