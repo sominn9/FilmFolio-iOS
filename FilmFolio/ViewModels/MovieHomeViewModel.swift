@@ -34,7 +34,7 @@ struct MovieHomeViewModel {
     private let disposeBag = DisposeBag()
     
     
-    // MARK: Inits
+    // MARK: Initializing
     
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
