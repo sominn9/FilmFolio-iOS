@@ -27,27 +27,26 @@ final class HomeViewController: UIViewController {
         configure()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        switchChildView(.movie)
-    }
-    
     
     // MARK: Methods
     
     private func configure() {
         view.backgroundColor = .systemBackground
-        configureNavigationBar(.movie)
+        change(.movie)
     }
     
-    private func configureNavigationBar(_ title: Menus) {
+    private func change(_ title: Menus) {
+        changeTitleMenu(title)
+        changeChildView(title)
+    }
+    
+    private func changeTitleMenu(_ title: Menus) {
         
         // Create action.
         let actions = Menus.allCases.filter({ $0 != title }).map { menu in
             return UIAction(title: menu.rawValue) { [weak self] _ in
                 guard let self = self else { return }
-                configureNavigationBar(menu)
-                switchChildView(menu)
+                change(menu)
             }
         }
         
@@ -65,8 +64,7 @@ final class HomeViewController: UIViewController {
         navigationItem.leftBarButtonItem = barButtonItem
     }
     
-    private func switchChildView(_ title: Menus) {
-        guard let size = view.window?.windowScene?.screen.bounds.size else { return }
+    private func changeChildView(_ title: Menus) {
         switch title {
         case .movie:
             let view = MovieHomeView()
