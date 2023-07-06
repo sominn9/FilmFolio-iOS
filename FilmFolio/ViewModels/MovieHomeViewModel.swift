@@ -46,7 +46,7 @@ struct MovieHomeViewModel {
     func transform(_ input: MovieHomeViewModel.Input) -> MovieHomeViewModel.Output {
         
         input.fetchNowPlayMovies
-            .map { EndpointCollection.nowPlaying() }
+            .map { EndpointCollection.nowPlayingMovies() }
             .flatMap { networkManager.request($0) }
             .map { (r: MovieResponse) in r.movies }
             .catchAndReturn([])
@@ -54,7 +54,7 @@ struct MovieHomeViewModel {
             .disposed(by: disposeBag)
         
         input.fetchPopularMovies
-            .map { EndpointCollection.popular() }
+            .map { EndpointCollection.popularMovies() }
             .flatMap { networkManager.request($0) }
             .map { (r: MovieResponse) in r.movies }
             .catchAndReturn([])
@@ -62,7 +62,7 @@ struct MovieHomeViewModel {
             .disposed(by: disposeBag)
         
         input.fetchTopRatedMovies
-            .map { EndpointCollection.topRated() }
+            .map { EndpointCollection.topRatedMovies() }
             .flatMap { networkManager.request($0) }
             .map { (r: MovieResponse) in r.movies }
             .catchAndReturn([])
