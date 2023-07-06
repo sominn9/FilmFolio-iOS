@@ -138,7 +138,7 @@ private extension SeriesHomeViewController {
         
         let popular = UICollectionView.SupplementaryRegistration<TitleView>.registration(
             elementKind: ElementKind.sectionHeader,
-            title: String(localized: "Popular")
+            title: String(localized: "Popular Series")
         )
 
         popularDataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in
@@ -153,7 +153,7 @@ private extension SeriesHomeViewController {
         
         let topRated = UICollectionView.SupplementaryRegistration<TitleView>.registration(
             elementKind: ElementKind.sectionHeader,
-            title: String(localized: "Top Rated")
+            title: String(localized: "Top Rated Series")
         )
         
         topRatedDataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in

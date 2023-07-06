@@ -9,7 +9,13 @@
 "Movie" = "영화";
 "Series" = "시리즈";
 "Animation" = "애니메이션";
-"Now Playing" = "현재 상영 중";
-"Popular" = "인기 영화";
-"Top Rated" = "높은 평점의 영화";
+
+"Now Playing Movies" = "현재 상영 중인 영화";
+"Popular Movies" = "인기 영화";
+"Top Rated Movies" = "높은 평점의 영화";
+
+"On The Air Series" = "오늘 방영할 TV 시리즈";
+"Popular Series" = "인기 TV 시리즈";
+"Top Rated Series" = "높은 평점의 TV 시리즈";
+
 "Upcoming" = "개봉 예정";

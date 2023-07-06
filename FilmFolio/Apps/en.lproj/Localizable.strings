@@ -9,7 +9,13 @@
 "Movie" = "Movie";
 "Series" = "Series";
 "Animation" = "Animation";
-"Now Playing" = "Now Playing";
-"Popular" = "Popular";
-"Top Rated" = "Top Rated";
+
+"Now Playing Movies" = "Now Playing";
+"Popular Movies" = "Popular";
+"Top Rated Movies" = "Top Rated";
+
+"On The Air Movies" = "On The Air";
+"Popular Series" = "Popular";
+"Top Rated Series" = "Top Rated";
+
 "Upcoming" = "Upcoming";
