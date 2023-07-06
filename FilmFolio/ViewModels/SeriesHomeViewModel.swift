@@ -49,7 +49,7 @@ struct SeriesHomeViewModel {
             .map { EndpointCollection.onTheAirSeries() }
             .flatMap { networkManager.request($0) }
             .map { (r: SeriesResponse) in r.series }
-            .map { $0.filter { $0.originCountry.contains("KR") } } // TODO: 언어에 따라 변경
+            .map { $0.filter { $0.originCountry.isIntersect(with: ["KR"]) } } // TODO: 언어에 따라 변경
             .catchAndReturn([])
             .bind(to: onTheAir)
             .disposed(by: disposeBag)
@@ -58,6 +58,7 @@ struct SeriesHomeViewModel {
             .map { EndpointCollection.popularSeries() }
             .flatMap { networkManager.request($0) }
             .map { (r: SeriesResponse) in r.series }
+            .map { $0.filter { $0.originCountry.isIntersect(with: ["KR", "US", "JP"]) } }
             .catchAndReturn([])
             .bind(to: popular)
             .disposed(by: disposeBag)
