@@ -9,7 +9,9 @@ import Foundation
 
 struct EndpointCollection {
     
-    static func nowPlaying() -> Endpoint {
+    // MARK: Movie
+    
+    static func nowPlayingMovies() -> Endpoint {
         return Endpoint(
             method: .GET,
             urlString: "https://api.themoviedb.org/3/movie/now_playing",
@@ -18,7 +20,7 @@ struct EndpointCollection {
         )
     }
     
-    static func popular() -> Endpoint {
+    static func popularMovies() -> Endpoint {
         return Endpoint(
             method: .GET,
             urlString: "https://api.themoviedb.org/3/movie/popular",
@@ -27,12 +29,41 @@ struct EndpointCollection {
         )
     }
     
-    static func topRated() -> Endpoint {
+    static func topRatedMovies() -> Endpoint {
         return Endpoint(
             method: .GET,
             urlString: "https://api.themoviedb.org/3/movie/top_rated",
             header: ["Authorization": "Bearer \(API.accessToken)"],
             query: ["language": "ko", "region": "KR"]
+        )
+    }
+    
+    // MARK: Series
+    
+    static func onTheAirSeries() -> Endpoint {
+        return Endpoint(
+            method: .GET,
+            urlString: "https://api.themoviedb.org/3/tv/on_the_air",
+            header: ["Authorization": "Bearer \(API.accessToken)"],
+            query: ["language": "ko"]
+        )
+    }
+    
+    static func popularSeries() -> Endpoint {
+        return Endpoint(
+            method: .GET,
+            urlString: "https://api.themoviedb.org/3/tv/popular",
+            header: ["Authorization": "Bearer \(API.accessToken)"],
+            query: ["language": "ko"]
+        )
+    }
+    
+    static func topRatedSeries() -> Endpoint {
+        return Endpoint(
+            method: .GET,
+            urlString: "https://api.themoviedb.org/3/tv/top_rated",
+            header: ["Authorization": "Bearer \(API.accessToken)"],
+            query: ["language": "ko"]
         )
     }
 }

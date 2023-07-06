@@ -81,7 +81,10 @@ final class HomeViewController: UIViewController {
             let viewController = MovieHomeViewController(view: view, viewModel: viewModel)
             addChildView(viewController)
         case .series:
-            break
+            let view = SeriesHomeView()
+            let viewModel = SeriesHomeViewModel(networkManager: DefaultNetworkManager.shared)
+            let viewController = SeriesHomeViewController(view: view, viewModel: viewModel)
+            addChildView(viewController)
         }
     }
     
