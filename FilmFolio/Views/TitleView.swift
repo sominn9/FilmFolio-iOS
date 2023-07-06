@@ -15,7 +15,7 @@ final class TitleView: UICollectionReusableView {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
     
