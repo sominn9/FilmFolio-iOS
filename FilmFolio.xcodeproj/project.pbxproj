@@ -140,6 +140,9 @@
 			children = (
 				CBCEEED92A0A85E400CF7186 /* AppDelegate.swift */,
 				CBCEEEDB2A0A85E400CF7186 /* SceneDelegate.swift */,
+				CBCEEEE42A0A85E500CF7186 /* LaunchScreen.storyboard */,
+				CBCEEEE22A0A85E500CF7186 /* Assets.xcassets */,
+				CBCEEEE72A0A85E500CF7186 /* Info.plist */,
 			);
 			path = Apps;
 			sourceTree = "<group>";
@@ -189,9 +192,6 @@
 				CB3719B32A335ED8009D5EA2 /* ViewControllers */,
 				CB3719B42A335EDE009D5EA2 /* Views */,
 				CB95744F2A4EC7D40091F112 /* Utils */,
-				CBCEEEE22A0A85E500CF7186 /* Assets.xcassets */,
-				CBCEEEE42A0A85E500CF7186 /* LaunchScreen.storyboard */,
-				CBCEEEE72A0A85E500CF7186 /* Info.plist */,
 			);
 			path = FilmFolio;
 			sourceTree = "<group>";
@@ -435,7 +435,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FilmFolio/Info.plist;
+				INFOPLIST_FILE = FilmFolio/Apps/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Film Folio";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -463,7 +463,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FilmFolio/Info.plist;
+				INFOPLIST_FILE = FilmFolio/Apps/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Film Folio";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
