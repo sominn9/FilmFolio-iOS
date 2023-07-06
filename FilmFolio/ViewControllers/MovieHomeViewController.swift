@@ -97,7 +97,7 @@ private extension MovieHomeViewController {
     ) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Movie>()
         snapshot.appendSections([0])
-        snapshot.appendItems(movies)
+        snapshot.appendItems(Array(movies[0..<6]))
         self[keyPath: keyPath]?.apply(snapshot)
     }
     
