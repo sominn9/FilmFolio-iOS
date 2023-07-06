@@ -79,19 +79,20 @@ final class MovieHomeView: UIView {
         return collectionView
     }()
     
-    private let screenSize: CGSize
-    
 
     // MARK: Initializing
     
-    init(screenSize: CGSize) {
-        self.screenSize = screenSize
-        super.init(frame: .zero)
-        configure()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        configure()
     }
     
     
@@ -163,6 +164,8 @@ private extension MovieHomeView {
     }
     
     func configureCollectionView(_ parent: UIView) {
+        
+        guard let screenSize = window?.windowScene?.screen.bounds else { return }
         
         nowPlayCollectionView.snp.makeConstraints { make in
             make.left.equalTo(parent.snp.left)

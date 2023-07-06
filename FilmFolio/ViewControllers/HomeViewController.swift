@@ -69,7 +69,7 @@ final class HomeViewController: UIViewController {
         guard let size = view.window?.windowScene?.screen.bounds.size else { return }
         switch title {
         case .movie:
-            let view = MovieHomeView(screenSize: size)
+            let view = MovieHomeView()
             let viewModel = MovieHomeViewModel(networkManager: DefaultNetworkManager.shared)
             let viewController = MovieHomeViewController(view: view, viewModel: viewModel)
             addChildView(viewController)
