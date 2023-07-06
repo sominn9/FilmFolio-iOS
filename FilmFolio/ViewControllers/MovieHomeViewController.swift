@@ -135,7 +135,7 @@ private extension MovieHomeViewController {
         
         let popular = UICollectionView.SupplementaryRegistration<TitleView>.registration(
             elementKind: ElementKind.sectionHeader,
-            title: "인기 영화"
+            title: String(localized: "Popular")
         )
 
         popularDataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in
@@ -150,7 +150,7 @@ private extension MovieHomeViewController {
         
         let topRated = UICollectionView.SupplementaryRegistration<TitleView>.registration(
             elementKind: ElementKind.sectionHeader,
-            title: "높은 평점의 인기 영화"
+            title: String(localized: "Top Rated")
         )
         
         topRatedDataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in

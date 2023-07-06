@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  FilmFolio
+
+  Created by 신소민 on 2023/07/06.
+  
+*/
+
+"Movie" = "영화";
+"Series" = "시리즈";
+"Animation" = "애니메이션";
+"Now Playing" = "현재 상영 중";
+"Popular" = "인기 영화";
+"Top Rated" = "높은 평점의 영화";
+"Upcoming" = "개봉 예정";

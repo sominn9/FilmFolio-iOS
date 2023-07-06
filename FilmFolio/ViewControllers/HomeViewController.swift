@@ -14,9 +14,18 @@ final class HomeViewController: UIViewController {
     
     // MARK: Constants
     
-    enum Menus: String, CaseIterable {
-        case movie = "영화"
-        case series = "시리즈"
+    enum Menus: CaseIterable {
+        case movie
+        case series
+        
+        var description: String {
+            switch self {
+            case .movie:
+                return String(localized: "Movie")
+            case .series:
+                return String(localized: "Series")
+            }
+        }
     }
     
     
@@ -44,14 +53,14 @@ final class HomeViewController: UIViewController {
         
         // Create action.
         let actions = Menus.allCases.filter({ $0 != title }).map { menu in
-            return UIAction(title: menu.rawValue) { [weak self] _ in
+            return UIAction(title: menu.description) { [weak self] _ in
                 guard let self = self else { return }
                 change(menu)
             }
         }
         
         // Create button.
-        let titleMenuButton = UIButton(configuration: .titleMenu(title.rawValue, fontSize: 19))
+        let titleMenuButton = UIButton(configuration: .titleMenu(title.description, fontSize: 19))
         titleMenuButton.showsMenuAsPrimaryAction = true
         titleMenuButton.menu = UIMenu(children: actions)
         titleMenuButton.configurationUpdateHandler = { button in

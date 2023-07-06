@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  FilmFolio
+
+  Created by 신소민 on 2023/07/06.
+  
+*/
+
+"Movie" = "Movie";
+"Series" = "Series";
+"Animation" = "Animation";
+"Now Playing" = "Now Playing";
+"Popular" = "Popular";
+"Top Rated" = "Top Rated";
+"Upcoming" = "Upcoming";
