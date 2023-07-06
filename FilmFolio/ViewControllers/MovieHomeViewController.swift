@@ -73,12 +73,14 @@ final class MovieHomeViewController: UIViewController {
             .disposed(by: disposeBag)
         
         output.popular
+            .map { $0.count > 6 ? Array($0[0..<6]) : $0 }
             .subscribe(with: self, onNext: { owner, movies in
                 owner.applySnapshot(movies, to: \.popularDataSource)
             })
             .disposed(by: disposeBag)
         
         output.topRated
+            .map { $0.count > 6 ? Array($0[0..<6]) : $0 }
             .subscribe(with: self, onNext: { owner, movies in
                 owner.applySnapshot(movies, to: \.topRatedDataSource)
             })
@@ -97,7 +99,7 @@ private extension MovieHomeViewController {
     ) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Movie>()
         snapshot.appendSections([0])
-        snapshot.appendItems(Array(movies[0..<6]))
+        snapshot.appendItems(movies)
         self[keyPath: keyPath]?.apply(snapshot)
     }
     
