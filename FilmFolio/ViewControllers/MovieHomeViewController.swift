@@ -5,9 +5,9 @@
 //  Created by 신소민 on 2023/05/09.
 //
 
-import UIKit
-import RxSwift
 import RxCocoa
+import RxSwift
+import UIKit
 
 final class MovieHomeViewController: UIViewController {
     
