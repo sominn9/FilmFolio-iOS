@@ -32,7 +32,7 @@ struct Series: Decodable, Hashable {
     let originalName: String
     let overview: String
     let popularity: Double
-    private let _posterPath: String
+    private let _posterPath: String?
     let voteAverage: Double
     let voteCount: Int
     
@@ -74,7 +74,8 @@ extension Series {
         return "https://image.tmdb.org/t/p/\(size.rawValue)\(_backdropPath)"
     }
     
-    func posterPath(size: Size) -> String {
+    func posterPath(size: Size) -> String? {
+        guard let _posterPath else { return nil }
         return "https://image.tmdb.org/t/p/\(size.rawValue)\(_posterPath)"
     }
     
