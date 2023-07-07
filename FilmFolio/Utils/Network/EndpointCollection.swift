@@ -40,30 +40,37 @@ struct EndpointCollection {
     
     // MARK: Series
     
-    static func onTheAirSeries() -> Endpoint {
+    static func trendingSeries() -> Endpoint {
+        return Endpoint(
+            method: .GET,
+            urlString: "https://api.themoviedb.org/3/trending/tv/week",
+            header: ["Authorization": "Bearer \(API.accessToken)"],
+            query: ["language": "ko"]
+        )
+    }
+    
+    static func onTheAirSeries(page: Int = 1) -> Endpoint {
         return Endpoint(
             method: .GET,
             urlString: "https://api.themoviedb.org/3/tv/on_the_air",
             header: ["Authorization": "Bearer \(API.accessToken)"],
-            query: ["language": "ko"]
+            query: [
+                "language": "ko",
+                "page": "\(page)",
+                "timezone": "KR"
+            ]
         )
     }
     
-    static func popularSeries() -> Endpoint {
-        return Endpoint(
-            method: .GET,
-            urlString: "https://api.themoviedb.org/3/tv/popular",
-            header: ["Authorization": "Bearer \(API.accessToken)"],
-            query: ["language": "ko"]
-        )
-    }
-    
-    static func topRatedSeries() -> Endpoint {
+    static func topRatedSeries(page: Int = 1) -> Endpoint {
         return Endpoint(
             method: .GET,
             urlString: "https://api.themoviedb.org/3/tv/top_rated",
             header: ["Authorization": "Bearer \(API.accessToken)"],
-            query: ["language": "ko"]
+            query: [
+                "language": "ko",
+                "page": "\(page)"
+            ]
         )
     }
 }

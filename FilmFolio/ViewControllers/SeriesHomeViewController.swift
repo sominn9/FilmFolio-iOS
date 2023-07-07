@@ -17,8 +17,8 @@ final class SeriesHomeViewController: UIViewController {
     private let seriesHomeView: SeriesHomeView
     private let seriesHomeViewModel: SeriesHomeViewModel
     private let disposeBag = DisposeBag()
+    private var trendingDataSource: UICollectionViewDiffableDataSource<Int, Series>?
     private var onTheAirDataSource: UICollectionViewDiffableDataSource<Int, Series>?
-    private var popularDataSource: UICollectionViewDiffableDataSource<Int, Series>?
     private var topRatedDataSource: UICollectionViewDiffableDataSource<Int, Series>?
     
     
@@ -60,23 +60,23 @@ final class SeriesHomeViewController: UIViewController {
     func bind() {
         
         let input = SeriesHomeViewModel.Input(
+            fetchTrendingSeries: Observable.just(()),
             fetchOnTheAirSeries: Observable.just(()),
-            fetchPopularSeries: Observable.just(()),
             fetchTopRatedSeries: Observable.just(())
         )
         
         let output = seriesHomeViewModel.transform(input)
         
-        output.onTheAir
+        output.trending
             .subscribe(with: self, onNext: { owner, series in
-                owner.applySnapshot(series, to: \.onTheAirDataSource)
+                owner.applySnapshot(series, to: \.trendingDataSource)
             })
             .disposed(by: disposeBag)
         
-        output.popular
+        output.onTheAir
             .map { $0.count > 6 ? Array($0[0..<6]) : $0 }
             .subscribe(with: self, onNext: { owner, series in
-                owner.applySnapshot(series, to: \.popularDataSource)
+                owner.applySnapshot(series, to: \.onTheAirDataSource)
             })
             .disposed(by: disposeBag)
         
@@ -106,8 +106,8 @@ private extension SeriesHomeViewController {
     
     func configureDataSource() {
         
-        onTheAirDataSource = UICollectionViewDiffableDataSource<Int, Series>(
-            collectionView: seriesHomeView.onTheAirCollectionView,
+        trendingDataSource = UICollectionViewDiffableDataSource<Int, Series>(
+            collectionView: seriesHomeView.trendingCollectionView,
             cellProvider: UICollectionViewDiffableDataSource<Int, Series>.cellProvider(
                 using: UICollectionView.CellRegistration<RoundImageCell, Series>(handler: { cell, _, series in
                     cell.setup(series.posterPath(size: .big))
@@ -115,8 +115,8 @@ private extension SeriesHomeViewController {
             )
         )
         
-        popularDataSource = UICollectionViewDiffableDataSource<Int, Series>(
-            collectionView: seriesHomeView.popularCollectionView,
+        onTheAirDataSource = UICollectionViewDiffableDataSource<Int, Series>(
+            collectionView: seriesHomeView.onTheAirCollectionView,
             cellProvider: UICollectionViewDiffableDataSource<Int, Series>.cellProvider(
                 using: UICollectionView.CellRegistration<RoundImageCell, Series>(handler: { cell, _, series in
                     cell.setup(series.posterPath(size: .small))
@@ -136,15 +136,15 @@ private extension SeriesHomeViewController {
     
     func configureSupplementaryView() {
         
-        let popular = UICollectionView.SupplementaryRegistration<TitleView>.registration(
+        let onTheAir = UICollectionView.SupplementaryRegistration<TitleView>.registration(
             elementKind: ElementKind.sectionHeader,
-            title: String(localized: "Popular Series")
+            title: String(localized: "On The Air Series")
         )
 
-        popularDataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in
+        onTheAirDataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in
             if case ElementKind.sectionHeader = elementKind {
                 return collectionView.dequeueConfiguredReusableSupplementary(
-                    using: popular,
+                    using: onTheAir,
                     for: indexPath
                 )
             }

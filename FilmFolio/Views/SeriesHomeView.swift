@@ -40,7 +40,7 @@ final class SeriesHomeView: UIView {
     
     // MARK: Properties
     
-    lazy var onTheAirCollectionView: UICollectionView = {
+    lazy var trendingCollectionView: UICollectionView = {
         let layout = UICollectionViewCompositionalLayout.carousel(
             spacing: Metric.carouselCollectionViewSpacing,
             inset: Metric.carouselCollectionViewInset
@@ -51,7 +51,7 @@ final class SeriesHomeView: UIView {
         return collectionView
     }()
     
-    lazy var popularCollectionView: UICollectionView = {
+    lazy var onTheAirCollectionView: UICollectionView = {
         let layout = UICollectionViewCompositionalLayout.grid(
             spacing: Metric.gridCollectionViewSpacing,
             inset: Metric.gridCollectionViewInset,
@@ -101,7 +101,7 @@ final class SeriesHomeView: UIView {
         
         let height = Metric.gridCollectionViewHeight(bounds.width)
         
-        popularCollectionView.snp.makeConstraints {
+        onTheAirCollectionView.snp.makeConstraints {
             $0.height.equalTo(height)
         }
         
@@ -141,8 +141,8 @@ private extension SeriesHomeView {
     func configureStackView(_ parent: UIView) -> UIStackView {
 
         let stackView = UIStackView(arrangedSubviews: [
+            trendingCollectionView,
             onTheAirCollectionView,
-            popularCollectionView,
             topRatedCollectionView
         ])
         
@@ -165,13 +165,13 @@ private extension SeriesHomeView {
         
         guard let screenSize = window?.windowScene?.screen.bounds else { return }
         
-        onTheAirCollectionView.snp.makeConstraints { make in
+        trendingCollectionView.snp.makeConstraints { make in
             make.left.equalTo(parent.snp.left)
             make.right.equalTo(parent.snp.right)
             make.height.equalTo(screenSize.height * 3.0 / 7.0)
         }
         
-        popularCollectionView.snp.makeConstraints { make in
+        onTheAirCollectionView.snp.makeConstraints { make in
             make.left.equalTo(parent.snp.left)
             make.right.equalTo(parent.snp.right)
         }

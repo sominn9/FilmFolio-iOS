@@ -13,14 +13,14 @@ struct SeriesHomeViewModel {
     // MARK: Input & Output
     
     struct Input {
+        let fetchTrendingSeries: Observable<Void>
         let fetchOnTheAirSeries: Observable<Void>
-        let fetchPopularSeries: Observable<Void>
         let fetchTopRatedSeries: Observable<Void>
     }
     
     struct Output {
+        let trending: PublishSubject<[Series]>
         let onTheAir: PublishSubject<[Series]>
-        let popular: PublishSubject<[Series]>
         let topRated: PublishSubject<[Series]>
     }
     
@@ -28,8 +28,8 @@ struct SeriesHomeViewModel {
     // MARK: Properties
     
     private let networkManager: NetworkManager
+    private let trending = PublishSubject<[Series]>()
     private let onTheAir = PublishSubject<[Series]>()
-    private let popular = PublishSubject<[Series]>()
     private let topRated = PublishSubject<[Series]>()
     private let disposeBag = DisposeBag()
     
@@ -45,22 +45,21 @@ struct SeriesHomeViewModel {
     
     func transform(_ input: SeriesHomeViewModel.Input) -> SeriesHomeViewModel.Output {
         
+        input.fetchTrendingSeries
+            .map { EndpointCollection.trendingSeries() }
+            .flatMap { networkManager.request($0) }
+            .map { (r: SeriesResponse) in r.series }
+            .catchAndReturn([])
+            .bind(to: trending)
+            .disposed(by: disposeBag)
+        
         input.fetchOnTheAirSeries
             .map { EndpointCollection.onTheAirSeries() }
             .flatMap { networkManager.request($0) }
             .map { (r: SeriesResponse) in r.series }
-            .map { $0.filter { $0.originCountry.isIntersect(with: ["KR"]) } } // TODO: 언어에 따라 변경
+            .map { $0.filter { $0.originCountry.isIntersect(with: ["KR", "US", "JP"]) } } // TODO: 언어에 따라 변경
             .catchAndReturn([])
             .bind(to: onTheAir)
-            .disposed(by: disposeBag)
-        
-        input.fetchPopularSeries
-            .map { EndpointCollection.popularSeries() }
-            .flatMap { networkManager.request($0) }
-            .map { (r: SeriesResponse) in r.series }
-            .map { $0.filter { $0.originCountry.isIntersect(with: ["KR", "US", "JP"]) } }
-            .catchAndReturn([])
-            .bind(to: popular)
             .disposed(by: disposeBag)
         
         input.fetchTopRatedSeries
@@ -72,8 +71,8 @@ struct SeriesHomeViewModel {
             .disposed(by: disposeBag)
         
         return SeriesHomeViewModel.Output(
+            trending: trending,
             onTheAir: onTheAir,
-            popular: popular,
             topRated: topRated
         )
     }
