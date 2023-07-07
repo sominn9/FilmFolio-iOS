@@ -41,8 +41,9 @@ final class RoundImageCell: UICollectionViewCell {
     
     // MARK: Methods
     
-    func setup(_ urlString: String) {
+    func setup(_ urlString: String?) {
         Task {
+            guard let urlString else { return }
             imageView.image = await ImageStorage.shared.image(for: urlString)
         }
     }
