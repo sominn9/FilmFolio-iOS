@@ -54,10 +54,13 @@ struct SeriesHomeViewModel {
             .disposed(by: disposeBag)
         
         input.fetchOnTheAirSeries
-            .map { EndpointCollection.onTheAirSeries() }
-            .flatMap { networkManager.request($0) }
-            .map { (r: SeriesResponse) in r.series }
-            .map { $0.filter { $0.originCountry.isIntersect(with: ["KR", "US", "JP"]) } } // TODO: 언어에 따라 변경
+            .map { Array(1...4).map { EndpointCollection.onTheAirSeries(page: $0) } }
+            .map { (endpoints: [Endpoint]) -> [Observable<SeriesResponse>] in
+                endpoints.map { e in networkManager.request(e) }
+            }
+            .flatMap { Observable.combineLatest($0) }
+            .map { $0.map { $0.series }.flatMap { $0 } }
+            .map { $0.filter { $0.originCountry.isIntersect(with: ["KR", "US", "JP"]) } }
             .catchAndReturn([])
             .bind(to: onTheAir)
             .disposed(by: disposeBag)
