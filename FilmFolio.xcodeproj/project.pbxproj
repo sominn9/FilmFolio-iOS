@@ -37,9 +37,22 @@
 		CBCEEEE32A0A85E500CF7186 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBCEEEE22A0A85E500CF7186 /* Assets.xcassets */; };
 		CBCEEEE62A0A85E500CF7186 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBCEEEE42A0A85E500CF7186 /* LaunchScreen.storyboard */; };
 		CBCEEEEE2A0A9E7600CF7186 /* RoundImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEEED2A0A9E7600CF7186 /* RoundImageCell.swift */; };
+		CBE4AE112A59AFB5000AC220 /* FilmFolioUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AE102A59AFB5000AC220 /* FilmFolioUITests.swift */; };
+		CBE4AE132A59AFB5000AC220 /* FilmFolioUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AE122A59AFB5000AC220 /* FilmFolioUITestsLaunchTests.swift */; };
+		CBE4AE1B2A59C23D000AC220 /* PerformanceXCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AE1A2A59C23D000AC220 /* PerformanceXCTests.swift */; };
 		CBF40C3B2A4DE4210083610E /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = CBF40C3A2A4DE4210083610E /* RxCocoa */; };
 		CBF40C3D2A4DE4210083610E /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CBF40C3C2A4DE4210083610E /* RxSwift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CBE4AE142A59AFB5000AC220 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CBCEEECE2A0A85E400CF7186 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CBCEEED52A0A85E400CF7186;
+			remoteInfo = FilmFolio;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		CB0DD7702A373FF9003116CE /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
@@ -74,6 +87,11 @@
 		CBCEEEE52A0A85E500CF7186 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CBCEEEE72A0A85E500CF7186 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBCEEEED2A0A9E7600CF7186 /* RoundImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageCell.swift; sourceTree = "<group>"; };
+		CBE4AE0E2A59AFB5000AC220 /* FilmFolioUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FilmFolioUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBE4AE102A59AFB5000AC220 /* FilmFolioUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmFolioUITests.swift; sourceTree = "<group>"; };
+		CBE4AE122A59AFB5000AC220 /* FilmFolioUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmFolioUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CBE4AE192A59B01D000AC220 /* PerformanceXCTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PerformanceXCTests.xctestplan; sourceTree = "<group>"; };
+		CBE4AE1A2A59C23D000AC220 /* PerformanceXCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceXCTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +102,13 @@
 				CB9574522A4ECA9E0091F112 /* SnapKit in Frameworks */,
 				CBF40C3D2A4DE4210083610E /* RxSwift in Frameworks */,
 				CBF40C3B2A4DE4210083610E /* RxCocoa in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CBE4AE0B2A59AFB5000AC220 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				CBCEEED82A0A85E400CF7186 /* FilmFolio */,
+				CBE4AE0F2A59AFB5000AC220 /* FilmFolioUITests */,
 				CBCEEED72A0A85E400CF7186 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -198,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				CBCEEED62A0A85E400CF7186 /* FilmFolio.app */,
+				CBE4AE0E2A59AFB5000AC220 /* FilmFolioUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -213,6 +240,17 @@
 				CB95744F2A4EC7D40091F112 /* Utils */,
 			);
 			path = FilmFolio;
+			sourceTree = "<group>";
+		};
+		CBE4AE0F2A59AFB5000AC220 /* FilmFolioUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CBE4AE1A2A59C23D000AC220 /* PerformanceXCTests.swift */,
+				CBE4AE102A59AFB5000AC220 /* FilmFolioUITests.swift */,
+				CBE4AE122A59AFB5000AC220 /* FilmFolioUITestsLaunchTests.swift */,
+				CBE4AE192A59B01D000AC220 /* PerformanceXCTests.xctestplan */,
+			);
+			path = FilmFolioUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +278,24 @@
 			productReference = CBCEEED62A0A85E400CF7186 /* FilmFolio.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CBE4AE0D2A59AFB5000AC220 /* FilmFolioUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CBE4AE182A59AFB5000AC220 /* Build configuration list for PBXNativeTarget "FilmFolioUITests" */;
+			buildPhases = (
+				CBE4AE0A2A59AFB5000AC220 /* Sources */,
+				CBE4AE0B2A59AFB5000AC220 /* Frameworks */,
+				CBE4AE0C2A59AFB5000AC220 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CBE4AE152A59AFB5000AC220 /* PBXTargetDependency */,
+			);
+			name = FilmFolioUITests;
+			productName = FilmFolioUITests;
+			productReference = CBE4AE0E2A59AFB5000AC220 /* FilmFolioUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -252,6 +308,10 @@
 				TargetAttributes = {
 					CBCEEED52A0A85E400CF7186 = {
 						CreatedOnToolsVersion = 14.3;
+					};
+					CBE4AE0D2A59AFB5000AC220 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = CBCEEED52A0A85E400CF7186;
 					};
 				};
 			};
@@ -274,6 +334,7 @@
 			projectRoot = "";
 			targets = (
 				CBCEEED52A0A85E400CF7186 /* FilmFolio */,
+				CBE4AE0D2A59AFB5000AC220 /* FilmFolioUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -286,6 +347,13 @@
 				CBCEEEE62A0A85E500CF7186 /* LaunchScreen.storyboard in Resources */,
 				CB4DA0792A56F7BB00C6FA11 /* Localizable.strings in Resources */,
 				CBCEEEE32A0A85E500CF7186 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CBE4AE0C2A59AFB5000AC220 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,7 +393,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CBE4AE0A2A59AFB5000AC220 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBE4AE132A59AFB5000AC220 /* FilmFolioUITestsLaunchTests.swift in Sources */,
+				CBE4AE1B2A59C23D000AC220 /* PerformanceXCTests.swift in Sources */,
+				CBE4AE112A59AFB5000AC220 /* FilmFolioUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CBE4AE152A59AFB5000AC220 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CBCEEED52A0A85E400CF7186 /* FilmFolio */;
+			targetProxy = CBE4AE142A59AFB5000AC220 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		CB4DA07B2A56F7BB00C6FA11 /* Localizable.strings */ = {
@@ -471,6 +557,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 36N4X279LQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FilmFolio/Apps/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Film Folio";
@@ -499,6 +586,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 36N4X279LQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FilmFolio/Apps/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Film Folio";
@@ -520,6 +608,40 @@
 			};
 			name = Release;
 		};
+		CBE4AE162A59AFB5000AC220 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 36N4X279LQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sominn9.FilmFolioUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = FilmFolio;
+			};
+			name = Debug;
+		};
+		CBE4AE172A59AFB5000AC220 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 36N4X279LQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sominn9.FilmFolioUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = FilmFolio;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -537,6 +659,15 @@
 			buildConfigurations = (
 				CBCEEEEB2A0A85E500CF7186 /* Debug */,
 				CBCEEEEC2A0A85E500CF7186 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CBE4AE182A59AFB5000AC220 /* Build configuration list for PBXNativeTarget "FilmFolioUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CBE4AE162A59AFB5000AC220 /* Debug */,
+				CBE4AE172A59AFB5000AC220 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
