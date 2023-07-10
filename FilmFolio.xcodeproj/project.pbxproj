@@ -37,6 +37,8 @@
 		CBCEEEE32A0A85E500CF7186 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBCEEEE22A0A85E500CF7186 /* Assets.xcassets */; };
 		CBCEEEE62A0A85E500CF7186 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBCEEEE42A0A85E500CF7186 /* LaunchScreen.storyboard */; };
 		CBCEEEEE2A0A9E7600CF7186 /* RoundImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEEED2A0A9E7600CF7186 /* RoundImageCell.swift */; };
+		CBD40B862A5C534600E0EB3A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD40B852A5C534600E0EB3A /* SearchViewController.swift */; };
+		CBD40B882A5C538C00E0EB3A /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD40B872A5C538C00E0EB3A /* SearchViewModel.swift */; };
 		CBE4AE112A59AFB5000AC220 /* FilmFolioUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AE102A59AFB5000AC220 /* FilmFolioUITests.swift */; };
 		CBE4AE132A59AFB5000AC220 /* FilmFolioUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AE122A59AFB5000AC220 /* FilmFolioUITestsLaunchTests.swift */; };
 		CBE4AE1B2A59C23D000AC220 /* PerformanceXCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AE1A2A59C23D000AC220 /* PerformanceXCTests.swift */; };
@@ -87,6 +89,8 @@
 		CBCEEEE52A0A85E500CF7186 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CBCEEEE72A0A85E500CF7186 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBCEEEED2A0A9E7600CF7186 /* RoundImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageCell.swift; sourceTree = "<group>"; };
+		CBD40B852A5C534600E0EB3A /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		CBD40B872A5C538C00E0EB3A /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		CBE4AE0E2A59AFB5000AC220 /* FilmFolioUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FilmFolioUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBE4AE102A59AFB5000AC220 /* FilmFolioUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmFolioUITests.swift; sourceTree = "<group>"; };
 		CBE4AE122A59AFB5000AC220 /* FilmFolioUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmFolioUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -142,6 +146,7 @@
 				CB3655992A52FAA900C2ACEF /* HomeViewController.swift */,
 				CBCEEEDD2A0A85E400CF7186 /* MovieHomeViewController.swift */,
 				CB4DA07D2A57053100C6FA11 /* SeriesHomeViewController.swift */,
+				CBD40B852A5C534600E0EB3A /* SearchViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -174,6 +179,7 @@
 			children = (
 				CB3719BC2A338BCA009D5EA2 /* MovieHomeViewModel.swift */,
 				CB4DA0812A57063500C6FA11 /* SeriesHomeViewModel.swift */,
+				CBD40B872A5C538C00E0EB3A /* SearchViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -367,6 +373,7 @@
 				CBCEEEDE2A0A85E400CF7186 /* MovieHomeViewController.swift in Sources */,
 				CB4DA0862A573C2600C6FA11 /* Extension+Collection.swift in Sources */,
 				CB6AA93C2A50AB3E001D5867 /* Extension+DiffableDataSource.swift in Sources */,
+				CBD40B862A5C534600E0EB3A /* SearchViewController.swift in Sources */,
 				CB4DA07E2A57053100C6FA11 /* SeriesHomeViewController.swift in Sources */,
 				CB9574562A4F09020091F112 /* NetworkError.swift in Sources */,
 				CB0DD7712A373FF9003116CE /* Endpoint.swift in Sources */,
@@ -385,6 +392,7 @@
 				CB2F64F42A5424E80007854D /* Extension+UIButton.Configuration.swift in Sources */,
 				CB0DD7732A37439C003116CE /* EndpointCollection.swift in Sources */,
 				CB6AA9352A502C4C001D5867 /* ElementKind.swift in Sources */,
+				CBD40B882A5C538C00E0EB3A /* SearchViewModel.swift in Sources */,
 				CB36559A2A52FAA900C2ACEF /* HomeViewController.swift in Sources */,
 				CBCEEEDC2A0A85E400CF7186 /* SceneDelegate.swift in Sources */,
 				CBA00ED82A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift in Sources */,
