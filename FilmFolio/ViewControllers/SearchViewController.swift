@@ -10,34 +10,27 @@ import RxSwift
 import SnapKit
 import UIKit
 
-final class SearchViewController: UIViewController {
-    
-    // MARK: Constants
-    
-    struct Metric {
-        static let collectionViewInset = 16.0
-        static let collectionViewSpacing = 8.0
-    }
-    
+final class SearchViewController<Item: Hashable>: UIViewController {
     
     // MARK: Properties
     
-    private lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.placeholder = String(localized: "Search Movie")
-        searchBar.searchBarStyle = .minimal
-        return searchBar
-    }()
+    private let searcheView: SearchView
+    private let searchViewModel: SearchViewModel<Item>
+    private let disposeBag = DisposeBag()
+    private var dataSource: UICollectionViewDiffableDataSource<Int, Item>?
     
-    private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewCompositionalLayout.grid(
-            spacing: Metric.collectionViewSpacing,
-            inset: Metric.collectionViewInset
-        )
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.showsVerticalScrollIndicator = false
-        return collectionView
-    }()
+    
+    // MARK: Initializing
+    
+    init(view: SearchView, viewModel: SearchViewModel<Item>) {
+        self.searcheView = view
+        self.searchViewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
     // MARK: View Life Cycle
@@ -45,32 +38,59 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
+        bind()
     }
     
     
     // MARK: Methods
     
     private func configure() {
-        view.backgroundColor = .systemBackground
-        navigationItem.title = String(localized: "Search")
-        layout()
+        view.addSubview(searcheView)
+        searcheView.frame = view.bounds
+        configureDataSource()
     }
     
-    private func layout() {
-        view.addSubview(searchBar)
-        searchBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.left.equalTo(view.snp.left)
-            make.right.equalTo(view.snp.right)
+    private func bind() {
+        let input = SearchViewModel<Item>.Input(
+            searchText: searcheView.searchBar.rx.text.map { $0 ?? "" }
+        )
+        
+        _ = searchViewModel.transform(input)
+    }
+    
+}
+
+// MARK: - DiffableDataSource
+
+private extension SearchViewController {
+    
+    func applySnapshot(_ items: [Item]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Int, Item>()
+        snapshot.appendSections([0])
+        snapshot.appendItems(items)
+        self.dataSource?.apply(snapshot)
+    }
+    
+    func configureDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<RoundImageCell, Item> { cell, indexPath, item in
+            if let posterPath = (item as? Movie)?.posterPath(size: .small) {
+                cell.setup(posterPath)
+            }
+            if let posterPath = (item as? Series)?.posterPath(size: .small) {
+                cell.setup(posterPath)
+            }
         }
         
-        view.addSubview(collectionView)
-        collectionView.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom)
-            make.bottom.equalTo(view.snp.bottom)
-            make.left.equalTo(view.snp.left)
-            make.right.equalTo(view.snp.right)
-        }
+        dataSource = UICollectionViewDiffableDataSource<Int, Item>(
+            collectionView: self.searcheView.collectionView,
+            cellProvider: { collectionView, indexPath, item in
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: cellRegistration,
+                    for: indexPath,
+                    item: item
+                )
+            }
+        )
     }
     
 }

@@ -39,7 +39,7 @@ final class TabBarController: UITabBarController {
     private func setViewControllers() {
         let viewControllers = [
             UINavigationController(rootViewController: HomeViewController()),
-            UINavigationController(rootViewController: SearchViewController()),
+            UINavigationController(rootViewController: SearchHomeViewController()),
             UINavigationController(),
             UINavigationController()
         ]
