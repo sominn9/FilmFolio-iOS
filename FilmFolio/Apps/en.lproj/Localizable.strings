@@ -6,16 +6,25 @@
   
 */
 
+// Homw Screen Menus
 "Movie" = "Movie";
 "Series" = "Series";
 "Animation" = "Animation";
 
+// Movie Home Screen
 "Now Playing Movies" = "Now Playing";
 "Popular Movies" = "Popular";
 "Top Rated Movies" = "Top Rated";
 
+// TV Series Home Screen
 "On The Air Movies" = "On The Air";
 "Popular Series" = "Popular";
 "Top Rated Series" = "Top Rated";
 
+// Search Screen
+"Search" = "Search";
+"Search Movie" = "Search Movie";
+"Search TV Series" = "Search TV Series";
+
+// Upcoming Screen
 "Upcoming" = "Upcoming";
