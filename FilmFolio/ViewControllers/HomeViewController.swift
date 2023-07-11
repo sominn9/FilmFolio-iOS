@@ -12,23 +12,6 @@ import UIKit
 
 final class HomeViewController: UIViewController {
     
-    // MARK: Constants
-    
-    enum Menus: CaseIterable {
-        case movie
-        case series
-        
-        var description: String {
-            switch self {
-            case .movie:
-                return String(localized: "Movie")
-            case .series:
-                return String(localized: "Series")
-            }
-        }
-    }
-    
-    
     // MARK: View Life Cycle
     
     override func viewDidLoad() {
@@ -86,21 +69,6 @@ final class HomeViewController: UIViewController {
             let viewController = SeriesHomeViewController(view: view, viewModel: viewModel)
             addChildView(viewController)
         }
-    }
-    
-    private func addChildView(_ viewController: UIViewController) {
-        
-        // Add the view controller to the container.
-        addChild(viewController)
-        view.addSubview(viewController.view)
-
-        // Create and activate the constraints for the child’s view.
-        viewController.view.snp.makeConstraints {
-            $0.edges.equalTo(view.snp.edges)
-        }
-
-        // Notify the child view controller that the move is complete.
-        viewController.didMove(toParent: self)
     }
 
 }
