@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CB0DD7712A373FF9003116CE /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0DD7702A373FF9003116CE /* Endpoint.swift */; };
 		CB0DD7732A37439C003116CE /* EndpointCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0DD7722A37439C003116CE /* EndpointCollection.swift */; };
+		CB2D4C472A5DBA8E007B8C39 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2D4C462A5DBA8E007B8C39 /* TabBarController.swift */; };
 		CB2F64F42A5424E80007854D /* Extension+UIButton.Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2F64F32A5424E80007854D /* Extension+UIButton.Configuration.swift */; };
 		CB36559A2A52FAA900C2ACEF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3655992A52FAA900C2ACEF /* HomeViewController.swift */; };
 		CB3719B82A33660A009D5EA2 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3719B72A33660A009D5EA2 /* Movie.swift */; };
@@ -59,6 +60,7 @@
 /* Begin PBXFileReference section */
 		CB0DD7702A373FF9003116CE /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		CB0DD7722A37439C003116CE /* EndpointCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointCollection.swift; sourceTree = "<group>"; };
+		CB2D4C462A5DBA8E007B8C39 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		CB2F64F32A5424E80007854D /* Extension+UIButton.Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIButton.Configuration.swift"; sourceTree = "<group>"; };
 		CB3655992A52FAA900C2ACEF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		CB3719B72A33660A009D5EA2 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 		CB3719B32A335ED8009D5EA2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				CB2D4C462A5DBA8E007B8C39 /* TabBarController.swift */,
 				CB3655992A52FAA900C2ACEF /* HomeViewController.swift */,
 				CBCEEEDD2A0A85E400CF7186 /* MovieHomeViewController.swift */,
 				CB4DA07D2A57053100C6FA11 /* SeriesHomeViewController.swift */,
@@ -393,6 +396,7 @@
 				CB0DD7732A37439C003116CE /* EndpointCollection.swift in Sources */,
 				CB6AA9352A502C4C001D5867 /* ElementKind.swift in Sources */,
 				CBD40B882A5C538C00E0EB3A /* SearchViewModel.swift in Sources */,
+				CB2D4C472A5DBA8E007B8C39 /* TabBarController.swift in Sources */,
 				CB36559A2A52FAA900C2ACEF /* HomeViewController.swift in Sources */,
 				CBCEEEDC2A0A85E400CF7186 /* SceneDelegate.swift in Sources */,
 				CBA00ED82A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift in Sources */,
