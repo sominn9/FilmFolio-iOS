@@ -22,7 +22,7 @@ final class ImageStorage {
         didSet { cache.countLimit = countLimit }
     }
     
-    var totalByteLimit: Int = 5_000_000 { // 50MB
+    var totalByteLimit: Int = 50_000_000 { // 50MB
         didSet { cache.totalCostLimit = totalByteLimit }
     }
     
