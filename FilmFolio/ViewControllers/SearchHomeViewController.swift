@@ -23,7 +23,17 @@ final class SearchHomeViewController: UIViewController {
     
     private func configure() {
         view.backgroundColor = .systemBackground
-        navigationItem.title = String(localized: "Search")
+        configureTitle()
+    }
+    
+    private func configureTitle() {
+        let button = UIButton(configuration: .titleMenu(
+            String(localized: "Search"),
+            fontSize: 19,
+            showChevron: false
+        ))
+        button.isUserInteractionEnabled = false
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
     }
     
     private func changeChildView(_ menu: Menus) {
