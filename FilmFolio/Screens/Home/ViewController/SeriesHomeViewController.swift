@@ -14,9 +14,9 @@ final class SeriesHomeViewController: UIViewController {
     
     // MARK: Properties
     
+    private let disposeBag = DisposeBag()
     private let seriesHomeView: SeriesHomeView
     private let seriesHomeViewModel: SeriesHomeViewModel
-    private let disposeBag = DisposeBag()
     private var trendingDataSource: UICollectionViewDiffableDataSource<Int, Series>?
     private var onTheAirDataSource: UICollectionViewDiffableDataSource<Int, Series>?
     private var topRatedDataSource: UICollectionViewDiffableDataSource<Int, Series>?
@@ -106,31 +106,45 @@ private extension SeriesHomeViewController {
     
     func configureDataSource() {
         
+        let bigImageCell = UICollectionView.CellRegistration<RoundImageCell, Series> {
+            $0.setup($2.posterPath(size: .big))
+        }
+        
+        let smallImageCell = UICollectionView.CellRegistration<RoundImageCell, Series> {
+            $0.setup($2.posterPath(size: .small))
+        }
+        
         trendingDataSource = UICollectionViewDiffableDataSource<Int, Series>(
             collectionView: seriesHomeView.trendingCollectionView,
-            cellProvider: UICollectionViewDiffableDataSource<Int, Series>.cellProvider(
-                using: UICollectionView.CellRegistration<RoundImageCell, Series>(handler: { cell, _, series in
-                    cell.setup(series.posterPath(size: .big))
-                })
-            )
+            cellProvider:{ collectionView, indexPath, item in
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: bigImageCell,
+                    for: indexPath,
+                    item: item
+                )
+            }
         )
         
         onTheAirDataSource = UICollectionViewDiffableDataSource<Int, Series>(
             collectionView: seriesHomeView.onTheAirCollectionView,
-            cellProvider: UICollectionViewDiffableDataSource<Int, Series>.cellProvider(
-                using: UICollectionView.CellRegistration<RoundImageCell, Series>(handler: { cell, _, series in
-                    cell.setup(series.posterPath(size: .small))
-                })
-            )
+            cellProvider: { collectionView, indexPath, item in
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: smallImageCell,
+                    for: indexPath,
+                    item: item
+                )
+            }
         )
         
         topRatedDataSource = UICollectionViewDiffableDataSource<Int, Series>(
             collectionView: seriesHomeView.topRatedCollectionView,
-            cellProvider: UICollectionViewDiffableDataSource<Int, Series>.cellProvider(
-                using: UICollectionView.CellRegistration<RoundImageCell, Series>(handler: { cell, _, series in
-                    cell.setup(series.posterPath(size: .small))
-                })
-            )
+            cellProvider: { collectionView, indexPath, item in
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: smallImageCell,
+                    for: indexPath,
+                    item: item
+                )
+            }
         )
     }
     

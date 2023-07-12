@@ -13,9 +13,9 @@ final class MovieHomeViewController: UIViewController {
     
     // MARK: Properties
     
+    private let disposeBag = DisposeBag()
     private let movieHomeView: MovieHomeView
     private let movieHomeViewModel: MovieHomeViewModel
-    private let disposeBag = DisposeBag()
     private var nowPlayDataSource: UICollectionViewDiffableDataSource<Int, Movie>?
     private var popularDataSource: UICollectionViewDiffableDataSource<Int, Movie>?
     private var topRatedDataSource: UICollectionViewDiffableDataSource<Int, Movie>?
@@ -105,31 +105,45 @@ private extension MovieHomeViewController {
     
     func configureDataSource() {
         
+        let bigImageCell = UICollectionView.CellRegistration<RoundImageCell, Movie> {
+            $0.setup($2.posterPath(size: .big))
+        }
+        
+        let smallImageCell = UICollectionView.CellRegistration<RoundImageCell, Movie> {
+            $0.setup($2.posterPath(size: .small))
+        }
+        
         nowPlayDataSource = UICollectionViewDiffableDataSource<Int, Movie>(
             collectionView: movieHomeView.nowPlayCollectionView,
-            cellProvider: UICollectionViewDiffableDataSource<Int, Movie>.cellProvider(
-                using: UICollectionView.CellRegistration<RoundImageCell, Movie>(handler: { cell, _, movie in
-                    cell.setup(movie.posterPath(size: .big))
-                })
-            )
+            cellProvider: { collectionView, indexPath, item in
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: bigImageCell,
+                    for: indexPath,
+                    item: item
+                )
+            }
         )
         
         popularDataSource = UICollectionViewDiffableDataSource<Int, Movie>(
             collectionView: movieHomeView.popularCollectionView,
-            cellProvider: UICollectionViewDiffableDataSource<Int, Movie>.cellProvider(
-                using: UICollectionView.CellRegistration<RoundImageCell, Movie>(handler: { cell, _, movie in
-                    cell.setup(movie.posterPath(size: .small))
-                })
-            )
+            cellProvider: { collectionView, indexPath, item in
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: smallImageCell,
+                    for: indexPath,
+                    item: item
+                )
+            }
         )
         
         topRatedDataSource = UICollectionViewDiffableDataSource<Int, Movie>(
             collectionView: movieHomeView.topRatedCollectionView,
-            cellProvider: UICollectionViewDiffableDataSource<Int, Movie>.cellProvider(
-                using: UICollectionView.CellRegistration<RoundImageCell, Movie>(handler: { cell, _, movie in
-                    cell.setup(movie.posterPath(size: .small))
-                })
-            )
+            cellProvider: { collectionView, indexPath, item in
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: smallImageCell,
+                    for: indexPath,
+                    item: item
+                )
+            }
         )
     }
     
