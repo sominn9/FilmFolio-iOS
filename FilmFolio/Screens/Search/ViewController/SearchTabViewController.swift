@@ -1,5 +1,5 @@
 //
-//  SearchHomeViewController.swift
+//  SearchTabViewController.swift
 //  FilmFolio
 //
 //  Created by 신소민 on 2023/07/12.
@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-final class SearchHomeViewController: UIViewController {
+final class SearchTabViewController: UIViewController {
     
     // MARK: View Life Cycle
     
@@ -41,12 +41,12 @@ final class SearchHomeViewController: UIViewController {
         case .movie:
             let view = SearchView(placeholder: .init(localized: "Search Movie"))
             let viewModel = SearchViewModel<Movie>(networkManager: DefaultNetworkManager.shared)
-            let viewController = SearchViewController(view: view, viewModel: viewModel)
+            let viewController = SearchViewController<Movie>(view: view, viewModel: viewModel)
             addChildView(viewController)
         case .series:
             let view = SearchView(placeholder: .init(localized: "Search TV Series"))
             let viewModel = SearchViewModel<Series>(networkManager: DefaultNetworkManager.shared)
-            let viewController = SearchViewController(view: view, viewModel: viewModel)
+            let viewController = SearchViewController<Series>(view: view, viewModel: viewModel)
             addChildView(viewController)
         }
     }

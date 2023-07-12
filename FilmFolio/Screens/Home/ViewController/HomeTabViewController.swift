@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  HomeTabViewController.swift
 //  FilmFolio
 //
 //  Created by 신소민 on 2023/07/03.
@@ -10,7 +10,7 @@ import RxSwift
 import SnapKit
 import UIKit
 
-final class HomeViewController: UIViewController {
+final class HomeTabViewController: UIViewController {
     
     // MARK: View Life Cycle
     
