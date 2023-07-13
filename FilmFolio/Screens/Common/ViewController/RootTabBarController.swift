@@ -31,7 +31,6 @@ final class RootTabBarController: UITabBarController {
     // MARK: Methods
     
     private func configure() {
-        self.tabBar.isTranslucent = true
         setViewControllers()
         setTabBarItems()
     }
