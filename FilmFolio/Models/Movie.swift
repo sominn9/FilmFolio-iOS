@@ -16,7 +16,7 @@ struct Movie: Decodable, Hashable {
     let originalTitle: String
     let overview: String
     let popularity: Double
-    private let _posterPath: String
+    private let _posterPath: String?
     let releaseDate: String
     let title: String
     let video: Bool
@@ -62,7 +62,8 @@ extension Movie {
         return "https://image.tmdb.org/t/p/\(size.rawValue)\(_backdropPath)"
     }
     
-    func posterPath(size: Size) -> String {
+    func posterPath(size: Size) -> String? {
+        guard let _posterPath else { return nil }
         return "https://image.tmdb.org/t/p/\(size.rawValue)\(_posterPath)"
     }
     
