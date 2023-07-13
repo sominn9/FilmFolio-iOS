@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		CB0DD7712A373FF9003116CE /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0DD7702A373FF9003116CE /* Endpoint.swift */; };
 		CB0DD7732A37439C003116CE /* EndpointCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0DD7722A37439C003116CE /* EndpointCollection.swift */; };
-		CB2D4C472A5DBA8E007B8C39 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2D4C462A5DBA8E007B8C39 /* TabBarController.swift */; };
+		CB2D4C472A5DBA8E007B8C39 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2D4C462A5DBA8E007B8C39 /* RootTabBarController.swift */; };
 		CB2D4C492A5DC918007B8C39 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2D4C482A5DC918007B8C39 /* SearchView.swift */; };
 		CB2D4C4B2A5DCB70007B8C39 /* SearchTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2D4C4A2A5DCB70007B8C39 /* SearchTabViewController.swift */; };
 		CB2D4C4D2A5DCC86007B8C39 /* Extension+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2D4C4C2A5DCC86007B8C39 /* Extension+UIViewController.swift */; };
@@ -66,7 +66,7 @@
 /* Begin PBXFileReference section */
 		CB0DD7702A373FF9003116CE /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		CB0DD7722A37439C003116CE /* EndpointCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointCollection.swift; sourceTree = "<group>"; };
-		CB2D4C462A5DBA8E007B8C39 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		CB2D4C462A5DBA8E007B8C39 /* RootTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
 		CB2D4C482A5DC918007B8C39 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		CB2D4C4A2A5DCB70007B8C39 /* SearchTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTabViewController.swift; sourceTree = "<group>"; };
 		CB2D4C4C2A5DCC86007B8C39 /* Extension+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIViewController.swift"; sourceTree = "<group>"; };
@@ -289,7 +289,7 @@
 		CB3AF6FF2A5E97060055385B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				CB2D4C462A5DBA8E007B8C39 /* TabBarController.swift */,
+				CB2D4C462A5DBA8E007B8C39 /* RootTabBarController.swift */,
 				CB3FA2FE2A602165005ADCF0 /* PagerTabBarController.swift */,
 			);
 			path = ViewController;
@@ -507,7 +507,7 @@
 				CB0DD7732A37439C003116CE /* EndpointCollection.swift in Sources */,
 				CB6AA9352A502C4C001D5867 /* ElementKind.swift in Sources */,
 				CBD40B882A5C538C00E0EB3A /* SearchViewModel.swift in Sources */,
-				CB2D4C472A5DBA8E007B8C39 /* TabBarController.swift in Sources */,
+				CB2D4C472A5DBA8E007B8C39 /* RootTabBarController.swift in Sources */,
 				CB36559A2A52FAA900C2ACEF /* HomeTabViewController.swift in Sources */,
 				CBCEEEDC2A0A85E400CF7186 /* SceneDelegate.swift in Sources */,
 				CBA00ED82A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  TabBarController.swift
+//  RootTabBarController.swift
 //  FilmFolio
 //
 //  Created by 신소민 on 2023/07/12.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TabBarController: UITabBarController {
+final class RootTabBarController: UITabBarController {
     
     // MARK: Initializing
     
