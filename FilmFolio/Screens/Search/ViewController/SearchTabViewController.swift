@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-final class SearchTabViewController: UIViewController {
+final class SearchTabViewController: BaseViewController {
     
     // MARK: View Life Cycle
     
@@ -39,18 +39,7 @@ final class SearchTabViewController: UIViewController {
     private func configurePagerTabBarController() {
         let pagerTabBarController = PagerTabBarController()
         pagerTabBarController.dataSource = self
-        
-        addChild(pagerTabBarController)
-        view.addSubview(pagerTabBarController.view)
-        
-        pagerTabBarController.view.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            $0.bottom.equalTo(view.snp.bottom)
-            $0.left.equalTo(view.snp.left)
-            $0.right.equalTo(view.snp.right)
-        }
-
-        pagerTabBarController.didMove(toParent: self)
+        addChildView(pagerTabBarController)
     }
     
 }

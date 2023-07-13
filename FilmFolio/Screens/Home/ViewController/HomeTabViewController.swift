@@ -10,7 +10,7 @@ import RxSwift
 import SnapKit
 import UIKit
 
-final class HomeTabViewController: UIViewController {
+final class HomeTabViewController: BaseViewController {
     
     // MARK: View Life Cycle
     
