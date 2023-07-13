@@ -39,7 +39,18 @@ final class SearchTabViewController: UIViewController {
     private func configurePagerTabBarController() {
         let pagerTabBarController = PagerTabBarController()
         pagerTabBarController.dataSource = self
-        addChildView(pagerTabBarController)
+        
+        addChild(pagerTabBarController)
+        view.addSubview(pagerTabBarController.view)
+        
+        pagerTabBarController.view.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.bottom.equalTo(view.snp.bottom)
+            $0.left.equalTo(view.snp.left)
+            $0.right.equalTo(view.snp.right)
+        }
+
+        pagerTabBarController.didMove(toParent: self)
     }
     
 }

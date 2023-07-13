@@ -5,6 +5,7 @@
 //  Created by 신소민 on 2023/07/12.
 //
 
+import SnapKit
 import UIKit
 
 extension UIViewController {
@@ -17,8 +18,8 @@ extension UIViewController {
 
         // Create and activate the constraints for the child’s view.
         viewController.view.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            $0.top.equalTo(view.snp.top)
+            $0.bottom.equalTo(view.snp.bottom)
             $0.left.equalTo(view.snp.left)
             $0.right.equalTo(view.snp.right)
         }
