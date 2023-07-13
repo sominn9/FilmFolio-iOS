@@ -24,7 +24,7 @@ final class PagerTabBarController: UIViewController {
     
     private lazy var indicator: UIView =  {
         let view = UIView()
-        view.backgroundColor = .black
+        view.backgroundColor = .tintColor
         view.layer.zPosition = 999
         return view
     }()
@@ -125,8 +125,8 @@ final class PagerTabBarController: UIViewController {
         let selectedCellFrame = selectedCell?.frame ?? .zero
         
         var indicatorFrame = indicator.frame
-        indicatorFrame.origin.x = selectedCellFrame.origin.x
-        indicatorFrame.size.width = selectedCellFrame.size.width
+        indicatorFrame.origin.x = selectedCellFrame.origin.x + 8
+        indicatorFrame.size.width = selectedCellFrame.size.width - 16
         
         if animated {
             UIView.animate(withDuration: 0.3) { [weak self] in
