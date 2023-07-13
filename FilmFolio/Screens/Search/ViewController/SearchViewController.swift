@@ -52,10 +52,19 @@ final class SearchViewController<Item: Hashable & Decodable>: UIViewController {
     
     private func bind() {
         let input = SearchViewModel<Item>.Input(
-            searchText: searcheView.searchBar.rx.text.map { $0 ?? "" }
+            searchText: searcheView.searchBar.rx.text
+                .orEmpty
+                .distinctUntilChanged()
+                .asObservable()
         )
         
-        _ = searchViewModel.transform(input)
+        let output = searchViewModel.transform(input)
+        
+        output.items
+            .subscribe(with: self, onNext: { owner, items in
+                self.applySnapshot(items)
+            })
+            .disposed(by: disposeBag)
     }
     
 }
@@ -65,14 +74,15 @@ final class SearchViewController<Item: Hashable & Decodable>: UIViewController {
 private extension SearchViewController {
     
     func applySnapshot(_ items: [Item]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, Item>()
-        snapshot.appendSections([0])
-        snapshot.appendItems(items)
-        self.dataSource?.apply(snapshot)
+        DispatchQueue.main.async {
+            var snapshot = NSDiffableDataSourceSnapshot<Int, Item>()
+            snapshot.appendSections([0])
+            snapshot.appendItems(items)
+            self.dataSource?.apply(snapshot)
+        }
     }
     
     func configureDataSource() {
-        
         let cellRegistration = UICollectionView.CellRegistration<RoundImageCell, Item> {
             if let posterPath = ($2 as? Movie)?.posterPath(size: .small) {
                 $0.setup(posterPath)

@@ -97,10 +97,12 @@ private extension MovieHomeViewController {
         _ movies: [Movie],
         to keyPath: ReferenceWritableKeyPath<MovieHomeViewController, UICollectionViewDiffableDataSource<Int, Movie>?>
     ) {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, Movie>()
-        snapshot.appendSections([0])
-        snapshot.appendItems(movies)
-        self[keyPath: keyPath]?.apply(snapshot)
+        DispatchQueue.main.async {
+            var snapshot = NSDiffableDataSourceSnapshot<Int, Movie>()
+            snapshot.appendSections([0])
+            snapshot.appendItems(movies)
+            self[keyPath: keyPath]?.apply(snapshot)
+        }
     }
     
     func configureDataSource() {

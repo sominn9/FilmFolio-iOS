@@ -98,10 +98,12 @@ private extension SeriesHomeViewController {
         _ series: [Series],
         to keyPath: ReferenceWritableKeyPath<SeriesHomeViewController, UICollectionViewDiffableDataSource<Int, Series>?>
     ) {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, Series>()
-        snapshot.appendSections([0])
-        snapshot.appendItems(series)
-        self[keyPath: keyPath]?.apply(snapshot)
+        DispatchQueue.main.async {
+            var snapshot = NSDiffableDataSourceSnapshot<Int, Series>()
+            snapshot.appendSections([0])
+            snapshot.appendItems(series)
+            self[keyPath: keyPath]?.apply(snapshot)
+        }
     }
     
     func configureDataSource() {
