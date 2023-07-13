@@ -55,7 +55,7 @@ struct SeriesHomeViewModel {
         
         input.fetchOnTheAirSeries
             .map { Array(1...4).map { EndpointCollection.onTheAirSeries(page: $0) } }
-            .map { (endpoints: [Endpoint]) -> [Observable<SeriesResponse>] in
+            .map { (endpoints: [Endpoint]) -> [Observable<TMDBResponse>] in
                 endpoints.map { e in networkManager.request(e) }
             }
             .flatMap { Observable.combineLatest($0) }
