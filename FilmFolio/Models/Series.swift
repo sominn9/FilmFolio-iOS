@@ -7,20 +7,6 @@
 
 import Foundation
 
-struct SeriesResponse: Decodable {
-    let page: Int
-    let series: [Series]
-    let totalPages: Int
-    let totalResults: Int
-    
-    enum CodingKeys: String, CodingKey {
-        case page
-        case series = "results"
-        case totalPages = "total_pages"
-        case totalResults = "total_results"
-    }
-}
-
 struct Series: Decodable, Hashable {
     private let _backdropPath: String?
     let firstAirDate: String

@@ -21,6 +21,7 @@
 		CB3719BD2A338BCA009D5EA2 /* MovieHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3719BC2A338BCA009D5EA2 /* MovieHomeViewModel.swift */; };
 		CB3FA2FF2A602165005ADCF0 /* PagerTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3FA2FE2A602165005ADCF0 /* PagerTabBarController.swift */; };
 		CB3FA3012A602188005ADCF0 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3FA3002A602188005ADCF0 /* TabBarItem.swift */; };
+		CB3FA3032A603CCD005ADCF0 /* TMDBResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3FA3022A603CCD005ADCF0 /* TMDBResponse.swift */; };
 		CB4DA0792A56F7BB00C6FA11 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB4DA07B2A56F7BB00C6FA11 /* Localizable.strings */; };
 		CB4DA07E2A57053100C6FA11 /* SeriesHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4DA07D2A57053100C6FA11 /* SeriesHomeViewController.swift */; };
 		CB4DA0802A5705F500C6FA11 /* SeriesHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4DA07F2A5705F500C6FA11 /* SeriesHomeView.swift */; };
@@ -78,6 +79,7 @@
 		CB3719BC2A338BCA009D5EA2 /* MovieHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieHomeViewModel.swift; sourceTree = "<group>"; };
 		CB3FA2FE2A602165005ADCF0 /* PagerTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerTabBarController.swift; sourceTree = "<group>"; };
 		CB3FA3002A602188005ADCF0 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
+		CB3FA3022A603CCD005ADCF0 /* TMDBResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBResponse.swift; sourceTree = "<group>"; };
 		CB4DA07A2A56F7BB00C6FA11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CB4DA07C2A56F8AC00C6FA11 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CB4DA07D2A57053100C6FA11 /* SeriesHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesHomeViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 		CB3719B22A335ED2009D5EA2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CB3FA3022A603CCD005ADCF0 /* TMDBResponse.swift */,
 				CB3719B72A33660A009D5EA2 /* Movie.swift */,
 				CB4DA0832A57193400C6FA11 /* Series.swift */,
 				CB2D4C4E2A5DCD62007B8C39 /* Menus.swift */,
@@ -498,6 +501,7 @@
 				CB3719BD2A338BCA009D5EA2 /* MovieHomeViewModel.swift in Sources */,
 				CB3719BA2A336EAC009D5EA2 /* NetworkManager.swift in Sources */,
 				CB4DA0822A57063500C6FA11 /* SeriesHomeViewModel.swift in Sources */,
+				CB3FA3032A603CCD005ADCF0 /* TMDBResponse.swift in Sources */,
 				CB2D4C4B2A5DCB70007B8C39 /* SearchTabViewController.swift in Sources */,
 				CB4DA0802A5705F500C6FA11 /* SeriesHomeView.swift in Sources */,
 				CB4DA0842A57193400C6FA11 /* Series.swift in Sources */,

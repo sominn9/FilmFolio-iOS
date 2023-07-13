@@ -48,7 +48,7 @@ struct SeriesHomeViewModel {
         input.fetchTrendingSeries
             .map { EndpointCollection.trendingSeries() }
             .flatMap { networkManager.request($0) }
-            .map { (r: SeriesResponse) in r.series }
+            .map { (r: TMDBResponse) in r.results }
             .catchAndReturn([])
             .bind(to: trending)
             .disposed(by: disposeBag)
@@ -59,7 +59,7 @@ struct SeriesHomeViewModel {
                 endpoints.map { e in networkManager.request(e) }
             }
             .flatMap { Observable.combineLatest($0) }
-            .map { $0.map { $0.series }.flatMap { $0 } }
+            .map { $0.map { $0.results }.flatMap { $0 } }
             .map { $0.filter { $0.originCountry.isIntersect(with: ["KR", "US", "JP"]) } }
             .catchAndReturn([])
             .bind(to: onTheAir)
@@ -68,7 +68,7 @@ struct SeriesHomeViewModel {
         input.fetchTopRatedSeries
             .map { EndpointCollection.topRatedSeries() }
             .flatMap { networkManager.request($0) }
-            .map { (r: SeriesResponse) in r.series }
+            .map { (r: TMDBResponse) in r.results }
             .catchAndReturn([])
             .bind(to: topRated)
             .disposed(by: disposeBag)

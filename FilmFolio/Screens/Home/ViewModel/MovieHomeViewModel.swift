@@ -48,7 +48,7 @@ struct MovieHomeViewModel {
         input.fetchNowPlayMovies
             .map { EndpointCollection.nowPlayingMovies() }
             .flatMap { networkManager.request($0) }
-            .map { (r: MovieResponse) in r.movies }
+            .map { (r: TMDBResponse) in r.results }
             .catchAndReturn([])
             .bind(to: nowPlaying)
             .disposed(by: disposeBag)
@@ -56,7 +56,7 @@ struct MovieHomeViewModel {
         input.fetchPopularMovies
             .map { EndpointCollection.popularMovies() }
             .flatMap { networkManager.request($0) }
-            .map { (r: MovieResponse) in r.movies }
+            .map { (r: TMDBResponse) in r.results }
             .catchAndReturn([])
             .bind(to: popular)
             .disposed(by: disposeBag)
@@ -64,7 +64,7 @@ struct MovieHomeViewModel {
         input.fetchTopRatedMovies
             .map { EndpointCollection.topRatedMovies() }
             .flatMap { networkManager.request($0) }
-            .map { (r: MovieResponse) in r.movies }
+            .map { (r: TMDBResponse) in r.results }
             .catchAndReturn([])
             .bind(to: topRated)
             .disposed(by: disposeBag)

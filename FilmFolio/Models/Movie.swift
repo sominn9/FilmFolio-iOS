@@ -7,20 +7,6 @@
 
 import Foundation
 
-struct MovieResponse: Decodable {
-    let page: Int
-    let movies: [Movie]
-    let totalPages: Int
-    let totalResults: Int
-    
-    enum CodingKeys: String, CodingKey {
-        case page
-        case movies = "results"
-        case totalPages = "total_pages"
-        case totalResults = "total_results"
-    }
-}
-
 struct Movie: Decodable, Hashable {
     let adult: Bool
     private let _backdropPath: String

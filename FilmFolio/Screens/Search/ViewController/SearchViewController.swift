@@ -10,7 +10,7 @@ import RxSwift
 import SnapKit
 import UIKit
 
-final class SearchViewController<Item: Hashable>: UIViewController {
+final class SearchViewController<Item: Hashable & Decodable>: UIViewController {
     
     // MARK: Properties
     
