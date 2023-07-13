@@ -73,4 +73,33 @@ struct EndpointCollection {
             ]
         )
     }
+    
+    // MARK: Search
+    
+    static func searchMovie(query: String, page: Int = 1) -> Endpoint {
+        return Endpoint(
+            method: .GET,
+            urlString: "https://api.themoviedb.org/3/search/movie",
+            header: ["Authorization": "Bearer \(API.accessToken)"],
+            query: [
+                "query": query,
+                "language": "ko",
+                "page": "\(page)"
+            ]
+        )
+    }
+    
+    static func searchSeries(query: String, page: Int = 1) -> Endpoint {
+        return Endpoint(
+            method: .GET,
+            urlString: "https://api.themoviedb.org/3/search/tv",
+            header: ["Authorization": "Bearer \(API.accessToken)"],
+            query: [
+                "query": query,
+                "language": "ko",
+                "page": "\(page)"
+            ]
+        )
+    }
+    
 }

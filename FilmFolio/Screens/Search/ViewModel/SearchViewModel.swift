@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-struct SearchViewModel<Item> {
+struct SearchViewModel<Item: Decodable> {
     
     // MARK: Input & Output
     
@@ -17,7 +17,7 @@ struct SearchViewModel<Item> {
     }
     
     struct Output {
-        
+        let items: PublishSubject<[Item]>
     }
     
     
@@ -40,12 +40,29 @@ struct SearchViewModel<Item> {
     func transform(_ input: SearchViewModel.Input) -> SearchViewModel.Output {
         
         input.searchText
-            .subscribe(onNext: { text in
-                print(text)
-            })
+            .debounce(.seconds(1), scheduler: MainScheduler.instance)
+            .filter {
+                if !$0.isEmpty { return true }
+                items.onNext([])
+                return false
+            }
+            .map {
+                switch Item.self {
+                case is Movie.Type:
+                    return EndpointCollection.searchMovie(query: $0)
+                case is Series.Type:
+                    return EndpointCollection.searchSeries(query: $0)
+                default:
+                    fatalError("Unhandled Item type!")
+                }
+            }
+            .flatMap { networkManager.request($0) }
+            .map { (r: TMDBResponse<Item>) in r.results }
+            .catchAndReturn([])
+            .bind(to: items)
             .disposed(by: disposeBag)
         
-        return SearchViewModel.Output()
+        return SearchViewModel.Output(items: items)
     }
     
 }
