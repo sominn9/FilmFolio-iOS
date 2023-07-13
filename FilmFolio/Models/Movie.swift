@@ -9,7 +9,7 @@ import Foundation
 
 struct Movie: Decodable, Hashable {
     let adult: Bool
-    private let _backdropPath: String
+    private let _backdropPath: String?
     let genreIDS: [Int]
     let id: Int
     let originalLanguage: String
@@ -57,7 +57,8 @@ extension Movie {
         case original
     }
     
-    func backdropPath(size: Size) -> String {
+    func backdropPath(size: Size) -> String? {
+        guard let _backdropPath else { return nil }
         return "https://image.tmdb.org/t/p/\(size.rawValue)\(_backdropPath)"
     }
     
