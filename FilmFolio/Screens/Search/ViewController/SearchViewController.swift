@@ -14,9 +14,9 @@ final class SearchViewController<Item: Hashable>: UIViewController {
     
     // MARK: Properties
     
+    private let disposeBag = DisposeBag()
     private let searcheView: SearchView
     private let searchViewModel: SearchViewModel<Item>
-    private let disposeBag = DisposeBag()
     private var dataSource: UICollectionViewDiffableDataSource<Int, Item>?
     
     
@@ -72,12 +72,13 @@ private extension SearchViewController {
     }
     
     func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<RoundImageCell, Item> { cell, indexPath, item in
-            if let posterPath = (item as? Movie)?.posterPath(size: .small) {
-                cell.setup(posterPath)
+        
+        let cellRegistration = UICollectionView.CellRegistration<RoundImageCell, Item> {
+            if let posterPath = ($2 as? Movie)?.posterPath(size: .small) {
+                $0.setup(posterPath)
             }
-            if let posterPath = (item as? Series)?.posterPath(size: .small) {
-                cell.setup(posterPath)
+            if let posterPath = ($2 as? Series)?.posterPath(size: .small) {
+                $0.setup(posterPath)
             }
         }
         

@@ -19,6 +19,8 @@
 		CB3719B82A33660A009D5EA2 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3719B72A33660A009D5EA2 /* Movie.swift */; };
 		CB3719BA2A336EAC009D5EA2 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3719B92A336EAC009D5EA2 /* NetworkManager.swift */; };
 		CB3719BD2A338BCA009D5EA2 /* MovieHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3719BC2A338BCA009D5EA2 /* MovieHomeViewModel.swift */; };
+		CB3FA2FF2A602165005ADCF0 /* PagerTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3FA2FE2A602165005ADCF0 /* PagerTabBarController.swift */; };
+		CB3FA3012A602188005ADCF0 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3FA3002A602188005ADCF0 /* TabBarItem.swift */; };
 		CB4DA0792A56F7BB00C6FA11 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB4DA07B2A56F7BB00C6FA11 /* Localizable.strings */; };
 		CB4DA07E2A57053100C6FA11 /* SeriesHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4DA07D2A57053100C6FA11 /* SeriesHomeViewController.swift */; };
 		CB4DA0802A5705F500C6FA11 /* SeriesHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4DA07F2A5705F500C6FA11 /* SeriesHomeView.swift */; };
@@ -74,6 +76,8 @@
 		CB3719B72A33660A009D5EA2 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		CB3719B92A336EAC009D5EA2 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CB3719BC2A338BCA009D5EA2 /* MovieHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieHomeViewModel.swift; sourceTree = "<group>"; };
+		CB3FA2FE2A602165005ADCF0 /* PagerTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerTabBarController.swift; sourceTree = "<group>"; };
+		CB3FA3002A602188005ADCF0 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		CB4DA07A2A56F7BB00C6FA11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CB4DA07C2A56F8AC00C6FA11 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CB4DA07D2A57053100C6FA11 /* SeriesHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesHomeViewController.swift; sourceTree = "<group>"; };
@@ -222,6 +226,7 @@
 		CB3AF6F62A5E96640055385B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CB3FA3002A602188005ADCF0 /* TabBarItem.swift */,
 				CB6AA9322A502A22001D5867 /* TitleView.swift */,
 				CBCEEEED2A0A9E7600CF7186 /* RoundImageCell.swift */,
 			);
@@ -285,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				CB2D4C462A5DBA8E007B8C39 /* TabBarController.swift */,
+				CB3FA2FE2A602165005ADCF0 /* PagerTabBarController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -488,6 +494,7 @@
 				CB2D4C492A5DC918007B8C39 /* SearchView.swift in Sources */,
 				CBA9FB1A2A39FF6B00148F16 /* Layout.swift in Sources */,
 				CB6AA9392A505DB4001D5867 /* ImageStorage.swift in Sources */,
+				CB3FA2FF2A602165005ADCF0 /* PagerTabBarController.swift in Sources */,
 				CB3719BD2A338BCA009D5EA2 /* MovieHomeViewModel.swift in Sources */,
 				CB3719BA2A336EAC009D5EA2 /* NetworkManager.swift in Sources */,
 				CB4DA0822A57063500C6FA11 /* SeriesHomeViewModel.swift in Sources */,
@@ -504,6 +511,7 @@
 				CB36559A2A52FAA900C2ACEF /* HomeTabViewController.swift in Sources */,
 				CBCEEEDC2A0A85E400CF7186 /* SceneDelegate.swift in Sources */,
 				CBA00ED82A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift in Sources */,
+				CB3FA3012A602188005ADCF0 /* TabBarItem.swift in Sources */,
 				CBCEEEEE2A0A9E7600CF7186 /* RoundImageCell.swift in Sources */,
 				CB6AA9372A502C86001D5867 /* Extension+NSCollectionLayoutBoundarySupplementaryItem.swift in Sources */,
 			);

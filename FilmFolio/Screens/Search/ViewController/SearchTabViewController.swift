@@ -15,7 +15,6 @@ final class SearchTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
-        changeChildView(.movie)
     }
     
     
@@ -23,10 +22,11 @@ final class SearchTabViewController: UIViewController {
     
     private func configure() {
         view.backgroundColor = .systemBackground
-        configureTitle()
+        configureNavigationTitle()
+        configurePagerTabBarController()
     }
     
-    private func configureTitle() {
+    private func configureNavigationTitle() {
         let button = UIButton(configuration: .titleMenu(
             String(localized: "Search"),
             fontSize: 19,
@@ -36,19 +36,34 @@ final class SearchTabViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
     }
     
-    private func changeChildView(_ menu: Menus) {
-        switch menu {
-        case .movie:
-            let view = SearchView(placeholder: .init(localized: "Search Movie"))
-            let viewModel = SearchViewModel<Movie>(networkManager: DefaultNetworkManager.shared)
-            let viewController = SearchViewController<Movie>(view: view, viewModel: viewModel)
-            addChildView(viewController)
-        case .series:
-            let view = SearchView(placeholder: .init(localized: "Search TV Series"))
-            let viewModel = SearchViewModel<Series>(networkManager: DefaultNetworkManager.shared)
-            let viewController = SearchViewController<Series>(view: view, viewModel: viewModel)
-            addChildView(viewController)
-        }
+    private func configurePagerTabBarController() {
+        let pagerTabBarController = PagerTabBarController()
+        pagerTabBarController.dataSource = self
+        addChildView(pagerTabBarController)
     }
     
+}
+
+// MARK: - PagerTabBarControllerDataSource
+
+extension SearchTabViewController: PagerTabBarControllerDataSource {
+    
+    func tabBarTitles(_ pagerTabBarController: PagerTabBarController) -> [String] {
+        let titles = [String(localized: "Movie"), String(localized: "Series")]
+        return titles
+    }
+    
+    func viewControllers(_ pagerTabBarController: PagerTabBarController) -> [UIViewController] {
+        let viewControllers = [
+            SearchViewController<Movie>(
+                view: SearchView(placeholder: .init(localized: "Search Movie")),
+                viewModel: SearchViewModel<Movie>(networkManager: DefaultNetworkManager.shared)
+            ),
+            SearchViewController<Series>(
+                view: SearchView(placeholder: .init(localized: "Search TV Series")),
+                viewModel: SearchViewModel<Series>(networkManager: DefaultNetworkManager.shared)
+            )
+        ]
+        return viewControllers
+    }
 }
