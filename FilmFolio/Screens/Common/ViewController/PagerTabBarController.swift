@@ -68,7 +68,7 @@ final class PagerTabBarController: UIViewController {
         // 탭 바 컬렉션뷰
         view.addSubview(tabBarCollectionView)
         tabBarCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(view.snp.top)
             make.left.equalTo(view.snp.left)
             make.right.equalTo(view.snp.right)
             make.height.equalTo(tabBarHeight)

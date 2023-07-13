@@ -45,9 +45,15 @@ final class SearchViewController<Item: Hashable & Decodable>: UIViewController {
     // MARK: Methods
     
     private func configure() {
-        view.addSubview(searcheView)
-        searcheView.frame = view.bounds
+        configureSearchView()
         configureDataSource()
+    }
+    
+    private func configureSearchView() {
+        view.addSubview(searcheView)
+        searcheView.snp.makeConstraints { make in
+            make.edges.equalTo(view.snp.edges)
+        }
     }
     
     private func bind() {

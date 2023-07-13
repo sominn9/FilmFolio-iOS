@@ -13,8 +13,8 @@ final class SearchView: UIView {
     // MARK: Constants
     
     struct Metric {
-        static let collectionViewInset = 16.0
-        static let collectionViewSpacing = 8.0
+        static let inset = 16.0
+        static let spacing = 8.0
     }
     
     
@@ -23,16 +23,18 @@ final class SearchView: UIView {
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchBarStyle = .minimal
+        searchBar.searchTextField.font = UIFont.systemFont(ofSize: 16)
         return searchBar
     }()
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewCompositionalLayout.grid(
-            spacing: Metric.collectionViewSpacing,
-            inset: Metric.collectionViewInset
+            spacing: Metric.spacing,
+            inset: Metric.inset
         )
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.keyboardDismissMode = .onDrag
         return collectionView
     }()
     
@@ -55,7 +57,7 @@ final class SearchView: UIView {
     private func configure() {
         self.addSubview(searchBar)
         searchBar.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(self.snp.top)
             make.left.equalTo(self.snp.left)
             make.right.equalTo(self.snp.right)
         }
