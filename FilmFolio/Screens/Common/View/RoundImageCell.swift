@@ -21,7 +21,7 @@ final class RoundImageCell: UICollectionViewCell {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .black
+        imageView.backgroundColor = UIColor(named: "darkColor")
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
