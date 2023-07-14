@@ -38,6 +38,15 @@ struct EndpointCollection {
         )
     }
     
+    static func movieDetail(id: Int) -> Endpoint {
+        return Endpoint(
+            method: .GET,
+            urlString: "https://api.themoviedb.org/3/movie/\(id)",
+            header: ["Authorization": "Bearer \(API.accessToken)"],
+            query: ["language": "ko"]
+        )
+    }
+    
     // MARK: Series
     
     static func trendingSeries() -> Endpoint {
@@ -71,6 +80,15 @@ struct EndpointCollection {
                 "language": "ko",
                 "page": "\(page)"
             ]
+        )
+    }
+    
+    static func seriesDetail(id: Int) -> Endpoint {
+        return Endpoint(
+            method: .GET,
+            urlString: "https://api.themoviedb.org/3/tv/\(id)",
+            header: ["Authorization": "Bearer \(API.accessToken)"],
+            query: ["language": "ko"]
         )
     }
     
