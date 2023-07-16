@@ -57,6 +57,7 @@ final class SearchViewController<Item: Hashable & Decodable>: UIViewController {
     }
     
     private func bind() {
+        
         let input = SearchViewModel<Item>.Input(
             searchText: searcheView.searchBar.rx.text
                 .orEmpty
@@ -71,6 +72,28 @@ final class SearchViewController<Item: Hashable & Decodable>: UIViewController {
                 self.applySnapshot(items)
             })
             .disposed(by: disposeBag)
+        
+        searcheView.collectionView.rx.itemSelected
+            .withUnretained(self)
+            .compactMap { $0.dataSource?.itemIdentifier(for: $1) }
+            .subscribe(with: self, onNext: {
+                $0.route($1)
+            })
+            .disposed(by: disposeBag)
+        
+    }
+    
+    private func route(_ item: Item) {
+        if let item = item as? Movie {
+            let movieDetail = MovieDetailViewController(
+                view: MovieDetailView(),
+                viewModel: MovieDetailViewModel(
+                    networkManager: DefaultNetworkManager.shared,
+                    id: item.id
+                )
+            )
+            self.navigationController?.pushViewController(movieDetail, animated: true)
+        }
     }
     
 }

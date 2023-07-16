@@ -49,6 +49,31 @@ extension MovieDetail {
         return "https://image.tmdb.org/t/p/w500\(_posterPath)"
     }
     
+    var genre: String {
+        return genres.map { $0.name }.joined(separator: " ∙ ")
+    }
+    
+}
+
+extension MovieDetail {
+    
+    static func `default`() -> Self {
+        return .init(
+            adult: false,
+            _backdropPath: nil,
+            genres: [],
+            id: 0,
+            overview: "",
+            _posterPath: nil,
+            releaseDate: "",
+            runtime: 0,
+            status: "",
+            tagline: "",
+            title: "",
+            video: false
+        )
+    }
+    
 }
 
 struct Genre: Codable {

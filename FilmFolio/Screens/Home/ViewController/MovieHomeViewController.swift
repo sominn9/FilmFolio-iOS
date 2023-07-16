@@ -45,7 +45,7 @@ final class MovieHomeViewController: UIViewController {
     
     // MARK: Methods
     
-    func configure() {
+    private func configure() {
         view.backgroundColor = .systemBackground
         view.addSubview(movieHomeView)
         movieHomeView.snp.makeConstraints {
@@ -56,7 +56,7 @@ final class MovieHomeViewController: UIViewController {
         configureSupplementaryView()
     }
     
-    func bind() {
+    private func bind() {
         
         let input = MovieHomeViewModel.Input(
             fetchNowPlayMovies: Observable.just(()),
@@ -85,6 +85,45 @@ final class MovieHomeViewController: UIViewController {
                 owner.applySnapshot(movies, to: \.topRatedDataSource)
             })
             .disposed(by: disposeBag)
+        
+        movieHomeView.nowPlayCollectionView.rx.itemSelected
+            .withUnretained(self)
+            .map { $0.nowPlayDataSource?.itemIdentifier(for: $1) }
+            .compactMap { $0?.id }
+            .subscribe(with: self, onNext: {
+                $0.route(id: $1)
+            })
+            .disposed(by: disposeBag)
+        
+        movieHomeView.popularCollectionView.rx.itemSelected
+            .withUnretained(self)
+            .map { $0.popularDataSource?.itemIdentifier(for: $1) }
+            .compactMap { $0?.id }
+            .subscribe(with: self, onNext: {
+                $0.route(id: $1)
+            })
+            .disposed(by: disposeBag)
+        
+        movieHomeView.topRatedCollectionView.rx.itemSelected
+            .withUnretained(self)
+            .map { $0.topRatedDataSource?.itemIdentifier(for: $1) }
+            .compactMap { $0?.id }
+            .subscribe(with: self, onNext: {
+                $0.route(id: $1)
+            })
+            .disposed(by: disposeBag)
+        
+    }
+    
+    private func route(id: Int) {
+        let movieDetail = MovieDetailViewController(
+            view: MovieDetailView(),
+            viewModel: MovieDetailViewModel(
+                networkManager: DefaultNetworkManager.shared,
+                id: id
+            )
+        )
+        self.navigationController?.pushViewController(movieDetail, animated: true)
     }
     
 }
