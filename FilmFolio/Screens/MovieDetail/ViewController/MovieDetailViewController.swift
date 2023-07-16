@@ -75,8 +75,9 @@ final class MovieDetailViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         output.movieDetail
-            .map { $0.releaseDate }
-            .bind(to: movieDetailView.releaseDateLabel.rx.text)
+            .map { "\(String(localized: "Release"))  \($0.releaseDate)" }
+            .map { $0.withBold(target: String(localized: "Release"), UIColor.darkGray) }
+            .bind(to: movieDetailView.releaseDateLabel.rx.attributedText)
             .disposed(by: disposeBag)
         
         output.movieDetail
