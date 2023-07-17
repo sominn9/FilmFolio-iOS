@@ -23,7 +23,6 @@ struct SeriesDetail: Decodable {
     let status: String
     let tagline: String
 
-
     enum CodingKeys: String, CodingKey {
         case adult
         case _backdropPath = "backdrop_path"
@@ -52,6 +51,33 @@ extension SeriesDetail {
     var posterPath: String? {
         guard let _posterPath else { return nil }
         return "https://image.tmdb.org/t/p/w500\(_posterPath)"
+    }
+    
+    var genre: String {
+        return genres.map { $0.name }.joined(separator: " ∙ ")
+    }
+    
+}
+
+extension SeriesDetail {
+    
+    static func `default`() -> Self {
+        return .init(
+            adult: false,
+            _backdropPath: nil,
+            firstAirDate: "",
+            genres: [],
+            id: 0,
+            inProduction: false,
+            lastAirDate: "",
+            name: "",
+            numberOfEpisodes: 0,
+            numberOfSeasons: 0,
+            overview: "",
+            _posterPath: nil,
+            status: "",
+            tagline: ""
+        )
     }
     
 }

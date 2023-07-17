@@ -46,7 +46,7 @@ final class SeriesHomeViewController: UIViewController {
     
     // MARK: Methods
     
-    func configure() {
+    private func configure() {
         view.backgroundColor = .systemBackground
         view.addSubview(seriesHomeView)
         seriesHomeView.snp.makeConstraints {
@@ -57,7 +57,7 @@ final class SeriesHomeViewController: UIViewController {
         configureSupplementaryView()
     }
     
-    func bind() {
+    private func bind() {
         
         let input = SeriesHomeViewModel.Input(
             fetchTrendingSeries: Observable.just(()),
@@ -86,6 +86,45 @@ final class SeriesHomeViewController: UIViewController {
                 owner.applySnapshot(series, to: \.topRatedDataSource)
             })
             .disposed(by: disposeBag)
+        
+        seriesHomeView.trendingCollectionView.rx.itemSelected
+            .withUnretained(self)
+            .compactMap { $0.trendingDataSource?.itemIdentifier(for: $1) }
+            .map { $0.id }
+            .subscribe(with: self, onNext: {
+                $0.route(id: $1)
+            })
+            .disposed(by: disposeBag)
+        
+        seriesHomeView.onTheAirCollectionView.rx.itemSelected
+            .withUnretained(self)
+            .compactMap { $0.onTheAirDataSource?.itemIdentifier(for: $1) }
+            .map { $0.id }
+            .subscribe(with: self, onNext: {
+                $0.route(id: $1)
+            })
+            .disposed(by: disposeBag)
+        
+        seriesHomeView.topRatedCollectionView.rx.itemSelected
+            .withUnretained(self)
+            .compactMap { $0.topRatedDataSource?.itemIdentifier(for: $1) }
+            .map { $0.id }
+            .subscribe(with: self, onNext: {
+                $0.route(id: $1)
+            })
+            .disposed(by: disposeBag)
+        
+    }
+    
+    private func route(id: Int) {
+        let seriesDetail = SeriesDetailViewController(
+            view: SeriesDetailView(),
+            viewModel: SeriesDetailViewModel(
+                networkManager: DefaultNetworkManager.shared,
+                id: id
+            )
+        )
+        self.navigationController?.pushViewController(seriesDetail, animated: true)
     }
     
 }

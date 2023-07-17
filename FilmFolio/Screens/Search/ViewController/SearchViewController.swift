@@ -93,6 +93,15 @@ final class SearchViewController<Item: Hashable & Decodable>: UIViewController {
                 )
             )
             self.navigationController?.pushViewController(movieDetail, animated: true)
+        } else if let item = item as? Series {
+            let seriesDetail = SeriesDetailViewController(
+                view: SeriesDetailView(),
+                viewModel: SeriesDetailViewModel(
+                    networkManager: DefaultNetworkManager.shared,
+                    id: item.id
+                )
+            )
+            self.navigationController?.pushViewController(seriesDetail, animated: true)
         }
     }
     
