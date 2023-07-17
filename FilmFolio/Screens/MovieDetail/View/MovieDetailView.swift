@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-final class MovieDetailView: UIView {
+final class MovieDetailView: UIScrollView {
     
     // MARK: Constants
     
@@ -87,8 +87,10 @@ final class MovieDetailView: UIView {
     
     private func configure() {
         let stackView = createStackView()
-        configureStackViewItemsInset(stackView)
-        configureScrollView(stackView)
+        configureContentView(stackView)
+        showsVerticalScrollIndicator = false
+        showsHorizontalScrollIndicator = false
+        contentInset.bottom = Metric.spacing
     }
     
     private func createStackView() -> UIStackView {
@@ -108,40 +110,27 @@ final class MovieDetailView: UIView {
         return stackView
     }
     
-    private func configureScrollView(_ stackView: UIStackView) {
-        let scrollView = UIScrollView()
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.addSubview(stackView)
+    private func configureContentView(_ stackView: UIStackView) {
+        let contentView = UIView()
+        contentView.addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+            make.left.equalTo(contentView.snp.left)
+            make.right.equalTo(contentView.snp.right)
+            make.top.equalTo(contentView.snp.top)
+        }
+        
+        contentView.addSubview(stackView)
         stackView.snp.makeConstraints { make in
-            make.edges.equalTo(scrollView.snp.edges)
-            make.width.equalTo(scrollView.snp.width)
+            make.left.equalTo(contentView.snp.left).inset(Metric.inset)
+            make.right.equalTo(contentView.snp.right).inset(Metric.inset)
+            make.top.equalTo(imageView.snp.bottom).offset(Metric.spacing)
+            make.bottom.equalTo(contentView.snp.bottom)
         }
         
-        addSubview(scrollView)
-        scrollView.snp.makeConstraints { make in
+        self.addSubview(contentView)
+        contentView.snp.makeConstraints { make in
             make.edges.equalTo(self.snp.edges)
-        }
-    }
-    
-    private func configureStackViewItemsInset(_ stackView: UIStackView) {
-        titleLabel.snp.makeConstraints { make in
-            make.left.equalTo(stackView.snp.left).inset(Metric.inset)
-            make.right.equalTo(stackView.snp.right).inset(Metric.inset)
-        }
-        
-        overviewLabel.snp.makeConstraints { make in
-            make.left.equalTo(stackView.snp.left).inset(Metric.inset)
-            make.right.equalTo(stackView.snp.right).inset(Metric.inset)
-        }
-        
-        releaseDateLabel.snp.makeConstraints { make in
-            make.left.equalTo(stackView.snp.left).inset(Metric.inset)
-            make.right.equalTo(stackView.snp.right).inset(Metric.inset)
-        }
-        
-        genreLabel.snp.makeConstraints { make in
-            make.left.equalTo(stackView.snp.left).inset(Metric.inset)
-            make.right.equalTo(stackView.snp.right).inset(Metric.inset)
+            make.width.equalTo(self.snp.width)
         }
     }
     
