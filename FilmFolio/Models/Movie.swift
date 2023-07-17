@@ -68,3 +68,21 @@ extension Movie {
     }
     
 }
+
+// MARK: - Convert
+
+extension Movie {
+    
+    func toUpcoming() -> Upcoming {
+        return .init(
+            type: .movie,
+            id: id,
+            title: title,
+            overview: overview,
+            releaseDate: releaseDate,
+            _posterPath: _posterPath,
+            _backdropPath: _backdropPath
+        )
+    }
+    
+}

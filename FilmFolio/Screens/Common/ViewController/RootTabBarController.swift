@@ -39,7 +39,10 @@ final class RootTabBarController: UITabBarController {
         let viewControllers = [
             UINavigationController(rootViewController: HomeTabViewController()),
             UINavigationController(rootViewController: SearchTabViewController()),
-            UINavigationController(),
+            UINavigationController(rootViewController: UpcomingViewController(
+                view: UpcomingView(),
+                viewModel: UpcomingViewModel(networkManager: DefaultNetworkManager.shared)
+            )),
             UINavigationController()
         ]
         self.setViewControllers(viewControllers, animated: true)

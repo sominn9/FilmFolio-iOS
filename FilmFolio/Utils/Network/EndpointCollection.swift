@@ -120,4 +120,32 @@ struct EndpointCollection {
         )
     }
     
+    // MARK: Upcoming
+    
+    static func upcomingMovie(date: String, page: Int = 1) -> Endpoint {
+        return Endpoint(
+            method: .GET,
+            urlString: "https://api.themoviedb.org/3/discover/movie",
+            header: ["Authorization": "Bearer \(API.accessToken)"],
+            query: [
+                "language": "ko",
+                "primary_release_date.gte": date,
+                "page": "\(page)"
+            ]
+        )
+    }
+    
+    static func upcomingSeries(date: String, page: Int = 1) -> Endpoint {
+        return Endpoint(
+            method: .GET,
+            urlString: "https://api.themoviedb.org/3/discover/tv",
+            header: ["Authorization": "Bearer \(API.accessToken)"],
+            query: [
+                "language": "ko",
+                "first_air_date.gte": date,
+                "page": "\(page)"
+            ]
+        )
+    }
+    
 }

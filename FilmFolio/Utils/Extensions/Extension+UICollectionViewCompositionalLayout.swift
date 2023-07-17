@@ -113,4 +113,30 @@ extension UICollectionViewCompositionalLayout {
         }
     }
     
+    static func list(spacing: CGFloat = 8.0, estimatedHeight: CGFloat) -> UICollectionViewCompositionalLayout {
+        
+        return UICollectionViewCompositionalLayout { _, env in
+            
+            let item = NSCollectionLayoutItem(
+                layoutSize: .init(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .estimated(400)
+                )
+            )
+            
+            let group = NSCollectionLayoutGroup.vertical(
+                layoutSize: .init(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .estimated(estimatedHeight)
+                ),
+                repeatingSubitem: item,
+                count: 1
+            )
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.interGroupSpacing = spacing
+            return section
+        }
+    }
+    
 }

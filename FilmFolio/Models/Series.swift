@@ -66,3 +66,21 @@ extension Series {
     }
     
 }
+
+// MARK: - Convert
+
+extension Series {
+    
+    func toUpcoming() -> Upcoming {
+        return .init(
+            type: .series,
+            id: id,
+            title: name,
+            overview: overview,
+            releaseDate: firstAirDate,
+            _posterPath: _posterPath,
+            _backdropPath: _backdropPath
+        )
+    }
+    
+}
