@@ -17,7 +17,7 @@ struct UpcomingViewModel {
     }
     
     struct Output {
-        let upcomings: PublishSubject<[Upcoming]>
+        let upcomings: Observable<[Upcoming]>
     }
     
     
