@@ -43,6 +43,8 @@
 		CB7A8F662A6463E500DCE0C1 /* SeriesDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A8F652A6463E500DCE0C1 /* SeriesDetailView.swift */; };
 		CB7A8F682A6463FE00DCE0C1 /* SeriesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A8F672A6463FE00DCE0C1 /* SeriesDetailViewController.swift */; };
 		CB7A8F6A2A64640600DCE0C1 /* SeriesDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A8F692A64640600DCE0C1 /* SeriesDetailViewModel.swift */; };
+		CB83E84D2A697A08004BE8EE /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB83E84C2A697A08004BE8EE /* Bookmark.swift */; };
+		CB83E84F2A697A10004BE8EE /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB83E84E2A697A10004BE8EE /* Review.swift */; };
 		CB9574522A4ECA9E0091F112 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CB9574512A4ECA9E0091F112 /* SnapKit */; };
 		CB9574542A4ECE0C0091F112 /* MovieHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9574532A4ECE0C0091F112 /* MovieHomeView.swift */; };
 		CB9574562A4F09020091F112 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9574552A4F09020091F112 /* NetworkError.swift */; };
@@ -118,6 +120,8 @@
 		CB7A8F652A6463E500DCE0C1 /* SeriesDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesDetailView.swift; sourceTree = "<group>"; };
 		CB7A8F672A6463FE00DCE0C1 /* SeriesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesDetailViewController.swift; sourceTree = "<group>"; };
 		CB7A8F692A64640600DCE0C1 /* SeriesDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesDetailViewModel.swift; sourceTree = "<group>"; };
+		CB83E84C2A697A08004BE8EE /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
+		CB83E84E2A697A10004BE8EE /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		CB9574532A4ECE0C0091F112 /* MovieHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieHomeView.swift; sourceTree = "<group>"; };
 		CB9574552A4F09020091F112 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UICollectionViewCompositionalLayout.swift"; sourceTree = "<group>"; };
@@ -188,6 +192,8 @@
 				CB3FA30E2A606595005ADCF0 /* SeriesDetail.swift */,
 				CBE282F52A658F2F0094FE23 /* Upcoming.swift */,
 				CB2D4C4E2A5DCD62007B8C39 /* Menus.swift */,
+				CB83E84C2A697A08004BE8EE /* Bookmark.swift */,
+				CB83E84E2A697A10004BE8EE /* Review.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -639,6 +645,7 @@
 				CB7A8F682A6463FE00DCE0C1 /* SeriesDetailViewController.swift in Sources */,
 				CB2D4C492A5DC918007B8C39 /* SearchView.swift in Sources */,
 				CBA9FB1A2A39FF6B00148F16 /* Layout.swift in Sources */,
+				CB83E84D2A697A08004BE8EE /* Bookmark.swift in Sources */,
 				CB6AA9392A505DB4001D5867 /* ImageStorage.swift in Sources */,
 				CB3FA30B2A6061A5005ADCF0 /* MovieDetailView.swift in Sources */,
 				CB3FA2FF2A602165005ADCF0 /* PagerTabBarController.swift in Sources */,
@@ -664,6 +671,7 @@
 				CBE282F22A6588670094FE23 /* UpcomingViewController.swift in Sources */,
 				CB2D4C472A5DBA8E007B8C39 /* RootTabBarController.swift in Sources */,
 				CB36559A2A52FAA900C2ACEF /* HomeTabViewController.swift in Sources */,
+				CB83E84F2A697A10004BE8EE /* Review.swift in Sources */,
 				CBCEEEDC2A0A85E400CF7186 /* SceneDelegate.swift in Sources */,
 				CB7A8F602A64579000DCE0C1 /* Extension+String.swift in Sources */,
 				CBA00ED82A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift in Sources */,
