@@ -188,7 +188,6 @@
 				CB3FA30E2A606595005ADCF0 /* SeriesDetail.swift */,
 				CBE282F52A658F2F0094FE23 /* Upcoming.swift */,
 				CB2D4C4E2A5DCD62007B8C39 /* Menus.swift */,
-				CB6AA9342A502C4C001D5867 /* ElementKind.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -428,6 +427,7 @@
 				CBA9FB182A39FF5E00148F16 /* Constants */,
 				CB3719B62A335F1D009D5EA2 /* Extensions */,
 				CB0DD76F2A373FCF003116CE /* Network */,
+				CB6AA9342A502C4C001D5867 /* ElementKind.swift */,
 				CB6AA9382A505DB4001D5867 /* ImageStorage.swift */,
 			);
 			path = Utils;
