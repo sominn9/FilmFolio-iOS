@@ -23,7 +23,6 @@ final class HomeTabViewController: BaseViewController {
     // MARK: Methods
     
     private func configure() {
-        view.backgroundColor = .systemBackground
         change(.movie)
     }
     

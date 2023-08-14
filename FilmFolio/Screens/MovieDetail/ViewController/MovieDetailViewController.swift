@@ -44,7 +44,6 @@ final class MovieDetailViewController: BaseViewController {
     // MARK: Methods
     
     private func configure() {
-        self.view.backgroundColor = .systemBackground
         self.view.addSubview(movieDetailView)
         movieDetailView.snp.makeConstraints {
             $0.edges.equalTo(self.view.snp.edges)

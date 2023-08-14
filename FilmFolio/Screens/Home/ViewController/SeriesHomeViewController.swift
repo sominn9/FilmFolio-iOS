@@ -47,7 +47,6 @@ final class SeriesHomeViewController: UIViewController {
     // MARK: Methods
     
     private func configure() {
-        view.backgroundColor = .systemBackground
         view.addSubview(seriesHomeView)
         seriesHomeView.snp.makeConstraints {
             $0.edges.equalTo(view)

@@ -44,7 +44,6 @@ final class SeriesDetailViewController: BaseViewController {
     // MARK: Methods
     
     private func configure() {
-        self.view.backgroundColor = .systemBackground
         self.view.addSubview(seriesDetailView)
         seriesDetailView.snp.makeConstraints {
             $0.edges.equalTo(self.view.snp.edges)

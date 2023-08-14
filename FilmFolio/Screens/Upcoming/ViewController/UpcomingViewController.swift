@@ -51,7 +51,6 @@ final class UpcomingViewController: BaseViewController {
     }
     
     private func configureUpcomingView() {
-        view.backgroundColor = .systemBackground
         view.addSubview(upcomingView)
         upcomingView.snp.makeConstraints { make in
             make.edges.equalTo(view.snp.edges)

@@ -46,7 +46,6 @@ final class MovieHomeViewController: UIViewController {
     // MARK: Methods
     
     private func configure() {
-        view.backgroundColor = .systemBackground
         view.addSubview(movieHomeView)
         movieHomeView.snp.makeConstraints {
             $0.edges.equalTo(view)
