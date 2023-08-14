@@ -34,3 +34,6 @@
 "Release" = "개봉";
 "First Air" = "첫 방영";
 "Episodes" = "에피소드" ;
+
+// 리뷰 화면
+"Write a review." = "감상한 내용을 작성하세요.";
