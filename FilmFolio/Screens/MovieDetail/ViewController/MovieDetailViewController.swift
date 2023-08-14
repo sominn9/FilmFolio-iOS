@@ -51,6 +51,20 @@ final class MovieDetailViewController: BaseViewController {
         }
     }
     
+    override func configureNavigationBar() {
+        super.configureNavigationBar()
+        
+        let editAction = UIAction { [weak self] _ in
+            let vc = ReviewViewController()
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "square.and.pencil"),
+            primaryAction: editAction
+        )
+    }
+    
     private func bind() {
         
         let input = MovieDetailViewModel.Input(fetchMovieDetail: Observable.just(()))
