@@ -15,7 +15,7 @@ final class ReviewViewController: BaseViewController {
     // MARK: Constants
     
     struct Metric {
-        static let textViewInset: CGFloat = 8.0
+        static let textViewInset: CGFloat = 16.0
         static let fontSize: CGFloat = 17.0
     }
     
@@ -28,6 +28,19 @@ final class ReviewViewController: BaseViewController {
     
     private lazy var textView = UITextView()
     private let disposeBag = DisposeBag()
+    private var reviewViewModel: ReviewViewModel
+    
+    
+    // MARK: Initializing
+    
+    init(viewModel: ReviewViewModel) {
+        self.reviewViewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
     // MARK: View Life Cycle
@@ -79,6 +92,10 @@ final class ReviewViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        textView.resignFirstResponder()
     }
     
 }

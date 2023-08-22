@@ -54,7 +54,7 @@ final class SeriesDetailViewController: BaseViewController {
         super.configureNavigationBar()
         
         let editAction = UIAction { [weak self] _ in
-            let vc = ReviewViewController()
+            let vc = ReviewViewController(viewModel: ReviewViewModel())
             self?.navigationController?.pushViewController(vc, animated: true)
         }
         
