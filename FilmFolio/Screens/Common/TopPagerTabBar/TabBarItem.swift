@@ -10,30 +10,7 @@ import UIKit
 
 final class TabBarItem: UICollectionViewCell {
     
-    // MARK: Configuration
-    
-    struct Configuration {
-        
-        var title: String?
-        var font: UIFont
-        var textColor: UIColor
-        var selectedFont: UIFont
-        var selectedTextColor: UIColor
-        
-        static func `default`() -> TabBarItem.Configuration {
-            return .init(
-                font: UIFont.systemFont(ofSize: 15.0),
-                textColor: .darkGray,
-                selectedFont: UIFont.systemFont(ofSize: 15.0, weight: .bold),
-                selectedTextColor: .tintColor
-            )
-        }
-    }
-    
-    
     // MARK: Properties
-    
-    static let id = String(describing: TabBarItem.self)
     
     private lazy var label: UILabel = {
         let label = UILabel()
@@ -70,6 +47,13 @@ final class TabBarItem: UICollectionViewCell {
     
     // MARK: Methods
     
+    private func layout() {
+        addSubview(label)
+        label.snp.makeConstraints { make in
+            make.edges.equalTo(self.snp.edges)
+        }
+    }
+    
     private func configure() {
         if isSelected {
             label.text = configuration.title
@@ -82,10 +66,4 @@ final class TabBarItem: UICollectionViewCell {
         }
     }
     
-    private func layout() {
-        addSubview(label)
-        label.snp.makeConstraints { make in
-            make.edges.equalTo(self.snp.edges)
-        }
-    }
 }

@@ -120,7 +120,7 @@ extension UICollectionViewCompositionalLayout {
             let item = NSCollectionLayoutItem(
                 layoutSize: .init(
                     widthDimension: .fractionalWidth(1),
-                    heightDimension: .estimated(400)
+                    heightDimension: .estimated(estimatedHeight)
                 )
             )
             
@@ -137,6 +137,34 @@ extension UICollectionViewCompositionalLayout {
             section.interGroupSpacing = spacing
             return section
         }
+    }
+    
+    static func tabBarLayout(itemWidth: CGFloat) -> UICollectionViewCompositionalLayout {
+        
+        let layout = UICollectionViewCompositionalLayout { _, _ in
+            
+            let item = NSCollectionLayoutItem(
+                layoutSize: .init(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .fractionalHeight(1))
+            )
+            
+            let group = NSCollectionLayoutGroup.horizontal(
+                layoutSize: .init(
+                    widthDimension: .absolute(itemWidth),
+                    heightDimension: .fractionalHeight(1)),
+                subitems: [item]
+            )
+            
+            let section = NSCollectionLayoutSection(group: group)
+            return section
+        }
+        
+        let config = layout.configuration
+        config.scrollDirection = .horizontal
+        layout.configuration = config
+        
+        return layout
     }
     
 }

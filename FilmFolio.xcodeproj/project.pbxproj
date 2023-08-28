@@ -49,6 +49,8 @@
 		CB9574522A4ECA9E0091F112 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CB9574512A4ECA9E0091F112 /* SnapKit */; };
 		CB9574542A4ECE0C0091F112 /* MovieHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9574532A4ECE0C0091F112 /* MovieHomeView.swift */; };
 		CB9574562A4F09020091F112 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9574552A4F09020091F112 /* NetworkError.swift */; };
+		CB962A252A9CA390003822F1 /* PagerTabBarController+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB962A242A9CA390003822F1 /* PagerTabBarController+Configuration.swift */; };
+		CB962A272A9CA3AD003822F1 /* TabBarItem+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB962A262A9CA3AD003822F1 /* TabBarItem+Configuration.swift */; };
 		CBA00ED82A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */; };
 		CBA9FB1A2A39FF6B00148F16 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA9FB192A39FF6B00148F16 /* Layout.swift */; };
 		CBA9FB1E2A3A000E00148F16 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA9FB1D2A3A000E00148F16 /* API.swift */; };
@@ -127,6 +129,8 @@
 		CB83E84E2A697A10004BE8EE /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		CB9574532A4ECE0C0091F112 /* MovieHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieHomeView.swift; sourceTree = "<group>"; };
 		CB9574552A4F09020091F112 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		CB962A242A9CA390003822F1 /* PagerTabBarController+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PagerTabBarController+Configuration.swift"; sourceTree = "<group>"; };
+		CB962A262A9CA3AD003822F1 /* TabBarItem+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarItem+Configuration.swift"; sourceTree = "<group>"; };
 		CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UICollectionViewCompositionalLayout.swift"; sourceTree = "<group>"; };
 		CBA9FB192A39FF6B00148F16 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		CBA9FB1D2A3A000E00148F16 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -264,6 +268,7 @@
 		CB3AF6F52A5E964F0055385B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				CB962A212A9C6881003822F1 /* TopPagerTabBar */,
 				CB3AF6F62A5E96640055385B /* View */,
 				CB3AF6FF2A5E97060055385B /* ViewController */,
 			);
@@ -273,7 +278,6 @@
 		CB3AF6F62A5E96640055385B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CB3FA3002A602188005ADCF0 /* TabBarItem.swift */,
 				CB6AA9322A502A22001D5867 /* TitleView.swift */,
 				CBCEEEED2A0A9E7600CF7186 /* RoundImageCell.swift */,
 			);
@@ -337,7 +341,6 @@
 			isa = PBXGroup;
 			children = (
 				CB2D4C462A5DBA8E007B8C39 /* RootTabBarController.swift */,
-				CB3FA2FE2A602165005ADCF0 /* PagerTabBarController.swift */,
 				CB3FA3042A605C87005ADCF0 /* BaseViewController.swift */,
 			);
 			path = ViewController;
@@ -467,6 +470,25 @@
 				CB6AA9382A505DB4001D5867 /* ImageStorage.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		CB962A212A9C6881003822F1 /* TopPagerTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				CB962A282A9CA3D3003822F1 /* Configuration */,
+				CB3FA3002A602188005ADCF0 /* TabBarItem.swift */,
+				CB3FA2FE2A602165005ADCF0 /* PagerTabBarController.swift */,
+			);
+			path = TopPagerTabBar;
+			sourceTree = "<group>";
+		};
+		CB962A282A9CA3D3003822F1 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				CB962A262A9CA3AD003822F1 /* TabBarItem+Configuration.swift */,
+				CB962A242A9CA390003822F1 /* PagerTabBarController+Configuration.swift */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 		CBA9FB182A39FF5E00148F16 /* Constants */ = {
@@ -671,6 +693,7 @@
 				CB3719B82A33660A009D5EA2 /* Movie.swift in Sources */,
 				CB3FA30F2A606595005ADCF0 /* SeriesDetail.swift in Sources */,
 				CB3FA3052A605C87005ADCF0 /* BaseViewController.swift in Sources */,
+				CB962A272A9CA3AD003822F1 /* TabBarItem+Configuration.swift in Sources */,
 				CBE282EE2A65852A0094FE23 /* Extension+Date.swift in Sources */,
 				CB2D4C4F2A5DCD62007B8C39 /* Menus.swift in Sources */,
 				CB7A8F682A6463FE00DCE0C1 /* SeriesDetailViewController.swift in Sources */,
@@ -691,6 +714,7 @@
 				CB7A8F5C2A6432D700DCE0C1 /* MovieDetailViewController.swift in Sources */,
 				CB7A8F662A6463E500DCE0C1 /* SeriesDetailView.swift in Sources */,
 				CB7A8F5E2A64330E00DCE0C1 /* MovieDetailViewModel.swift in Sources */,
+				CB962A252A9CA390003822F1 /* PagerTabBarController+Configuration.swift in Sources */,
 				CBE282F42A65886F0094FE23 /* UpcomingViewModel.swift in Sources */,
 				CB4DA0802A5705F500C6FA11 /* SeriesHomeView.swift in Sources */,
 				CB4DA0842A57193400C6FA11 /* Series.swift in Sources */,
