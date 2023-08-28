@@ -73,8 +73,8 @@ extension Series {
     
     func toUpcoming() -> Upcoming {
         return .init(
-            type: .series,
             id: id,
+            media: .series,
             title: name,
             overview: overview,
             releaseDate: firstAirDate,

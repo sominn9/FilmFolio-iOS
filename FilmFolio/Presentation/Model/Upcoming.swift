@@ -8,17 +8,17 @@
 import Foundation
 
 struct Upcoming: Hashable {
-    let type: Menus
     let id: Int
+    let media: Media
     let title: String
     let overview: String
     let releaseDate: String
     private let _posterPath: String?
     private let _backdropPath: String?
     
-    init(type: Menus, id: Int, title: String, overview: String, releaseDate: String, _posterPath: String?, _backdropPath: String?) {
-        self.type = type
+    init(id: Int, media: Media, title: String, overview: String, releaseDate: String, _posterPath: String?, _backdropPath: String?) {
         self.id = id
+        self.media = media
         self.title = title
         self.overview = overview
         self.releaseDate = releaseDate
@@ -28,11 +28,11 @@ struct Upcoming: Hashable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
-        hasher.combine(type)
+        hasher.combine(media)
     }
     
     static func == (_ lhs: Upcoming, _ rhs: Upcoming) -> Bool {
-        lhs.id == rhs.id && lhs.type == rhs.type
+        lhs.id == rhs.id && lhs.media == rhs.media
     }
 }
 

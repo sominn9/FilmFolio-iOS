@@ -7,16 +7,14 @@
 
 import Foundation
 
-enum Menus: CaseIterable {
+enum Media: String, CaseIterable, CustomStringConvertible {
     case movie
     case series
     
     var description: String {
         switch self {
-        case .movie:
-            return String(localized: "Movie")
-        case .series:
-            return String(localized: "Series")
+        case .movie: return String(localized: "Movie")
+        case .series: return String(localized: "Series")
         }
     }
 }

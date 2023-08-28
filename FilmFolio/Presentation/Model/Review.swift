@@ -8,7 +8,8 @@
 import Foundation
 
 struct Review {
-    let id: UUID
+    let id: Int
+    let media: Media
     let title: String
     let content: String
     let posterPath: String?

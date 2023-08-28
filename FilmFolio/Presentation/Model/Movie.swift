@@ -75,8 +75,8 @@ extension Movie {
     
     func toUpcoming() -> Upcoming {
         return .init(
-            type: .movie,
             id: id,
+            media: .movie,
             title: title,
             overview: overview,
             releaseDate: releaseDate,

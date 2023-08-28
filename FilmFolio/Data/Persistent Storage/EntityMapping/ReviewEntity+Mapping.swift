@@ -16,8 +16,13 @@ private var formatter: DateFormatter = {
 
 extension ReviewEntity {
     func toDomain() -> Review {
-        .init(
-            id: self.id ?? UUID(),
+        guard let media = Media(rawValue: self.media ?? "") else {
+            fatalError("Unregistered media type detected - \(self.media ?? "")")
+        }
+        
+        return Review(
+            id: Int(self.id),
+            media: media,
             title: self.title ?? "",
             content: self.content ?? "",
             posterPath: self.posterPath,
@@ -29,7 +34,8 @@ extension ReviewEntity {
 extension Review {
     func toEntity(in context: NSManagedObjectContext) -> NSManagedObject {
         let entity = ReviewEntity(context: context)
-        entity.id = self.id
+        entity.id = Int32(self.id)
+        entity.media = self.media.rawValue
         entity.title = self.title
         entity.content = self.content
         entity.posterPath = self.posterPath

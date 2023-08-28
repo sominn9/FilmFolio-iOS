@@ -26,23 +26,23 @@ final class HomeTabViewController: BaseViewController {
         change(.movie)
     }
     
-    private func change(_ title: Menus) {
-        changeTitleMenu(title)
-        changeChildView(title)
+    private func change(_ media: Media) {
+        updateTitleMenu(media)
+        changeChildView(media)
     }
     
-    private func changeTitleMenu(_ title: Menus) {
+    private func updateTitleMenu(_ media: Media) {
         
         // Create action.
-        let actions = Menus.allCases.filter({ $0 != title }).map { menu in
-            return UIAction(title: menu.description) { [weak self] _ in
+        let actions = Media.allCases.filter({ $0 != media }).map { other in
+            return UIAction(title: other.description) { [weak self] _ in
                 guard let self = self else { return }
-                change(menu)
+                change(other)
             }
         }
         
         // Create button.
-        let titleMenuButton = UIButton(configuration: .titleMenu(title.description, fontSize: 19))
+        let titleMenuButton = UIButton(configuration: .titleMenu(media.description, fontSize: 19))
         titleMenuButton.showsMenuAsPrimaryAction = true
         titleMenuButton.menu = UIMenu(children: actions)
         titleMenuButton.configurationUpdateHandler = { button in
@@ -55,8 +55,8 @@ final class HomeTabViewController: BaseViewController {
         navigationItem.leftBarButtonItem = barButtonItem
     }
     
-    private func changeChildView(_ title: Menus) {
-        switch title {
+    private func changeChildView(_ media: Media) {
+        switch media {
         case .movie:
             let view = MovieHomeView()
             let viewModel = MovieHomeViewModel(networkManager: DefaultNetworkManager.shared)
