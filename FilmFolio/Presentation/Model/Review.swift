@@ -10,8 +10,8 @@ import Foundation
 struct Review {
     let id: Int
     let media: Media
-    let title: String
-    let content: String
+    var title: String
+    var content: String
     let posterPath: String?
-    let publishDate: String
+    var publishDate: String
 }

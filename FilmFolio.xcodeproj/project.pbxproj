@@ -58,6 +58,7 @@
 		CB9E732D2A9DE24000F5675C /* FilmFolioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9E732C2A9DE24000F5675C /* FilmFolioTests.swift */; };
 		CB9E73342A9DE2A300F5675C /* ReviewRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9E73332A9DE2A300F5675C /* ReviewRepositoryTests.swift */; };
 		CB9E73362A9E192600F5675C /* CoreDataStorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9E73352A9E192600F5675C /* CoreDataStorageError.swift */; };
+		CB9E733F2A9E4CBE00F5675C /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = CB9E733E2A9E4CBE00F5675C /* RxCocoa */; };
 		CBA00ED82A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */; };
 		CBA9FB1E2A3A000E00148F16 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA9FB1D2A3A000E00148F16 /* API.swift */; };
 		CBCEEEDA2A0A85E400CF7186 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEED92A0A85E400CF7186 /* AppDelegate.swift */; };
@@ -183,6 +184,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB9E733F2A9E4CBE00F5675C /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,6 +590,13 @@
 			path = "Core Data";
 			sourceTree = "<group>";
 		};
+		CB9E733D2A9E4CBE00F5675C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CBA9FB182A39FF5E00148F16 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -603,6 +612,7 @@
 				CBE4AE0F2A59AFB5000AC220 /* FilmFolioUITests */,
 				CB9E732B2A9DE24000F5675C /* FilmFolioTests */,
 				CBCEEED72A0A85E400CF7186 /* Products */,
+				CB9E733D2A9E4CBE00F5675C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -680,6 +690,9 @@
 				CB9E732F2A9DE24000F5675C /* PBXTargetDependency */,
 			);
 			name = FilmFolioTests;
+			packageProductDependencies = (
+				CB9E733E2A9E4CBE00F5675C /* RxCocoa */,
+			);
 			productName = FilmFolioTests;
 			productReference = CB9E732A2A9DE24000F5675C /* FilmFolioTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -1231,6 +1244,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CB9574502A4ECA9E0091F112 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		CB9E733E2A9E4CBE00F5675C /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CBF40C392A4DE4210083610E /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
 		};
 		CBF40C3A2A4DE4210083610E /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
