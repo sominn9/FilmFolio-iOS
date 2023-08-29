@@ -8,39 +8,38 @@
 import CoreData
 import Foundation
 
-enum CoreDataStorageError: Error {
-    case saveError(Error)
-    case fetchError(Error)
-    case deleteError(Error)
-    case updateError(Error)
-    case deallocated
+enum CoreDataStorageType {
+    case sqlite
+    case inMemory
 }
 
 final class CoreDataStorage {
     
-    static let shared = CoreDataStorage()
+    static let shared: CoreDataStorage = {
+        return .init(name: "Model", storeType: .sqlite)
+    }()
     
-    private init() {}
-    
-    
-    // MARK: - Properties
-    
-    private lazy var container: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Model")
-        container.loadPersistentStores { _, error in
+    init(name: String, storeType: CoreDataStorageType) {
+        self.container = NSPersistentContainer(name: name)
+        self.setupPersistentContainer(storeType)
+        self.container.loadPersistentStores { _, error in
             if let error {
                 fatalError("Fail to load persistent store - \(error)")
             }
         }
-        return container
-    }()
+    }
+    
+    
+    // MARK: - Properties
+    
+    private var container: NSPersistentContainer
     
     private var context: NSManagedObjectContext {
         return container.viewContext
     }
     
     
-    // MARK: - Methods
+    // MARK: - Public Methods
     
     /// Save the managed object to the persistent store.
     /// - Parameter block: A block object that takes a managed object context.
@@ -115,6 +114,16 @@ final class CoreDataStorage {
             } catch {
                 throw CoreDataStorageError.deleteError(error)
             }
+        }
+    }
+    
+    // MARK: - Private Methods
+    
+    func setupPersistentContainer(_ storageType: CoreDataStorageType) {
+        if storageType == .inMemory {
+            let description = NSPersistentStoreDescription()
+            description.url = URL(fileURLWithPath: "/dev/null")
+            self.container.persistentStoreDescriptions = [description]
         }
     }
     

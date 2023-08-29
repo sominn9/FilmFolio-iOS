@@ -29,6 +29,17 @@
                ReferencedContainer = "container:FilmFolio.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CB9E73292A9DE24000F5675C"
+               BuildableName = "FilmFolioTests.xctest"
+               BlueprintName = "FilmFolioTests"
+               ReferencedContainer = "container:FilmFolio.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

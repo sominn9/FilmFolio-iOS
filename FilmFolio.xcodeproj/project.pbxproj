@@ -55,6 +55,9 @@
 		CB962A352A9CB3E6003822F1 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB962A332A9CB3E6003822F1 /* Model.xcdatamodeld */; };
 		CB962A3D2A9CBD25003822F1 /* ReviewEntity+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB962A3C2A9CBD25003822F1 /* ReviewEntity+Mapping.swift */; };
 		CB962A402A9CC2CB003822F1 /* ReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB962A3F2A9CC2CB003822F1 /* ReviewRepository.swift */; };
+		CB9E732D2A9DE24000F5675C /* FilmFolioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9E732C2A9DE24000F5675C /* FilmFolioTests.swift */; };
+		CB9E73342A9DE2A300F5675C /* ReviewRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9E73332A9DE2A300F5675C /* ReviewRepositoryTests.swift */; };
+		CB9E73362A9E192600F5675C /* CoreDataStorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9E73352A9E192600F5675C /* CoreDataStorageError.swift */; };
 		CBA00ED82A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */; };
 		CBA9FB1E2A3A000E00148F16 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA9FB1D2A3A000E00148F16 /* API.swift */; };
 		CBCEEEDA2A0A85E400CF7186 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEED92A0A85E400CF7186 /* AppDelegate.swift */; };
@@ -80,6 +83,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		CB9E732E2A9DE24000F5675C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CBCEEECE2A0A85E400CF7186 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CBCEEED52A0A85E400CF7186;
+			remoteInfo = FilmFolio;
+		};
 		CBE4AE142A59AFB5000AC220 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CBCEEECE2A0A85E400CF7186 /* Project object */;
@@ -138,6 +148,10 @@
 		CB962A342A9CB3E6003822F1 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		CB962A3C2A9CBD25003822F1 /* ReviewEntity+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReviewEntity+Mapping.swift"; sourceTree = "<group>"; };
 		CB962A3F2A9CC2CB003822F1 /* ReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRepository.swift; sourceTree = "<group>"; };
+		CB9E732A2A9DE24000F5675C /* FilmFolioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FilmFolioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB9E732C2A9DE24000F5675C /* FilmFolioTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmFolioTests.swift; sourceTree = "<group>"; };
+		CB9E73332A9DE2A300F5675C /* ReviewRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRepositoryTests.swift; sourceTree = "<group>"; };
+		CB9E73352A9E192600F5675C /* CoreDataStorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorageError.swift; sourceTree = "<group>"; };
 		CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UICollectionViewCompositionalLayout.swift"; sourceTree = "<group>"; };
 		CBA9FB1D2A3A000E00148F16 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		CBCEEED62A0A85E400CF7186 /* FilmFolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilmFolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,6 +179,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CB9E73272A9DE24000F5675C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CBCEEED32A0A85E400CF7186 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -526,8 +547,7 @@
 		CB962A302A9CB326003822F1 /* Persistent Storage */ = {
 			isa = PBXGroup;
 			children = (
-				CB962A332A9CB3E6003822F1 /* Model.xcdatamodeld */,
-				CB962A312A9CB389003822F1 /* CoreDataStorage.swift */,
+				CB9E73392A9E195D00F5675C /* Core Data */,
 				CB962A362A9CB489003822F1 /* EntityMapping */,
 			);
 			path = "Persistent Storage";
@@ -549,6 +569,25 @@
 			path = Repository;
 			sourceTree = "<group>";
 		};
+		CB9E732B2A9DE24000F5675C /* FilmFolioTests */ = {
+			isa = PBXGroup;
+			children = (
+				CB9E732C2A9DE24000F5675C /* FilmFolioTests.swift */,
+				CB9E73332A9DE2A300F5675C /* ReviewRepositoryTests.swift */,
+			);
+			path = FilmFolioTests;
+			sourceTree = "<group>";
+		};
+		CB9E73392A9E195D00F5675C /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				CB962A332A9CB3E6003822F1 /* Model.xcdatamodeld */,
+				CB962A312A9CB389003822F1 /* CoreDataStorage.swift */,
+				CB9E73352A9E192600F5675C /* CoreDataStorageError.swift */,
+			);
+			path = "Core Data";
+			sourceTree = "<group>";
+		};
 		CBA9FB182A39FF5E00148F16 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -562,6 +601,7 @@
 			children = (
 				CBCEEED82A0A85E400CF7186 /* FilmFolio */,
 				CBE4AE0F2A59AFB5000AC220 /* FilmFolioUITests */,
+				CB9E732B2A9DE24000F5675C /* FilmFolioTests */,
 				CBCEEED72A0A85E400CF7186 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -571,6 +611,7 @@
 			children = (
 				CBCEEED62A0A85E400CF7186 /* FilmFolio.app */,
 				CBE4AE0E2A59AFB5000AC220 /* FilmFolioUITests.xctest */,
+				CB9E732A2A9DE24000F5675C /* FilmFolioTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -625,6 +666,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CB9E73292A9DE24000F5675C /* FilmFolioTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB9E73302A9DE24000F5675C /* Build configuration list for PBXNativeTarget "FilmFolioTests" */;
+			buildPhases = (
+				CB9E73262A9DE24000F5675C /* Sources */,
+				CB9E73272A9DE24000F5675C /* Frameworks */,
+				CB9E73282A9DE24000F5675C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CB9E732F2A9DE24000F5675C /* PBXTargetDependency */,
+			);
+			name = FilmFolioTests;
+			productName = FilmFolioTests;
+			productReference = CB9E732A2A9DE24000F5675C /* FilmFolioTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		CBCEEED52A0A85E400CF7186 /* FilmFolio */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CBCEEEEA2A0A85E500CF7186 /* Build configuration list for PBXNativeTarget "FilmFolio" */;
@@ -675,6 +734,10 @@
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					CB9E73292A9DE24000F5675C = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = CBCEEED52A0A85E400CF7186;
+					};
 					CBCEEED52A0A85E400CF7186 = {
 						CreatedOnToolsVersion = 14.3;
 					};
@@ -704,11 +767,19 @@
 			targets = (
 				CBCEEED52A0A85E400CF7186 /* FilmFolio */,
 				CBE4AE0D2A59AFB5000AC220 /* FilmFolioUITests */,
+				CB9E73292A9DE24000F5675C /* FilmFolioTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		CB9E73282A9DE24000F5675C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CBCEEED42A0A85E400CF7186 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -729,6 +800,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CB9E73262A9DE24000F5675C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB9E732D2A9DE24000F5675C /* FilmFolioTests.swift in Sources */,
+				CB9E73342A9DE2A300F5675C /* ReviewRepositoryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CBCEEED22A0A85E400CF7186 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -736,6 +816,7 @@
 				CB2D4C4D2A5DCC86007B8C39 /* Extension+UIViewController.swift in Sources */,
 				CB962A352A9CB3E6003822F1 /* Model.xcdatamodeld in Sources */,
 				CBCEEEDE2A0A85E400CF7186 /* MovieHomeViewController.swift in Sources */,
+				CB9E73362A9E192600F5675C /* CoreDataStorageError.swift in Sources */,
 				CB4DA0862A573C2600C6FA11 /* Extension+Collection.swift in Sources */,
 				CB6AA93C2A50AB3E001D5867 /* Extension+DiffableDataSource.swift in Sources */,
 				CB7A8F6A2A64640600DCE0C1 /* SeriesDetailViewModel.swift in Sources */,
@@ -810,6 +891,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		CB9E732F2A9DE24000F5675C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CBCEEED52A0A85E400CF7186 /* FilmFolio */;
+			targetProxy = CB9E732E2A9DE24000F5675C /* PBXContainerItemProxy */;
+		};
 		CBE4AE152A59AFB5000AC220 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CBCEEED52A0A85E400CF7186 /* FilmFolio */;
@@ -838,6 +924,40 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		CB9E73312A9DE24000F5675C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sominn9.FilmFolioTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FilmFolio.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FilmFolio";
+			};
+			name = Debug;
+		};
+		CB9E73322A9DE24000F5675C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sominn9.FilmFolioTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FilmFolio.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FilmFolio";
+			};
+			name = Release;
+		};
 		CBCEEEE82A0A85E500CF7186 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1049,6 +1169,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CB9E73302A9DE24000F5675C /* Build configuration list for PBXNativeTarget "FilmFolioTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB9E73312A9DE24000F5675C /* Debug */,
+				CB9E73322A9DE24000F5675C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CBCEEED12A0A85E400CF7186 /* Build configuration list for PBXProject "FilmFolio" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
