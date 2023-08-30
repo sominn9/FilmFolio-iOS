@@ -19,6 +19,7 @@ final class ReviewViewModel {
     
     struct Output {
         var title: Observable<String>
+        var content: Observable<String>
         var posterPath: Observable<String?>
     }
     
@@ -46,6 +47,7 @@ final class ReviewViewModel {
     func transform(_ input: Input) -> Output {
         
         input.text
+            .skip(1)
             .subscribe(with: self, onNext: { owner, text in
                 owner.review.content = text
             })
@@ -61,6 +63,7 @@ final class ReviewViewModel {
         
         return Output(
             title: Observable.just(review.title),
+            content: Observable.just(review.content),
             posterPath: Observable.just(review.posterPath)
         )
     }

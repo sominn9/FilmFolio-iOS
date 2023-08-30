@@ -49,14 +49,13 @@ final class ReviewViewController: BaseViewController {
         super.viewDidLoad()
         configure()
         bind()
+        textViewPlaceholder()
     }
     
     
     // MARK: Methods
     
     private func configure() {
-        textView.text = Text.placeholder
-        textView.textColor = .gray
         textView.showsVerticalScrollIndicator = false
         textView.showsHorizontalScrollIndicator = false
         textView.font = .systemFont(ofSize: Metric.fontSize)
@@ -74,9 +73,45 @@ final class ReviewViewController: BaseViewController {
     
     private func bind() {
         
+        guard let barButton = navigationItem.rightBarButtonItem else { return }
+        
+        let input = ReviewViewModel.Input(
+            text: textView.rx.text.asObservable()
+                .compactMap { $0 }
+                .filter { $0 != Text.placeholder },
+            saveButtonPressed: barButton.rx.tap.asObservable()
+        )
+        
+        let output = reviewViewModel.transform(input)
+        
+        output.title
+            .bind(to: navigationItem.rx.title)
+            .disposed(by: disposeBag)
+        
+        output.content
+            .subscribe(onNext: { [weak self] in
+                if $0.isEmpty {
+                    self?.textView.text = ReviewViewController.Text.placeholder
+                    self?.textView.textColor = .gray
+                } else {
+                    self?.textView.text = $0
+                    self?.textView.textColor = .label
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        barButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+   
+    }
+    
+    private func textViewPlaceholder() {
         textView.rx.didBeginEditing
             .subscribe(with: self, onNext: { owner, _ in
-                if owner.textView.text == type(of: owner).Text.placeholder {
+                if owner.textView.text == ReviewViewController.Text.placeholder {
                     owner.textView.text = ""
                     owner.textView.textColor = .label
                 }
@@ -86,12 +121,11 @@ final class ReviewViewController: BaseViewController {
         textView.rx.didEndEditing
             .subscribe(with: self, onNext: { owner, _ in
                 if owner.textView.text.isEmpty {
-                    owner.textView.text = type(of: owner).Text.placeholder
+                    owner.textView.text = ReviewViewController.Text.placeholder
                     owner.textView.textColor = .gray
                 }
             })
             .disposed(by: disposeBag)
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
