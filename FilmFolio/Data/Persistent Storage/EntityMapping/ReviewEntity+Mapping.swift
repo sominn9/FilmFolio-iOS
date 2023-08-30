@@ -10,7 +10,7 @@ import Foundation
 
 private var formatter: DateFormatter = {
     let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd"
+    formatter.dateFormat = DateFormat.reviewFormat
     return formatter
 }()
 

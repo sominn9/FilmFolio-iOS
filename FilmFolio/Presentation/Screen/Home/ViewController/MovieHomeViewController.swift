@@ -117,10 +117,7 @@ final class MovieHomeViewController: UIViewController {
     private func route(id: Int) {
         let movieDetail = MovieDetailViewController(
             view: MovieDetailView(),
-            viewModel: MovieDetailViewModel(
-                networkManager: DefaultNetworkManager.shared,
-                id: id
-            )
+            viewModel: MovieDetailViewModel(id: id)
         )
         self.navigationController?.pushViewController(movieDetail, animated: true)
     }

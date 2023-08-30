@@ -118,10 +118,7 @@ final class SeriesHomeViewController: UIViewController {
     private func route(id: Int) {
         let seriesDetail = SeriesDetailViewController(
             view: SeriesDetailView(),
-            viewModel: SeriesDetailViewModel(
-                networkManager: DefaultNetworkManager.shared,
-                id: id
-            )
+            viewModel: SeriesDetailViewModel(id: id)
         )
         self.navigationController?.pushViewController(seriesDetail, animated: true)
     }

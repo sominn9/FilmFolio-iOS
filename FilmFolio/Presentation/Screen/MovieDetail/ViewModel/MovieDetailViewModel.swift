@@ -14,32 +14,41 @@ struct MovieDetailViewModel {
     
     struct Input {
         let fetchMovieDetail: Observable<Void>
+        let reviewButtonPressed: Observable<Void>
     }
     
     struct Output {
         let movieDetail: Observable<MovieDetail>
+        let loadedReview: Observable<Review>
     }
     
     
     // MARK: Properties
     
-    private let networkManager: NetworkManager
     private let id: Int
-    private let movieDetail = PublishSubject<MovieDetail>()
+    private let networkManager: NetworkManager
+    private let loadReviewRepository: LoadReviewRepository
     private let disposeBag = DisposeBag()
     
     
     // MARK: Initializing
     
-    init(networkManager: NetworkManager, id: Int) {
-        self.networkManager = networkManager
+    init(
+        id: Int,
+        networkManager: NetworkManager = DefaultNetworkManager.shared,
+        loadReviewRepository: LoadReviewRepository = DefaultLoadReviewRepository()
+    ) {
         self.id = id
+        self.networkManager = networkManager
+        self.loadReviewRepository = loadReviewRepository
     }
     
     
     // MARK: Methods
     
-    func transform(_ input: MovieDetailViewModel.Input) -> MovieDetailViewModel.Output {
+    func transform(_ input: Input) -> Output {
+        let movieDetail = BehaviorSubject<MovieDetail>(value: .default())
+        let loadedReview = PublishSubject<Review>()
         
         input.fetchMovieDetail
             .map { EndpointCollection.movieDetail(id: id) }
@@ -48,7 +57,21 @@ struct MovieDetailViewModel {
             .bind(to: movieDetail)
             .disposed(by: disposeBag)
         
-        return MovieDetailViewModel.Output(movieDetail: movieDetail)
+        input.reviewButtonPressed
+            .subscribe(onNext: {
+                Task {
+                    var review = try await loadReviewRepository.load(id: id, media: .movie)
+                    review.title = (try? movieDetail.value().title) ?? ""
+                    review.posterPath = try? movieDetail.value().posterPath
+                    loadedReview.onNext(review)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        return Output(
+            movieDetail: movieDetail,
+            loadedReview: loadedReview
+        )
     }
     
 }

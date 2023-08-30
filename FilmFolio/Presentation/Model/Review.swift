@@ -12,6 +12,6 @@ struct Review {
     let media: Media
     var title: String
     var content: String
-    let posterPath: String?
+    var posterPath: String?
     var publishDate: String
 }

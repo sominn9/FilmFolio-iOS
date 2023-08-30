@@ -52,21 +52,19 @@ final class MovieDetailViewController: BaseViewController {
     
     override func configureNavigationBar() {
         super.configureNavigationBar()
-        
-        let editAction = UIAction { [weak self] _ in
-            let vc = ReviewViewController(viewModel: ReviewViewModel())
-            self?.navigationController?.pushViewController(vc, animated: true)
-        }
-        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "square.and.pencil"),
-            primaryAction: editAction
+            image: UIImage(systemName: "square.and.pencil")
         )
     }
     
     private func bind() {
         
-        let input = MovieDetailViewModel.Input(fetchMovieDetail: Observable.just(()))
+        guard let barButton = navigationItem.rightBarButtonItem else { return }
+        
+        let input = MovieDetailViewModel.Input(
+            fetchMovieDetail: Observable.just(()),
+            reviewButtonPressed: barButton.rx.tap.asObservable()
+        )
         
         let output = movieDetailViewModel.transform(input)
         
@@ -96,6 +94,15 @@ final class MovieDetailViewController: BaseViewController {
         output.movieDetail
             .map { $0.genre }
             .bind(to: movieDetailView.genreLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.loadedReview
+            .observe(on: MainScheduler.instance)
+            .subscribe(with: self, onNext: { owner, review in
+                let vm = ReviewViewModel(review: review)
+                let vc = ReviewViewController(viewModel: vm)
+                owner.navigationController?.pushViewController(vc, animated: true)
+            })
             .disposed(by: disposeBag)
 
     }

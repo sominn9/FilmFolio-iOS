@@ -8,13 +8,13 @@
 import Foundation
 import RxSwift
 
-struct ReviewViewModel {
+final class ReviewViewModel {
     
     // MARK: Input & Output
     
     struct Input {
-        var saveButtonPressed: Observable<Void>
         var text: Observable<String>
+        var saveButtonPressed: Observable<Void>
     }
     
     struct Output {
@@ -22,20 +22,46 @@ struct ReviewViewModel {
         var posterPath: Observable<String?>
     }
     
+    
+    // MARK: Properties
+    
+    private var review: Review
+    private let saveReviewRepository: SaveReviewRepository
+    private let disposeBag = DisposeBag()
+    
+    
     // MARK: Initializing
     
-    init() {
-        
+    init(
+        review: Review,
+        saveReviewRepository: SaveReviewRepository = DefaultSaveReviewRepository()
+    ) {
+        self.review = review
+        self.saveReviewRepository = saveReviewRepository
     }
     
     
     // MARK: Methods
     
-    func transform(_ input: ReviewViewModel.Input) -> ReviewViewModel.Output {
+    func transform(_ input: Input) -> Output {
+        
+        input.text
+            .subscribe(with: self, onNext: { owner, text in
+                owner.review.content = text
+            })
+            .disposed(by: disposeBag)
+            
+        input.saveButtonPressed
+            .subscribe(with: self, onNext: { owner, _ in
+                Task {
+                    try await owner.saveReviewRepository.save(owner.review)
+                }
+            })
+            .disposed(by: disposeBag)
         
         return Output(
-            title: Observable.just(""),
-            posterPath: Observable.just("")
+            title: Observable.just(review.title),
+            posterPath: Observable.just(review.posterPath)
         )
     }
     
