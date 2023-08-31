@@ -64,6 +64,8 @@
 		CB9E73452A9E5DBB00F5675C /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = CB9E73442A9E5DBB00F5675C /* RxCocoa */; };
 		CBA00ED82A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */; };
 		CBA9FB1E2A3A000E00148F16 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA9FB1D2A3A000E00148F16 /* API.swift */; };
+		CBCA7A562AA0BC19002DC45E /* ReviewListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA7A552AA0BC19002DC45E /* ReviewListViewModel.swift */; };
+		CBCA7A582AA0E8BC002DC45E /* ReviewListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA7A572AA0E8BC002DC45E /* ReviewListCell.swift */; };
 		CBCEEEDA2A0A85E400CF7186 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEED92A0A85E400CF7186 /* AppDelegate.swift */; };
 		CBCEEEDC2A0A85E400CF7186 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEEDB2A0A85E400CF7186 /* SceneDelegate.swift */; };
 		CBCEEEDE2A0A85E400CF7186 /* MovieHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEEDD2A0A85E400CF7186 /* MovieHomeViewController.swift */; };
@@ -161,6 +163,8 @@
 		CB9E73402A9E58DB00F5675C /* LoadReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadReviewRepository.swift; sourceTree = "<group>"; };
 		CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UICollectionViewCompositionalLayout.swift"; sourceTree = "<group>"; };
 		CBA9FB1D2A3A000E00148F16 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		CBCA7A552AA0BC19002DC45E /* ReviewListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListViewModel.swift; sourceTree = "<group>"; };
+		CBCA7A572AA0E8BC002DC45E /* ReviewListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListCell.swift; sourceTree = "<group>"; };
 		CBCEEED62A0A85E400CF7186 /* FilmFolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilmFolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBCEEED92A0A85E400CF7186 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CBCEEEDB2A0A85E400CF7186 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -475,6 +479,7 @@
 		CB81A1842A8A544B00195D37 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CBCA7A572AA0E8BC002DC45E /* ReviewListCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -492,6 +497,7 @@
 			isa = PBXGroup;
 			children = (
 				CBD6AAF62A94DB4E00525682 /* ReviewViewModel.swift */,
+				CBCA7A552AA0BC19002DC45E /* ReviewListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -881,11 +887,13 @@
 				CBE282F42A65886F0094FE23 /* UpcomingViewModel.swift in Sources */,
 				CB4DA0802A5705F500C6FA11 /* SeriesHomeView.swift in Sources */,
 				CB4DA0842A57193400C6FA11 /* Series.swift in Sources */,
+				CBCA7A562AA0BC19002DC45E /* ReviewListViewModel.swift in Sources */,
 				CB6AA9332A502A22001D5867 /* TitleView.swift in Sources */,
 				CBA9FB1E2A3A000E00148F16 /* API.swift in Sources */,
 				CB962A402A9CC2CB003822F1 /* ReviewRepository.swift in Sources */,
 				CB2F64F42A5424E80007854D /* Extension+UIButton.Configuration.swift in Sources */,
 				CB0DD7732A37439C003116CE /* EndpointCollection.swift in Sources */,
+				CBCA7A582AA0E8BC002DC45E /* ReviewListCell.swift in Sources */,
 				CB6AA9352A502C4C001D5867 /* ElementKind.swift in Sources */,
 				CBD40B882A5C538C00E0EB3A /* SearchViewModel.swift in Sources */,
 				CBE282F22A6588670094FE23 /* UpcomingViewController.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Media: String, CaseIterable, CustomStringConvertible {
+enum Media: String, CaseIterable {
     case movie
     case series
     

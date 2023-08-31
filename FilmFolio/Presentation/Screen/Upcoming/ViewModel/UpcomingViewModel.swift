@@ -30,7 +30,7 @@ struct UpcomingViewModel {
     
     // MARK: Initializing
     
-    init(networkManager: NetworkManager) {
+    init(networkManager: NetworkManager = DefaultNetworkManager.shared) {
         self.networkManager = networkManager
     }
     

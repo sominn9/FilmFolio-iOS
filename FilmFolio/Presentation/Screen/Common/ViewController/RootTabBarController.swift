@@ -41,9 +41,11 @@ final class RootTabBarController: UITabBarController {
             UINavigationController(rootViewController: SearchTabViewController()),
             UINavigationController(rootViewController: UpcomingViewController(
                 view: UpcomingView(),
-                viewModel: UpcomingViewModel(networkManager: DefaultNetworkManager.shared)
+                viewModel: UpcomingViewModel()
             )),
-            UINavigationController(rootViewController: ReviewListViewController())
+            UINavigationController(rootViewController: ReviewListViewController(
+                viewModel: ReviewListViewModel()
+            ))
         ]
         self.setViewControllers(viewControllers, animated: true)
     }
