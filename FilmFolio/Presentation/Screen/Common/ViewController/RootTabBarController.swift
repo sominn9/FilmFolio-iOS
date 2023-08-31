@@ -43,7 +43,7 @@ final class RootTabBarController: UITabBarController {
                 view: UpcomingView(),
                 viewModel: UpcomingViewModel(networkManager: DefaultNetworkManager.shared)
             )),
-            UINavigationController()
+            UINavigationController(rootViewController: ReviewListViewController())
         ]
         self.setViewControllers(viewControllers, animated: true)
     }
@@ -66,8 +66,8 @@ final class RootTabBarController: UITabBarController {
             tag: 2
         )
         viewControllers[3].tabBarItem = UITabBarItem(
-            title: "My",
-            image: UIImage(systemName: "suit.heart.fill"),
+            title: String(localized: "Review"),
+            image: UIImage(systemName: "text.book.closed"),
             tag: 3
         )
     }

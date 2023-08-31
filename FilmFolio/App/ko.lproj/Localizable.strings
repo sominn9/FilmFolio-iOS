@@ -6,29 +6,29 @@
   
 */
 
-// 홈 화면 메뉴
-"Home" = "홈";
+// 미디어 종류
 "Movie" = "영화";
 "Series" = "시리즈";
 "Animation" = "애니메이션";
 
-// 영화 홈 화면
+// 탭 목록
+"Home" = "홈";
+"Search" = "검색";
+"Upcoming" = "개봉 예정";
+"Review" = "리뷰";
+
+// 홈 화면 (영화, 시리즈)
 "Now Playing Movies" = "현재 상영 중인 영화";
 "Popular Movies" = "인기 영화";
 "Top Rated Movies" = "높은 평점의 영화";
 
-// TV 시리즈 홈 화면
 "On The Air Series" = "현재 방영 중인 TV 시리즈";
 "Popular Series" = "인기 TV 시리즈";
 "Top Rated Series" = "높은 평점의 TV 시리즈";
 
 // 검색 화면
-"Search" = "검색";
 "Search Movie" = "영화를 검색해보세요";
 "Search TV Series" = "시리즈를 검색해보세요";
-
-// 개봉 예정 화면
-"Upcoming" = "개봉 예정";
 
 // 상세 화면
 "Release" = "개봉";

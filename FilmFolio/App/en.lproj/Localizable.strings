@@ -6,34 +6,34 @@
   
 */
 
-// Homw Screen Menus
-"Home" = "Home";
+// 미디어 종류
 "Movie" = "Movie";
 "Series" = "Series";
 "Animation" = "Animation";
 
-// Movie Home Screen
+// 탭 목록
+"Home" = "Home";
+"Search" = "Search";
+"Upcoming" = "Upcoming";
+"Review" = "Review";
+
+// 홈 화면 (영화, 시리즈)
 "Now Playing Movies" = "Now Playing";
 "Popular Movies" = "Popular";
 "Top Rated Movies" = "Top Rated";
 
-// TV Series Home Screen
 "On The Air Movies" = "On The Air";
 "Popular Series" = "Popular";
 "Top Rated Series" = "Top Rated";
 
-// Search Screen
-"Search" = "Search";
+// 검색 화면
 "Search Movie" = "Search Movie";
 "Search TV Series" = "Search TV Series";
 
-// Upcoming Screen
-"Upcoming" = "Upcoming";
-
-// Detail Screen
+// 영화/시리즈 상세 화면
 "Release" = "Release";
 "First Air" = "First Air";
 "Episodes" = "Episodes" ;
 
-// Review Screen
+// 리뷰 화면
 "Write a review." = "Write a review.";
