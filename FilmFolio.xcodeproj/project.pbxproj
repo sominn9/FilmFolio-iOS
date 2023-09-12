@@ -265,11 +265,10 @@
 			children = (
 				CB3AF6F52A5E964F0055385B /* Common */,
 				CB3AF6F12A5E961F0055385B /* Home */,
+				CB3FA3062A606055005ADCF0 /* Detail */,
+				CB81A1832A8A543100195D37 /* Review */,
 				CB3AF6F22A5E96240055385B /* Search */,
 				CB3AF6F32A5E962D0055385B /* Upcoming */,
-				CB3FA3062A606055005ADCF0 /* MovieDetail */,
-				CB7A8F612A6463AD00DCE0C1 /* SeriesDetail */,
-				CB81A1832A8A543100195D37 /* Review */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -385,20 +384,21 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		CB3FA3062A606055005ADCF0 /* MovieDetail */ = {
+		CB3FA3062A606055005ADCF0 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
 				CB3FA3082A6060DF005ADCF0 /* View */,
 				CB3FA3072A6060D1005ADCF0 /* ViewController */,
 				CB3FA3092A6060E3005ADCF0 /* ViewModel */,
 			);
-			path = MovieDetail;
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		CB3FA3072A6060D1005ADCF0 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				CB7A8F5B2A6432D700DCE0C1 /* MovieDetailViewController.swift */,
+				CB7A8F672A6463FE00DCE0C1 /* SeriesDetailViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -407,6 +407,7 @@
 			isa = PBXGroup;
 			children = (
 				CB3FA30A2A6061A5005ADCF0 /* MovieDetailView.swift */,
+				CB7A8F652A6463E500DCE0C1 /* SeriesDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -415,6 +416,7 @@
 			isa = PBXGroup;
 			children = (
 				CB7A8F5D2A64330E00DCE0C1 /* MovieDetailViewModel.swift */,
+				CB7A8F692A64640600DCE0C1 /* SeriesDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -430,40 +432,6 @@
 				CBCEEEE72A0A85E500CF7186 /* Info.plist */,
 			);
 			path = App;
-			sourceTree = "<group>";
-		};
-		CB7A8F612A6463AD00DCE0C1 /* SeriesDetail */ = {
-			isa = PBXGroup;
-			children = (
-				CB7A8F622A6463C100DCE0C1 /* View */,
-				CB7A8F632A6463C600DCE0C1 /* ViewController */,
-				CB7A8F642A6463CC00DCE0C1 /* ViewModel */,
-			);
-			path = SeriesDetail;
-			sourceTree = "<group>";
-		};
-		CB7A8F622A6463C100DCE0C1 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				CB7A8F652A6463E500DCE0C1 /* SeriesDetailView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		CB7A8F632A6463C600DCE0C1 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				CB7A8F672A6463FE00DCE0C1 /* SeriesDetailViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		CB7A8F642A6463CC00DCE0C1 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				CB7A8F692A64640600DCE0C1 /* SeriesDetailViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		CB81A1832A8A543100195D37 /* Review */ = {
