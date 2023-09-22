@@ -12,6 +12,11 @@ import UIKit
 
 final class HomeTabViewController: BaseViewController {
     
+    // MARK: Properties
+    
+    private var childViewController: UIViewController?
+    
+    
     // MARK: View Life Cycle
     
     override func viewDidLoad() {
@@ -56,20 +61,31 @@ final class HomeTabViewController: BaseViewController {
     }
     
     private func changeChildView(_ media: Media) {
+        var viewController: UIViewController
+        
         switch media {
         case .movie:
-            let viewController = MovieHomeViewController(
+            viewController = MovieHomeViewController(
                 view: MovieHomeView(),
                 viewModel: MovieHomeViewModel()
             )
-            addChildView(viewController)
         case .series:
-            let viewController = SeriesHomeViewController(
+            viewController = SeriesHomeViewController(
                 view: SeriesHomeView(),
                 viewModel: SeriesHomeViewModel()
             )
-            addChildView(viewController)
         }
+        
+        deleteChildView()
+        addChildView(viewController)
+        childViewController = viewController
+    }
+    
+    private func deleteChildView() {
+        childViewController?.willMove(toParent: nil)
+        childViewController?.view.snp.removeConstraints()
+        childViewController?.view.removeFromSuperview()
+        childViewController?.removeFromParent()
     }
 
 }
