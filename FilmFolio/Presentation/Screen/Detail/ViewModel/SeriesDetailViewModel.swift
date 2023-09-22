@@ -26,7 +26,7 @@ struct SeriesDetailViewModel {
     // MARK: Properties
     
     private let id: Int
-    private let networkManager: NetworkManager
+    private let seriesRepository: SeriesRepository
     private let loadReviewRepository: LoadReviewRepository
     private let disposeBag = DisposeBag()
     
@@ -35,11 +35,11 @@ struct SeriesDetailViewModel {
     
     init(
         id: Int,
-        networkManager: NetworkManager = DefaultNetworkManager.shared,
+        seriesRepository: SeriesRepository = DefaultSeriesRepository(),
         loadReviewRepository: LoadReviewRepository = DefaultLoadReviewRepository()
     ) {
         self.id = id
-        self.networkManager = networkManager
+        self.seriesRepository = seriesRepository
         self.loadReviewRepository = loadReviewRepository
     }
     
@@ -51,8 +51,7 @@ struct SeriesDetailViewModel {
         let loadedReview = PublishSubject<Review>()
         
         input.fetchSeriesDetail
-            .map { EndpointCollection.seriesDetail(id: id) }
-            .flatMap { networkManager.request($0) }
+            .flatMap { seriesRepository.detail(id) }
             .catchAndReturn(SeriesDetail.default())
             .bind(to: seriesDetail)
             .disposed(by: disposeBag)

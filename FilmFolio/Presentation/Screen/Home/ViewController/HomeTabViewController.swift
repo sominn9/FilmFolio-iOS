@@ -64,9 +64,10 @@ final class HomeTabViewController: BaseViewController {
             )
             addChildView(viewController)
         case .series:
-            let view = SeriesHomeView()
-            let viewModel = SeriesHomeViewModel(networkManager: DefaultNetworkManager.shared)
-            let viewController = SeriesHomeViewController(view: view, viewModel: viewModel)
+            let viewController = SeriesHomeViewController(
+                view: SeriesHomeView(),
+                viewModel: SeriesHomeViewModel()
+            )
             addChildView(viewController)
         }
     }

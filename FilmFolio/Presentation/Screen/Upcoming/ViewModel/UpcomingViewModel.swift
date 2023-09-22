@@ -23,8 +23,8 @@ struct UpcomingViewModel {
     
     // MARK: Properties
     
-    private let networkManager: NetworkManager
     private let movieRepository: MovieRepository
+    private let seriesRepository: SeriesRepository
     private let disposeBag = DisposeBag()
     private let upcomings = PublishSubject<[Upcoming]>()
     
@@ -32,11 +32,11 @@ struct UpcomingViewModel {
     // MARK: Initializing
     
     init(
-        networkManager: NetworkManager = DefaultNetworkManager.shared,
-        movieRepository: MovieRepository = DefaultMovieRepository()
+        movieRepository: MovieRepository = DefaultMovieRepository(),
+        seriesRepository: SeriesRepository = DefaultSeriesRepository()
     ) {
-        self.networkManager = networkManager
         self.movieRepository = movieRepository
+        self.seriesRepository = seriesRepository
     }
     
     
@@ -46,16 +46,12 @@ struct UpcomingViewModel {
         
         input.fetchUpcomings
             .flatMap { movieRepository.upcoming() }
-            .subscribe(onNext: { upcomings.onNext($0) })
+            .bind(to: upcomings)
             .disposed(by: disposeBag)
         
         input.fetchUpcomings
-            .map { EndpointCollection.upcomingSeries(date: Date.tomorrow()) }
-            .flatMap { networkManager.request($0) }
-            .map { (r: TMDBResponse<Series>) in r.results }
-            .map { $0.map { $0.toUpcoming() } }
-            .map { $0.filter { $0.backdropPath != nil && !$0.overview.isEmpty } }
-            .subscribe(onNext: { upcomings.onNext($0) })
+            .flatMap { seriesRepository.upcoming() }
+            .bind(to: upcomings)
             .disposed(by: disposeBag)
         
         return UpcomingViewModel.Output(upcomings: upcomings)

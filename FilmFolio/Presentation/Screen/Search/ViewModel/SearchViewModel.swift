@@ -23,8 +23,8 @@ struct SearchViewModel<Item: Decodable> {
     
     // MARK: Properties
     
-    private let networkManager: NetworkManager
     private let movieRepository: MovieRepository
+    private let seriesRepository: SeriesRepository
     private let items = PublishSubject<[Item]>()
     private let disposeBag = DisposeBag()
     
@@ -32,11 +32,11 @@ struct SearchViewModel<Item: Decodable> {
     // MARK: Initializing
     
     init(
-        networkManager: NetworkManager = DefaultNetworkManager.shared,
-        movieRepository: MovieRepository = DefaultMovieRepository()
+        movieRepository: MovieRepository = DefaultMovieRepository(),
+        seriesRepository: SeriesRepository = DefaultSeriesRepository()
     ) {
-        self.networkManager = networkManager
         self.movieRepository = movieRepository
+        self.seriesRepository = seriesRepository
     }
     
     
@@ -57,7 +57,7 @@ struct SearchViewModel<Item: Decodable> {
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
             .filter { _ in Item.self == Movie.self }
             .filter { !$0.isEmpty }
-            .flatMap { movieRepository.search(query: $0, page: 1)}
+            .flatMap { movieRepository.search(query: $0, page: 1) }
             .catchAndReturn([])
             .subscribe(onNext: { result in
                 if let result = result as? [Item] {
@@ -70,11 +70,13 @@ struct SearchViewModel<Item: Decodable> {
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
             .filter { _ in Item.self == Series.self }
             .filter { !$0.isEmpty }
-            .map { EndpointCollection.searchSeries(query: $0) }
-            .flatMap { networkManager.request($0) }
-            .map { (r: TMDBResponse<Item>) in r.results }
+            .flatMap { seriesRepository.search(query: $0, page: 1) }
             .catchAndReturn([])
-            .bind(to: items)
+            .subscribe(onNext: { result in
+                if let result = result as? [Item] {
+                    items.onNext(result)
+                }
+            })
             .disposed(by: disposeBag)
         
         return SearchViewModel.Output(items: items)

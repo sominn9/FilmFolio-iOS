@@ -27,7 +27,7 @@ struct SeriesHomeViewModel {
     
     // MARK: Properties
     
-    private let networkManager: NetworkManager
+    private let repository: SeriesRepository
     private let trending = PublishSubject<[Series]>()
     private let onTheAir = PublishSubject<[Series]>()
     private let topRated = PublishSubject<[Series]>()
@@ -36,8 +36,8 @@ struct SeriesHomeViewModel {
     
     // MARK: Initializing
     
-    init(networkManager: NetworkManager) {
-        self.networkManager = networkManager
+    init(repository: SeriesRepository = DefaultSeriesRepository()) {
+        self.repository = repository
     }
     
     
@@ -46,29 +46,19 @@ struct SeriesHomeViewModel {
     func transform(_ input: SeriesHomeViewModel.Input) -> SeriesHomeViewModel.Output {
         
         input.fetchTrendingSeries
-            .map { EndpointCollection.trendingSeries() }
-            .flatMap { networkManager.request($0) }
-            .map { (r: TMDBResponse) in r.results }
+            .flatMap { repository.trending() }
             .catchAndReturn([])
             .bind(to: trending)
             .disposed(by: disposeBag)
         
         input.fetchOnTheAirSeries
-            .map { Array(1...4).map { EndpointCollection.onTheAirSeries(page: $0) } }
-            .map { (endpoints: [Endpoint]) -> [Observable<TMDBResponse>] in
-                endpoints.map { e in networkManager.request(e) }
-            }
-            .flatMap { Observable.combineLatest($0) }
-            .map { $0.map { $0.results }.flatMap { $0 } }
-            .map { $0.filter { $0.originCountry.isIntersect(with: ["KR", "US", "JP"]) } }
+            .flatMap { repository.onTheAir() }
             .catchAndReturn([])
             .bind(to: onTheAir)
             .disposed(by: disposeBag)
         
         input.fetchTopRatedSeries
-            .map { EndpointCollection.topRatedSeries() }
-            .flatMap { networkManager.request($0) }
-            .map { (r: TMDBResponse) in r.results }
+            .flatMap { repository.topRated() }
             .catchAndReturn([])
             .bind(to: topRated)
             .disposed(by: disposeBag)
