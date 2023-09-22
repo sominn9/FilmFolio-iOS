@@ -223,6 +223,7 @@
 		CB0DD76F2A373FCF003116CE /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				CBAB9B462ABDE898000D929A /* Model */,
 				CB9574552A4F09020091F112 /* NetworkError.swift */,
 				CB3719B92A336EAC009D5EA2 /* NetworkManager.swift */,
 				CB0DD7702A373FF9003116CE /* Endpoint.swift */,
@@ -234,7 +235,6 @@
 		CB3719B22A335ED2009D5EA2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CB3FA3022A603CCD005ADCF0 /* TMDBResponse.swift */,
 				CB3719B72A33660A009D5EA2 /* Movie.swift */,
 				CB4DA0832A57193400C6FA11 /* Series.swift */,
 				CB3FA30C2A6063B9005ADCF0 /* MovieDetail.swift */,
@@ -589,6 +589,14 @@
 				CBAB9B432ABDDDBD000D929A /* API.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		CBAB9B462ABDE898000D929A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CB3FA3022A603CCD005ADCF0 /* TMDBResponse.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		CBCEEECD2A0A85E400CF7186 = {
