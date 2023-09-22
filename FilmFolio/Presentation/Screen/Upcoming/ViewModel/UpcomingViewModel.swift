@@ -24,14 +24,19 @@ struct UpcomingViewModel {
     // MARK: Properties
     
     private let networkManager: NetworkManager
+    private let movieRepository: MovieRepository
     private let disposeBag = DisposeBag()
     private let upcomings = PublishSubject<[Upcoming]>()
     
     
     // MARK: Initializing
     
-    init(networkManager: NetworkManager = DefaultNetworkManager.shared) {
+    init(
+        networkManager: NetworkManager = DefaultNetworkManager.shared,
+        movieRepository: MovieRepository = DefaultMovieRepository()
+    ) {
         self.networkManager = networkManager
+        self.movieRepository = movieRepository
     }
     
     
@@ -40,11 +45,7 @@ struct UpcomingViewModel {
     func transform(_ input: UpcomingViewModel.Input) -> UpcomingViewModel.Output {
         
         input.fetchUpcomings
-            .map { EndpointCollection.upcomingMovie(date: Date.tomorrow()) }
-            .flatMap { networkManager.request($0) }
-            .map { (r: TMDBResponse<Movie>) in r.results }
-            .map { $0.map { $0.toUpcoming() } }
-            .map { $0.filter { $0.backdropPath != nil && !$0.overview.isEmpty } }
+            .flatMap { movieRepository.upcoming() }
             .subscribe(onNext: { upcomings.onNext($0) })
             .disposed(by: disposeBag)
         

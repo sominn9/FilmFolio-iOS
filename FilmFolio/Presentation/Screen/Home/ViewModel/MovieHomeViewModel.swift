@@ -27,7 +27,7 @@ struct MovieHomeViewModel {
     
     // MARK: Properties
     
-    private let networkManager: NetworkManager
+    private let repository: MovieRepository
     private let nowPlaying = PublishSubject<[Movie]>()
     private let popular = PublishSubject<[Movie]>()
     private let topRated = PublishSubject<[Movie]>()
@@ -36,8 +36,8 @@ struct MovieHomeViewModel {
     
     // MARK: Initializing
     
-    init(networkManager: NetworkManager) {
-        self.networkManager = networkManager
+    init(repository: MovieRepository = DefaultMovieRepository()) {
+        self.repository = repository
     }
     
     
@@ -46,25 +46,19 @@ struct MovieHomeViewModel {
     func transform(_ input: MovieHomeViewModel.Input) -> MovieHomeViewModel.Output {
         
         input.fetchNowPlayMovies
-            .map { EndpointCollection.nowPlayingMovies() }
-            .flatMap { networkManager.request($0) }
-            .map { (r: TMDBResponse) in r.results }
+            .flatMap { repository.nowPlaying() }
             .catchAndReturn([])
             .bind(to: nowPlaying)
             .disposed(by: disposeBag)
         
         input.fetchPopularMovies
-            .map { EndpointCollection.popularMovies() }
-            .flatMap { networkManager.request($0) }
-            .map { (r: TMDBResponse) in r.results }
+            .flatMap { repository.popular() }
             .catchAndReturn([])
             .bind(to: popular)
             .disposed(by: disposeBag)
         
         input.fetchTopRatedMovies
-            .map { EndpointCollection.topRatedMovies() }
-            .flatMap { networkManager.request($0) }
-            .map { (r: TMDBResponse) in r.results }
+            .flatMap { repository.topRated() }
             .catchAndReturn([])
             .bind(to: topRated)
             .disposed(by: disposeBag)

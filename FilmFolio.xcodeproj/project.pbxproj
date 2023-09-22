@@ -63,7 +63,8 @@
 		CB9E73412A9E58DB00F5675C /* LoadReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9E73402A9E58DB00F5675C /* LoadReviewRepository.swift */; };
 		CB9E73452A9E5DBB00F5675C /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = CB9E73442A9E5DBB00F5675C /* RxCocoa */; };
 		CBA00ED82A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */; };
-		CBA9FB1E2A3A000E00148F16 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA9FB1D2A3A000E00148F16 /* API.swift */; };
+		CBAB9B422ABDDD62000D929A /* MovieRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAB9B412ABDDD62000D929A /* MovieRepository.swift */; };
+		CBAB9B452ABDDE39000D929A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAB9B432ABDDDBD000D929A /* API.swift */; };
 		CBCA7A562AA0BC19002DC45E /* ReviewListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA7A552AA0BC19002DC45E /* ReviewListViewModel.swift */; };
 		CBCA7A582AA0E8BC002DC45E /* ReviewListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA7A572AA0E8BC002DC45E /* ReviewListCell.swift */; };
 		CBCEEEDA2A0A85E400CF7186 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCEEED92A0A85E400CF7186 /* AppDelegate.swift */; };
@@ -162,7 +163,8 @@
 		CB9E73352A9E192600F5675C /* CoreDataStorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorageError.swift; sourceTree = "<group>"; };
 		CB9E73402A9E58DB00F5675C /* LoadReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadReviewRepository.swift; sourceTree = "<group>"; };
 		CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UICollectionViewCompositionalLayout.swift"; sourceTree = "<group>"; };
-		CBA9FB1D2A3A000E00148F16 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		CBAB9B412ABDDD62000D929A /* MovieRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRepository.swift; sourceTree = "<group>"; };
+		CBAB9B432ABDDDBD000D929A /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		CBCA7A552AA0BC19002DC45E /* ReviewListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListViewModel.swift; sourceTree = "<group>"; };
 		CBCA7A572AA0E8BC002DC45E /* ReviewListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListCell.swift; sourceTree = "<group>"; };
 		CBCEEED62A0A85E400CF7186 /* FilmFolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilmFolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -550,6 +552,7 @@
 				CB962A3F2A9CC2CB003822F1 /* ReviewRepository.swift */,
 				CB4060E12A9F8B2B005C2A43 /* SaveReviewRepository.swift */,
 				CB9E73402A9E58DB00F5675C /* LoadReviewRepository.swift */,
+				CBAB9B412ABDDD62000D929A /* MovieRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -583,7 +586,7 @@
 			isa = PBXGroup;
 			children = (
 				CB4060E32A9F96D2005C2A43 /* DateFormat.swift */,
-				CBA9FB1D2A3A000E00148F16 /* API.swift */,
+				CBAB9B432ABDDDBD000D929A /* API.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -837,6 +840,7 @@
 				CB962A3D2A9CBD25003822F1 /* ReviewEntity+Mapping.swift in Sources */,
 				CB6AA9392A505DB4001D5867 /* ImageStorage.swift in Sources */,
 				CB3FA30B2A6061A5005ADCF0 /* MovieDetailView.swift in Sources */,
+				CBAB9B422ABDDD62000D929A /* MovieRepository.swift in Sources */,
 				CB3FA2FF2A602165005ADCF0 /* PagerTabBarController.swift in Sources */,
 				CB3719BD2A338BCA009D5EA2 /* MovieHomeViewModel.swift in Sources */,
 				CB3719BA2A336EAC009D5EA2 /* NetworkManager.swift in Sources */,
@@ -857,7 +861,6 @@
 				CB4DA0842A57193400C6FA11 /* Series.swift in Sources */,
 				CBCA7A562AA0BC19002DC45E /* ReviewListViewModel.swift in Sources */,
 				CB6AA9332A502A22001D5867 /* TitleView.swift in Sources */,
-				CBA9FB1E2A3A000E00148F16 /* API.swift in Sources */,
 				CB962A402A9CC2CB003822F1 /* ReviewRepository.swift in Sources */,
 				CB2F64F42A5424E80007854D /* Extension+UIButton.Configuration.swift in Sources */,
 				CB0DD7732A37439C003116CE /* EndpointCollection.swift in Sources */,
@@ -869,6 +872,7 @@
 				CB2D4C472A5DBA8E007B8C39 /* RootTabBarController.swift in Sources */,
 				CB36559A2A52FAA900C2ACEF /* HomeTabViewController.swift in Sources */,
 				CB83E84F2A697A10004BE8EE /* Review.swift in Sources */,
+				CBAB9B452ABDDE39000D929A /* API.swift in Sources */,
 				CB4060E42A9F96D2005C2A43 /* DateFormat.swift in Sources */,
 				CBCEEEDC2A0A85E400CF7186 /* SceneDelegate.swift in Sources */,
 				CB7A8F602A64579000DCE0C1 /* Extension+String.swift in Sources */,

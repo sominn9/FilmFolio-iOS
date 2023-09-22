@@ -24,14 +24,19 @@ struct SearchViewModel<Item: Decodable> {
     // MARK: Properties
     
     private let networkManager: NetworkManager
+    private let movieRepository: MovieRepository
     private let items = PublishSubject<[Item]>()
     private let disposeBag = DisposeBag()
     
     
     // MARK: Initializing
     
-    init(networkManager: NetworkManager) {
+    init(
+        networkManager: NetworkManager = DefaultNetworkManager.shared,
+        movieRepository: MovieRepository = DefaultMovieRepository()
+    ) {
         self.networkManager = networkManager
+        self.movieRepository = movieRepository
     }
     
     
@@ -41,21 +46,31 @@ struct SearchViewModel<Item: Decodable> {
         
         input.searchText
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
-            .filter {
-                if !$0.isEmpty { return true }
-                items.onNext([])
-                return false
-            }
-            .map {
-                switch Item.self {
-                case is Movie.Type:
-                    return EndpointCollection.searchMovie(query: $0)
-                case is Series.Type:
-                    return EndpointCollection.searchSeries(query: $0)
-                default:
-                    fatalError("Unhandled Item type!")
+            .subscribe(onNext: {
+                if $0.isEmpty {
+                    items.onNext([])
                 }
-            }
+            })
+            .disposed(by: disposeBag)
+        
+        input.searchText
+            .debounce(.seconds(1), scheduler: MainScheduler.instance)
+            .filter { _ in Item.self == Movie.self }
+            .filter { !$0.isEmpty }
+            .flatMap { movieRepository.search(query: $0, page: 1)}
+            .catchAndReturn([])
+            .subscribe(onNext: { result in
+                if let result = result as? [Item] {
+                    items.onNext(result)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        input.searchText
+            .debounce(.seconds(1), scheduler: MainScheduler.instance)
+            .filter { _ in Item.self == Series.self }
+            .filter { !$0.isEmpty }
+            .map { EndpointCollection.searchSeries(query: $0) }
             .flatMap { networkManager.request($0) }
             .map { (r: TMDBResponse<Item>) in r.results }
             .catchAndReturn([])

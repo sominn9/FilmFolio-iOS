@@ -26,7 +26,7 @@ struct MovieDetailViewModel {
     // MARK: Properties
     
     private let id: Int
-    private let networkManager: NetworkManager
+    private let movieRepository: MovieRepository
     private let loadReviewRepository: LoadReviewRepository
     private let disposeBag = DisposeBag()
     
@@ -35,11 +35,11 @@ struct MovieDetailViewModel {
     
     init(
         id: Int,
-        networkManager: NetworkManager = DefaultNetworkManager.shared,
+        movieRepository: MovieRepository = DefaultMovieRepository(),
         loadReviewRepository: LoadReviewRepository = DefaultLoadReviewRepository()
     ) {
         self.id = id
-        self.networkManager = networkManager
+        self.movieRepository = movieRepository
         self.loadReviewRepository = loadReviewRepository
     }
     
@@ -51,8 +51,7 @@ struct MovieDetailViewModel {
         let loadedReview = PublishSubject<Review>()
         
         input.fetchMovieDetail
-            .map { EndpointCollection.movieDetail(id: id) }
-            .flatMap { networkManager.request($0) }
+            .flatMap { movieRepository.detail(id) }
             .catchAndReturn(MovieDetail.default())
             .bind(to: movieDetail)
             .disposed(by: disposeBag)

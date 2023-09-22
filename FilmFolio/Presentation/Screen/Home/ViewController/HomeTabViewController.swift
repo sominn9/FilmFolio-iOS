@@ -58,9 +58,10 @@ final class HomeTabViewController: BaseViewController {
     private func changeChildView(_ media: Media) {
         switch media {
         case .movie:
-            let view = MovieHomeView()
-            let viewModel = MovieHomeViewModel(networkManager: DefaultNetworkManager.shared)
-            let viewController = MovieHomeViewController(view: view, viewModel: viewModel)
+            let viewController = MovieHomeViewController(
+                view: MovieHomeView(),
+                viewModel: MovieHomeViewModel()
+            )
             addChildView(viewController)
         case .series:
             let view = SeriesHomeView()
