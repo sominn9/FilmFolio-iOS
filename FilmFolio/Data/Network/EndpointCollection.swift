@@ -47,6 +47,15 @@ struct EndpointCollection {
         )
     }
     
+    static func similarMovies(id: Int) -> Endpoint {
+        return Endpoint(
+            method: .GET,
+            urlString: "https://api.themoviedb.org/3/movie/\(id)/similar",
+            header: ["Authorization": "Bearer \(API.accessToken)"],
+            query: ["language": "ko"]
+        )
+    }
+    
     // MARK: Series
     
     static func trendingSeries() -> Endpoint {

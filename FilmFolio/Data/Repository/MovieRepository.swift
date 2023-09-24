@@ -14,6 +14,7 @@ protocol MovieRepository {
     func topRated() -> Observable<[Movie]>
     func upcoming() -> Observable<[Upcoming]>
     func detail(_ id: Int) -> Observable<MovieDetail>
+    func similar(_ id: Int) -> Observable<[Movie]>
     func search(query: String, page: Int) -> Observable<[Movie]>
 }
 
@@ -62,6 +63,12 @@ struct DefaultMovieRepository: MovieRepository {
     func detail(_ id: Int) -> Observable<MovieDetail> {
         let endpoint = EndpointCollection.movieDetail(id: id)
         return networkManager.request(endpoint)
+    }
+    
+    func similar(_ id: Int) -> Observable<[Movie]> {
+        let endpoint = EndpointCollection.similarMovies(id: id)
+        return networkManager.request(endpoint)
+            .map { (r: TMDBResponse) in r.results }
     }
     
     func search(query: String, page: Int) -> Observable<[Movie]> {
