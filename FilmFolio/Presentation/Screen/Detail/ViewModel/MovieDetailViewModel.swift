@@ -19,6 +19,7 @@ struct MovieDetailViewModel {
     
     struct Output {
         let movieDetail: Observable<MovieDetail>
+        let similarMovies: Observable<[Movie]>
         let loadedReview: Observable<Review>
     }
     
@@ -48,12 +49,19 @@ struct MovieDetailViewModel {
     
     func transform(_ input: Input) -> Output {
         let movieDetail = BehaviorSubject<MovieDetail>(value: .default())
+        let similarMovies = PublishSubject<[Movie]>()
         let loadedReview = PublishSubject<Review>()
         
         input.fetchMovieDetail
             .flatMap { movieRepository.detail(id) }
             .catchAndReturn(MovieDetail.default())
             .bind(to: movieDetail)
+            .disposed(by: disposeBag)
+        
+        input.fetchMovieDetail
+            .flatMap { movieRepository.similar(id) }
+            .catchAndReturn([])
+            .bind(to: similarMovies)
             .disposed(by: disposeBag)
         
         input.reviewButtonPressed
@@ -69,6 +77,7 @@ struct MovieDetailViewModel {
         
         return Output(
             movieDetail: movieDetail,
+            similarMovies: similarMovies,
             loadedReview: loadedReview
         )
     }

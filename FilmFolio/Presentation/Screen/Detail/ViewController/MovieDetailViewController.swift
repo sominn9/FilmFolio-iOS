@@ -12,11 +12,22 @@ import UIKit
 
 final class MovieDetailViewController: BaseViewController {
     
+    enum Item: Hashable {
+        case similar(Movie)
+        // case video([Video])
+    }
+    
+    struct Section: Hashable {
+        let title: String?
+    }
+    
+    
     // MARK: Properties
     
     private let disposeBag = DisposeBag()
     private let movieDetailView: MovieDetailView
     private let movieDetailViewModel: MovieDetailViewModel
+    private var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
     
     
     // MARK: Initializing
@@ -43,18 +54,20 @@ final class MovieDetailViewController: BaseViewController {
     
     // MARK: Methods
     
-    private func configure() {
-        self.view.addSubview(movieDetailView)
-        movieDetailView.snp.makeConstraints {
-            $0.edges.equalTo(self.view.snp.edges)
-        }
-    }
-    
     override func configureNavigationBar() {
         super.configureNavigationBar()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "square.and.pencil")
         )
+    }
+    
+    private func configure() {
+        self.view.addSubview(movieDetailView)
+        movieDetailView.snp.makeConstraints {
+            $0.edges.equalTo(self.view.snp.edges)
+        }
+
+        configureDiffableDataSource()
     }
     
     private func bind() {
@@ -96,6 +109,18 @@ final class MovieDetailViewController: BaseViewController {
             .bind(to: movieDetailView.genreLabel.rx.text)
             .disposed(by: disposeBag)
         
+        output.similarMovies
+            .subscribe(with: self) { owner, movies in
+                DispatchQueue.main.async {
+                    if var snapshot = owner.diffableDataSource?.snapshot() {
+                        let items = movies.map { MovieDetailViewController.Item.similar($0) }
+                        snapshot.appendItems(items, toSection: .init(title: "Similar"))
+                        owner.diffableDataSource?.apply(snapshot)
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
+        
         output.loadedReview
             .observe(on: MainScheduler.instance)
             .subscribe(with: self, onNext: { owner, review in
@@ -105,6 +130,41 @@ final class MovieDetailViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
+    }
+    
+    private func configureDiffableDataSource() {
+        let cell = UICollectionView.CellRegistration<RoundImageCell, Movie> { cell, indexPath, movie in
+            cell.setup(movie.posterPath(size: .small))
+        }
+        
+        let header = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader) {
+            [weak self] titleView, _, indexPath in
+            let section = self?.diffableDataSource?.sectionIdentifier(for: indexPath.row)
+            titleView.titleLabel.text = section?.title
+        }
+        
+        diffableDataSource = UICollectionViewDiffableDataSource(
+            collectionView: movieDetailView.collectionView,
+            cellProvider: { collectionView, indexPath, item in
+                switch item {
+                case let .similar(movie):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: cell,
+                        for: indexPath,
+                        item: movie
+                    )
+                }
+            }
+        )
+        
+        diffableDataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
+            return collectionView.dequeueConfiguredReusableSupplementary(using: header, for: indexPath)
+        }
+        
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        snapshot.appendSections([.init(title: "Similar")])
+        snapshot.appendItems([], toSection: .init(title: "Similar"))
+        diffableDataSource?.apply(snapshot)
     }
     
 }
