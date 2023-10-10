@@ -17,7 +17,7 @@ final class MovieDetailViewController: BaseViewController {
         // case video([Video])
     }
     
-    enum Section: Hashable, CustomStringConvertible {
+    enum Section: Int, Hashable, CustomStringConvertible {
         case similar
         
         var description: String {
@@ -136,6 +136,24 @@ final class MovieDetailViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
+        movieDetailView.collectionView.rx.itemSelected
+            .subscribe(with: self) { owner, indexPath in
+                guard let section = Section(rawValue: indexPath.section),
+                      let model = owner.diffableDataSource?.itemIdentifier(for: indexPath) 
+                else { return }
+                
+                switch section {
+                case .similar:
+                    if case let .similar(movie) = model {
+                        let view = MovieDetailView()
+                        let vm = MovieDetailViewModel(id: movie.id)
+                        let vc = MovieDetailViewController(view: view, viewModel: vm)
+                        owner.navigationController?.pushViewController(vc, animated: true)
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
+        
     }
     
     private func configureDiffableDataSource() {
