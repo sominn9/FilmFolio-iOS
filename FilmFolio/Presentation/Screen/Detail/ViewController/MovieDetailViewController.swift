@@ -17,8 +17,14 @@ final class MovieDetailViewController: BaseViewController {
         // case video([Video])
     }
     
-    struct Section: Hashable {
-        let title: String?
+    enum Section: Hashable, CustomStringConvertible {
+        case similar
+        
+        var description: String {
+            switch self {
+            case .similar: return "Similar"
+            }
+        }
     }
     
     
@@ -114,7 +120,7 @@ final class MovieDetailViewController: BaseViewController {
                 DispatchQueue.main.async {
                     if var snapshot = owner.diffableDataSource?.snapshot() {
                         let items = movies.map { MovieDetailViewController.Item.similar($0) }
-                        snapshot.appendItems(items, toSection: .init(title: "Similar"))
+                        snapshot.appendItems(items, toSection: .similar)
                         owner.diffableDataSource?.apply(snapshot)
                     }
                 }
@@ -140,7 +146,7 @@ final class MovieDetailViewController: BaseViewController {
         let header = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader) {
             [weak self] titleView, _, indexPath in
             let section = self?.diffableDataSource?.sectionIdentifier(for: indexPath.row)
-            titleView.titleLabel.text = section?.title
+            titleView.titleLabel.text = section?.description
         }
         
         diffableDataSource = UICollectionViewDiffableDataSource(
@@ -162,8 +168,8 @@ final class MovieDetailViewController: BaseViewController {
         }
         
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-        snapshot.appendSections([.init(title: "Similar")])
-        snapshot.appendItems([], toSection: .init(title: "Similar"))
+        snapshot.appendSections([.similar])
+        snapshot.appendItems([], toSection: .similar)
         diffableDataSource?.apply(snapshot)
     }
     
