@@ -28,10 +28,13 @@ final class SearchView: UIView {
     }()
     
     lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewCompositionalLayout.grid(
-            spacing: Metric.spacing,
-            inset: Metric.inset
-        )
+        let layout = UICollectionViewCompositionalLayout { _, env in
+            return NSCollectionLayoutSection.grid(
+                environment: env,
+                interCardSpacing: Metric.spacing,
+                horizontalInset: Metric.inset
+            )
+        }
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.keyboardDismissMode = .onDrag
