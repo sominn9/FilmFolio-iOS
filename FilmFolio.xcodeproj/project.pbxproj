@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CB0DD7712A373FF9003116CE /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0DD7702A373FF9003116CE /* Endpoint.swift */; };
 		CB0DD7732A37439C003116CE /* EndpointCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0DD7722A37439C003116CE /* EndpointCollection.swift */; };
+		CB1D1EA32ADD726D00B007CD /* Extension+NSCollectionLayoutSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1D1EA22ADD726D00B007CD /* Extension+NSCollectionLayoutSection.swift */; };
 		CB2D4C472A5DBA8E007B8C39 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2D4C462A5DBA8E007B8C39 /* RootTabBarController.swift */; };
 		CB2D4C492A5DC918007B8C39 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2D4C482A5DC918007B8C39 /* SearchView.swift */; };
 		CB2D4C4B2A5DCB70007B8C39 /* SearchTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2D4C4A2A5DCB70007B8C39 /* SearchTabViewController.swift */; };
@@ -110,6 +111,7 @@
 /* Begin PBXFileReference section */
 		CB0DD7702A373FF9003116CE /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		CB0DD7722A37439C003116CE /* EndpointCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointCollection.swift; sourceTree = "<group>"; };
+		CB1D1EA22ADD726D00B007CD /* Extension+NSCollectionLayoutSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+NSCollectionLayoutSection.swift"; sourceTree = "<group>"; };
 		CB2D4C462A5DBA8E007B8C39 /* RootTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
 		CB2D4C482A5DC918007B8C39 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		CB2D4C4A2A5DCB70007B8C39 /* SearchTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTabViewController.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				CB6AA93B2A50AB3E001D5867 /* Extension+DiffableDataSource.swift */,
 				CB2F64F32A5424E80007854D /* Extension+UIButton.Configuration.swift */,
 				CBA00ED72A0FC42D00976A61 /* Extension+UICollectionViewCompositionalLayout.swift */,
+				CB1D1EA22ADD726D00B007CD /* Extension+NSCollectionLayoutSection.swift */,
 				CB6AA9362A502C86001D5867 /* Extension+NSCollectionLayoutBoundarySupplementaryItem.swift */,
 				CB2D4C4C2A5DCC86007B8C39 /* Extension+UIViewController.swift */,
 			);
@@ -832,6 +835,7 @@
 				CBD40B862A5C534600E0EB3A /* SearchViewController.swift in Sources */,
 				CB962A322A9CB389003822F1 /* CoreDataStorage.swift in Sources */,
 				CB4DA07E2A57053100C6FA11 /* SeriesHomeViewController.swift in Sources */,
+				CB1D1EA32ADD726D00B007CD /* Extension+NSCollectionLayoutSection.swift in Sources */,
 				CB81A1882A8A547600195D37 /* ReviewViewController.swift in Sources */,
 				CB9574562A4F09020091F112 /* NetworkError.swift in Sources */,
 				CBE282F62A658F2F0094FE23 /* Upcoming.swift in Sources */,

@@ -11,14 +11,33 @@ import UIKit
 
 final class MovieHomeViewController: UIViewController {
     
+    enum Section: Int, CustomStringConvertible, CaseIterable {
+        case nowPlay
+        case popular
+        case topRated
+        
+        var description: String {
+            switch self {
+            case .nowPlay:  return ""
+            case .popular:  return String(localized: "Popular Movies")
+            case .topRated: return String(localized: "Top Rated Movies")
+            }
+        }
+    }
+    
+    enum Item: Hashable {
+        case nowPlay(Movie)
+        case popular(Movie)
+        case topRated(Movie)
+    }
+    
+    
     // MARK: Properties
     
     private let disposeBag = DisposeBag()
     private let movieHomeView: MovieHomeView
     private let movieHomeViewModel: MovieHomeViewModel
-    private var nowPlayDataSource: UICollectionViewDiffableDataSource<Int, Movie>?
-    private var popularDataSource: UICollectionViewDiffableDataSource<Int, Movie>?
-    private var topRatedDataSource: UICollectionViewDiffableDataSource<Int, Movie>?
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Item>?
     
     
     // MARK: Initializing
@@ -67,153 +86,135 @@ final class MovieHomeViewController: UIViewController {
         
         output.nowPlaying
             .subscribe(with: self, onNext: { owner, movies in
-                owner.applySnapshot(movies, to: \.nowPlayDataSource)
+                let items = movies.map { Item.nowPlay($0) }
+                owner.applySnapshot(items, .nowPlay)
             })
             .disposed(by: disposeBag)
         
         output.popular
             .map { $0.count > 6 ? Array($0[0..<6]) : $0 }
             .subscribe(with: self, onNext: { owner, movies in
-                owner.applySnapshot(movies, to: \.popularDataSource)
+                let items = movies.map { Item.popular($0) }
+                owner.applySnapshot(items, .popular)
             })
             .disposed(by: disposeBag)
         
         output.topRated
             .map { $0.count > 6 ? Array($0[0..<6]) : $0 }
             .subscribe(with: self, onNext: { owner, movies in
-                owner.applySnapshot(movies, to: \.topRatedDataSource)
+                let items = movies.map { Item.topRated($0) }
+                owner.applySnapshot(items, .topRated)
             })
             .disposed(by: disposeBag)
         
-        movieHomeView.nowPlayCollectionView.rx.itemSelected
+        movieHomeView.collectionView.rx.itemSelected
             .withUnretained(self)
-            .map { $0.nowPlayDataSource?.itemIdentifier(for: $1) }
-            .compactMap { $0?.id }
+            .compactMap { $0.dataSource?.itemIdentifier(for: $1) }
             .subscribe(with: self, onNext: {
-                $0.route(id: $1)
-            })
-            .disposed(by: disposeBag)
-        
-        movieHomeView.popularCollectionView.rx.itemSelected
-            .withUnretained(self)
-            .map { $0.popularDataSource?.itemIdentifier(for: $1) }
-            .compactMap { $0?.id }
-            .subscribe(with: self, onNext: {
-                $0.route(id: $1)
-            })
-            .disposed(by: disposeBag)
-        
-        movieHomeView.topRatedCollectionView.rx.itemSelected
-            .withUnretained(self)
-            .map { $0.topRatedDataSource?.itemIdentifier(for: $1) }
-            .compactMap { $0?.id }
-            .subscribe(with: self, onNext: {
-                $0.route(id: $1)
+                var id: Int? = nil
+                
+                switch $1 {
+                case let .nowPlay(movie): id = movie.id
+                case let .popular(movie): id = movie.id
+                case let .topRated(movie): id = movie.id
+                }
+                
+                guard let id else { return }
+                let view = MovieDetailView()
+                let vm = MovieDetailViewModel(id: id)
+                let vc = MovieDetailViewController(view: view, viewModel: vm)
+                $0.navigationController?.pushViewController(vc, animated: true)
             })
             .disposed(by: disposeBag)
         
     }
-    
-    private func route(id: Int) {
-        let movieDetail = MovieDetailViewController(
-            view: MovieDetailView(),
-            viewModel: MovieDetailViewModel(id: id)
-        )
-        self.navigationController?.pushViewController(movieDetail, animated: true)
-    }
-    
+
 }
 
 // MARK: - DiffableDataSource
 
 private extension MovieHomeViewController {
     
-    func applySnapshot(
-        _ movies: [Movie],
-        to keyPath: ReferenceWritableKeyPath<MovieHomeViewController, UICollectionViewDiffableDataSource<Int, Movie>?>
-    ) {
+    func applySnapshot(_ items: [Item], _ section: Section) {
         DispatchQueue.main.async {
-            var snapshot = NSDiffableDataSourceSnapshot<Int, Movie>()
-            snapshot.appendSections([0])
-            snapshot.appendItems(movies)
-            self[keyPath: keyPath]?.apply(snapshot)
+            if var snapshot = self.dataSource?.snapshot() {
+                snapshot.appendItems(items, toSection: section)
+                self.dataSource?.applySnapshotUsingReloadData(snapshot)
+            }
         }
     }
     
     func configureDataSource() {
-        
-        let bigImageCell = UICollectionView.CellRegistration<RoundImageCell, Movie> {
-            $0.setup($2.posterPath(size: .big))
+        let bigPoster = UICollectionView.CellRegistration<RoundImageCell, Item> { cell, _, item in
+            if case let .nowPlay(movie) = item {
+                cell.setup(movie.posterPath(size: .big))
+            }
         }
         
-        let smallImageCell = UICollectionView.CellRegistration<RoundImageCell, Movie> {
-            $0.setup($2.posterPath(size: .small))
+        let smallPoster = UICollectionView.CellRegistration<RoundImageCell, Item> { cell, _, item in
+            if case let .popular(movie) = item {
+                cell.setup(movie.posterPath(size: .small))
+            } else if case let .topRated(movie) = item {
+                cell.setup(movie.posterPath(size: .small))
+            }
         }
         
-        nowPlayDataSource = UICollectionViewDiffableDataSource<Int, Movie>(
-            collectionView: movieHomeView.nowPlayCollectionView,
+        dataSource = UICollectionViewDiffableDataSource<Section, Item>(
+            collectionView: movieHomeView.collectionView,
             cellProvider: { collectionView, indexPath, item in
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: bigImageCell,
-                    for: indexPath,
-                    item: item
-                )
+                if indexPath.section == 0 {
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: bigPoster,
+                        for: indexPath,
+                        item: item
+                    )
+                } else {
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: smallPoster,
+                        for: indexPath,
+                        item: item
+                    )
+                }
             }
         )
         
-        popularDataSource = UICollectionViewDiffableDataSource<Int, Movie>(
-            collectionView: movieHomeView.popularCollectionView,
-            cellProvider: { collectionView, indexPath, item in
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: smallImageCell,
-                    for: indexPath,
-                    item: item
-                )
-            }
-        )
-        
-        topRatedDataSource = UICollectionViewDiffableDataSource<Int, Movie>(
-            collectionView: movieHomeView.topRatedCollectionView,
-            cellProvider: { collectionView, indexPath, item in
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: smallImageCell,
-                    for: indexPath,
-                    item: item
-                )
-            }
-        )
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        snapshot.appendSections(Section.allCases)
+        self.dataSource?.apply(snapshot)
     }
     
     func configureSupplementaryView() {
-        
         let popular = UICollectionView.SupplementaryRegistration<TitleView>.registration(
             elementKind: ElementKind.sectionHeader,
-            title: String(localized: "Popular Movies")
+            title: Section.popular.description
+        )
+        
+        let topRated = UICollectionView.SupplementaryRegistration<TitleView>.registration(
+            elementKind: ElementKind.sectionHeader,
+            title: Section.topRated.description
         )
 
-        popularDataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in
-            if case ElementKind.sectionHeader = elementKind {
+        dataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in
+            guard case ElementKind.sectionHeader = elementKind,
+                  let section = Section(rawValue: indexPath.section)
+            else {
+                fatalError()
+            }
+            
+            switch section {
+            case .popular:
                 return collectionView.dequeueConfiguredReusableSupplementary(
                     using: popular,
                     for: indexPath
                 )
-            }
-            fatalError("\(elementKind) not handled!!")
-        }
-        
-        let topRated = UICollectionView.SupplementaryRegistration<TitleView>.registration(
-            elementKind: ElementKind.sectionHeader,
-            title: String(localized: "Top Rated Movies")
-        )
-        
-        topRatedDataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in
-            if case ElementKind.sectionHeader = elementKind {
+            case .topRated:
                 return collectionView.dequeueConfiguredReusableSupplementary(
                     using: topRated,
                     for: indexPath
                 )
+            default:
+                return nil
             }
-            fatalError("\(elementKind) not handled!!")
         }
     }
     
