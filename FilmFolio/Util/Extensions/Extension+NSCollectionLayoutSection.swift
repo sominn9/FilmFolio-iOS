@@ -54,6 +54,7 @@ extension NSCollectionLayoutSection {
         return section
     }
     
+    
     /*
        +--------+ +--------+ +--------+
        |        | |        | |        |
@@ -104,6 +105,29 @@ extension NSCollectionLayoutSection {
         section.interGroupSpacing = interCardSpacing
         section.boundarySupplementaryItems = boundarySupplementaryItems
         section.contentInsets = .init(top: 0, leading: horizontalInset, bottom: 0, trailing: horizontalInset)
+        return section
+    }
+    
+    
+    static func list(spacing: CGFloat = 8.0, estimatedHeight: CGFloat) -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem(
+            layoutSize: .init(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .estimated(estimatedHeight)
+            )
+        )
+        
+        let group = NSCollectionLayoutGroup.vertical(
+            layoutSize: .init(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .estimated(estimatedHeight)
+            ),
+            repeatingSubitem: item,
+            count: 1
+        )
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = spacing
         return section
     }
     

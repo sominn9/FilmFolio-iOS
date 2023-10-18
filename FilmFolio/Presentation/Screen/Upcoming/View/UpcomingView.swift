@@ -13,7 +13,7 @@ final class UpcomingView: UIView {
     // MARK: Properties
     
     lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewCompositionalLayout.list(estimatedHeight: 400)
+        let layout = UICollectionViewCompositionalLayout(section: .list(estimatedHeight: 400))
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
         return collectionView

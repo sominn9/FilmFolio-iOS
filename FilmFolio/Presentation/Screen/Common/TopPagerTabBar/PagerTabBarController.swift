@@ -35,7 +35,7 @@ final class PagerTabBarController: UIViewController {
     
     private lazy var tabBarCollectionView: UICollectionView = {
         let tabBarItemWidth = configuration.tabBarItemWidth
-        let layout = UICollectionViewCompositionalLayout.tabBarLayout(itemWidth: tabBarItemWidth)
+        let layout = tabBarLayout(itemWidth: tabBarItemWidth)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.decelerationRate = .fast
@@ -177,7 +177,7 @@ final class PagerTabBarController: UIViewController {
     private func updateConfiguration() {
         // Update the collection view layout.
         let newItemWidth = configuration.tabBarItemWidth
-        let newLayout = UICollectionViewCompositionalLayout.tabBarLayout(itemWidth: newItemWidth)
+        let newLayout = tabBarLayout(itemWidth: newItemWidth)
         tabBarCollectionView.collectionViewLayout = newLayout
         
         // Update the collection view height.
@@ -241,6 +241,39 @@ extension PagerTabBarController: UICollectionViewDelegate {
         let roundedIndex = Int(round(index))
         let indexPath = IndexPath(item: roundedIndex, section: 0)
         collectionView(tabBarCollectionView, didSelectItemAt: indexPath)
+    }
+    
+}
+
+// MARK: - UICollectionViewCompositionalLayout
+
+private extension PagerTabBarController {
+    
+    func tabBarLayout(itemWidth: CGFloat) -> UICollectionViewCompositionalLayout {
+        
+        let layout = UICollectionViewCompositionalLayout { _, _ in
+            
+            let item = NSCollectionLayoutItem(
+                layoutSize: .init(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .fractionalHeight(1))
+            )
+            
+            let group = NSCollectionLayoutGroup.horizontal(
+                layoutSize: .init(
+                    widthDimension: .absolute(itemWidth),
+                    heightDimension: .fractionalHeight(1)),
+                subitems: [item]
+            )
+            
+            let section = NSCollectionLayoutSection(group: group)
+            return section
+        }
+        
+        let config = layout.configuration
+        config.scrollDirection = .horizontal
+        layout.configuration = config
+        return layout
     }
     
 }

@@ -15,7 +15,7 @@ final class ReviewListViewController: BaseViewController {
     // MARK: Properties
     
     private let collectionView: UICollectionView = {
-        let layout = UICollectionViewCompositionalLayout.list(spacing: 10, estimatedHeight: 100)
+        let layout = UICollectionViewCompositionalLayout(section: .list(spacing: 10, estimatedHeight: 100))
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
