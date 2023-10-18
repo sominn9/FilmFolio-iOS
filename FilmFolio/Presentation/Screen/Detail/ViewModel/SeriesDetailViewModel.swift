@@ -19,6 +19,7 @@ struct SeriesDetailViewModel {
     
     struct Output {
         let seriesDetail: Observable<SeriesDetail>
+        let similarSeries: Observable<[Series]>
         let loadedReview: Observable<Review>
     }
     
@@ -48,12 +49,19 @@ struct SeriesDetailViewModel {
     
     func transform(_ input: Input) -> Output {
         let seriesDetail = BehaviorSubject<SeriesDetail>(value: .default())
+        let similarSeries = PublishSubject<[Series]>()
         let loadedReview = PublishSubject<Review>()
         
         input.fetchSeriesDetail
             .flatMap { seriesRepository.detail(id) }
             .catchAndReturn(SeriesDetail.default())
             .bind(to: seriesDetail)
+            .disposed(by: disposeBag)
+        
+        input.fetchSeriesDetail
+            .flatMap { seriesRepository.similar(id) }
+            .catchAndReturn([])
+            .bind(to: similarSeries)
             .disposed(by: disposeBag)
         
         input.reviewButtonPressed
@@ -69,6 +77,7 @@ struct SeriesDetailViewModel {
         
         return Output(
             seriesDetail: seriesDetail,
+            similarSeries: similarSeries,
             loadedReview: loadedReview
         )
     }

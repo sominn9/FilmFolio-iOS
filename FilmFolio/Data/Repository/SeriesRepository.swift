@@ -14,6 +14,7 @@ protocol SeriesRepository {
     func topRated() -> Observable<[Series]>
     func upcoming() -> Observable<[Upcoming]>
     func detail(_ id: Int) -> Observable<SeriesDetail>
+    func similar(_ id: Int) -> Observable<[Series]>
     func search(query: String, page: Int) -> Observable<[Series]>
 }
 
@@ -67,6 +68,12 @@ struct DefaultSeriesRepository: SeriesRepository {
     func detail(_ id: Int) -> Observable<SeriesDetail> {
         let endpoint = EndpointCollection.seriesDetail(id: id)
         return networkManager.request(endpoint)
+    }
+    
+    func similar(_ id: Int) -> Observable<[Series]> {
+        let endpoint = EndpointCollection.similarSeries(id: id)
+        return networkManager.request(endpoint)
+            .map { (r: TMDBResponse) in r.results }
     }
     
     func search(query: String, page: Int) -> Observable<[Series]> {

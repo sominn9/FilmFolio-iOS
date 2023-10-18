@@ -9,7 +9,7 @@ import Foundation
 
 struct EndpointCollection {
     
-    // MARK: Movie
+    // MARK: - Movie
     
     static func nowPlayingMovies() -> Endpoint {
         return Endpoint(
@@ -56,7 +56,7 @@ struct EndpointCollection {
         )
     }
     
-    // MARK: Series
+    // MARK: - Series
     
     static func trendingSeries() -> Endpoint {
         return Endpoint(
@@ -101,7 +101,16 @@ struct EndpointCollection {
         )
     }
     
-    // MARK: Search
+    static func similarSeries(id: Int) -> Endpoint {
+        return Endpoint(
+            method: .GET,
+            urlString: "https://api.themoviedb.org/3/tv/\(id)/similar",
+            header: ["Authorization": "Bearer \(API.accessToken)"],
+            query: ["language": "ko"]
+        )
+    }
+    
+    // MARK: - Search
     
     static func searchMovie(query: String, page: Int = 1) -> Endpoint {
         return Endpoint(
@@ -129,7 +138,7 @@ struct EndpointCollection {
         )
     }
     
-    // MARK: Upcoming
+    // MARK: - Upcoming
     
     static func upcomingMovie(date: String, page: Int = 1) -> Endpoint {
         return Endpoint(

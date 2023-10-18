@@ -13,8 +13,13 @@ final class SeriesDetailView: UIScrollView {
     // MARK: Constants
     
     struct Metric {
-        static let spacing: CGFloat = 16.0
-        static let inset: CGFloat = 8.0
+        static let stackViewInset: CGFloat = 8.0
+        static let stackViewSpacing: CGFloat = 16.0
+        static let componentSpacing: CGFloat = 20.0
+        static let sectionHeaderHeight: CGFloat = 60.0
+        static let collectionViewHeight: CGFloat = 250.0
+        static let collectionViewCellInset: CGFloat = 8.0
+        static let collectionViewCellSpacing: CGFloat = 8.0
     }
     
     
@@ -60,6 +65,14 @@ final class SeriesDetailView: UIScrollView {
         return label
     }()
     
+    lazy var collectionView: UICollectionView = {
+        let layout = collectionViewLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        return collectionView
+    }()
+    
     
     // MARK: Initializing
     
@@ -92,11 +105,10 @@ final class SeriesDetailView: UIScrollView {
     }
     
     private func configure() {
-        let stackView = createStackView()
-        configureContentView(stackView)
+        configureContentView()
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
-        contentInset.bottom = Metric.spacing
+        contentInset.bottom = Metric.stackViewSpacing
     }
     
     private func createStackView() -> UIStackView {
@@ -111,12 +123,13 @@ final class SeriesDetailView: UIScrollView {
         )
         
         stackView.axis = .vertical
-        stackView.spacing = Metric.spacing
+        stackView.spacing = Metric.stackViewSpacing
         return stackView
     }
     
-    private func configureContentView(_ stackView: UIStackView) {
+    private func configureContentView() {
         let contentView = UIView()
+        
         contentView.addSubview(imageView)
         imageView.snp.makeConstraints { make in
             make.left.equalTo(contentView.snp.left)
@@ -124,18 +137,88 @@ final class SeriesDetailView: UIScrollView {
             make.top.equalTo(contentView.snp.top)
         }
         
+        let stackView = createStackView()
         contentView.addSubview(stackView)
         stackView.snp.makeConstraints { make in
-            make.left.equalTo(contentView.snp.left).inset(Metric.inset)
-            make.right.equalTo(contentView.snp.right).inset(Metric.inset)
-            make.top.equalTo(imageView.snp.bottom).offset(Metric.spacing)
+            make.left.equalTo(contentView.snp.left).inset(Metric.stackViewInset)
+            make.right.equalTo(contentView.snp.right).inset(Metric.stackViewInset)
+            make.top.equalTo(imageView.snp.bottom).offset(Metric.componentSpacing)
+        }
+        
+        contentView.addSubview(collectionView)
+        collectionView.snp.makeConstraints { make in
+            make.left.equalTo(contentView.snp.left)
+            make.right.equalTo(contentView.snp.right)
+            make.top.equalTo(stackView.snp.bottom).offset(Metric.componentSpacing)
             make.bottom.equalTo(contentView.snp.bottom)
+            make.height.equalTo(Metric.collectionViewHeight)
         }
         
         self.addSubview(contentView)
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(self.snp.edges)
             make.width.equalTo(self.snp.width)
+        }
+    }
+    
+}
+
+// MARK: - Private Extension
+
+private extension SeriesDetailView {
+    
+    func collectionViewLayout() -> UICollectionViewCompositionalLayout {
+        
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: .init(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .absolute(Metric.sectionHeaderHeight)
+            ),
+            elementKind: ElementKind.sectionHeader,
+            alignment: .top
+        )
+        
+        return UICollectionViewCompositionalLayout { index, env in
+            
+            let containerWidth = env.container.effectiveContentSize.width
+            var cellWidth = (containerWidth
+                             - Metric.collectionViewCellInset
+                             - 3 * Metric.collectionViewCellSpacing) / 3.2
+            cellWidth = round(cellWidth)
+            
+            switch index {
+            case 0:
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .fractionalHeight(1)
+                    )
+                )
+                
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .absolute(cellWidth),
+                        heightDimension: .absolute(cellWidth * 3.0 / 2.0)
+                    ),
+                    subitems: [item]
+                )
+                
+                let section = NSCollectionLayoutSection(group: group)
+                section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+                section.boundarySupplementaryItems = [header]
+                section.interGroupSpacing = Metric.collectionViewCellSpacing
+                section.contentInsets = .init(
+                    top: 0,
+                    leading: Metric.collectionViewCellInset,
+                    bottom: 0,
+                    trailing: Metric.collectionViewCellInset
+                )
+                
+                return section
+                
+            default:
+                fatalError()
+            }
         }
     }
     

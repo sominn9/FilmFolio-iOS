@@ -12,11 +12,27 @@ import UIKit
 
 final class SeriesDetailViewController: BaseViewController {
     
+    enum Section: Int, Hashable, CustomStringConvertible {
+        case similar
+        
+        var description: String {
+            switch self {
+            case .similar: return "Similar"
+            }
+        }
+    }
+    
+    enum Item: Hashable {
+        case similar(Series)
+    }
+    
+    
     // MARK: Properties
     
     private let disposeBag = DisposeBag()
     private let seriesDetailView: SeriesDetailView
     private let seriesDetailViewModel: SeriesDetailViewModel
+    private var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
     
     
     // MARK: Initializing
@@ -55,6 +71,8 @@ final class SeriesDetailViewController: BaseViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "square.and.pencil")
         )
+        
+        configureDiffableDataSource()
     }
     
     private func bind() {
@@ -91,6 +109,18 @@ final class SeriesDetailViewController: BaseViewController {
             .bind(to: seriesDetailView.firstAirDateLabel.rx.attributedText)
             .disposed(by: disposeBag)
         
+        output.similarSeries
+            .subscribe(with: self) { owner, series in
+                DispatchQueue.main.async {
+                    if var snapshot = owner.diffableDataSource?.snapshot() {
+                        let items = series.map { SeriesDetailViewController.Item.similar($0) }
+                        snapshot.appendItems(items, toSection: .similar)
+                        owner.diffableDataSource?.apply(snapshot)
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
+        
         output.seriesDetail
             .map { "\(String(localized: "Episodes"))  \($0.numberOfEpisodes)"}
             .map { $0.withBold(target: String(localized: "Episodes"), UIColor.darkGray) }
@@ -110,7 +140,60 @@ final class SeriesDetailViewController: BaseViewController {
                 owner.navigationController?.pushViewController(vc, animated: true)
             })
             .disposed(by: disposeBag)
-
+        
+        seriesDetailView.collectionView.rx.itemSelected
+            .subscribe(with: self) { owner, indexPath in
+                guard let section = Section(rawValue: indexPath.section),
+                      let model = owner.diffableDataSource?.itemIdentifier(for: indexPath)
+                else { return }
+                
+                switch section {
+                case .similar:
+                    if case let .similar(series) = model {
+                        let view = SeriesDetailView()
+                        let vm = SeriesDetailViewModel(id: series.id)
+                        let vc = SeriesDetailViewController(view: view, viewModel: vm)
+                        owner.navigationController?.pushViewController(vc, animated: true)
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
+        
+    }
+    
+    private func configureDiffableDataSource() {
+        let cell = UICollectionView.CellRegistration<RoundImageCell, Series> { cell, indexPath, series in
+            cell.setup(series.posterPath(size: .small))
+        }
+        
+        let header = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader) {
+            [weak self] titleView, _, indexPath in
+            let section = self?.diffableDataSource?.sectionIdentifier(for: indexPath.row)
+            titleView.titleLabel.text = section?.description
+        }
+        
+        diffableDataSource = UICollectionViewDiffableDataSource(
+            collectionView: seriesDetailView.collectionView,
+            cellProvider: { collectionView, indexPath, item in
+                switch item {
+                case let .similar(series):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: cell,
+                        for: indexPath,
+                        item: series
+                    )
+                }
+            }
+        )
+        
+        diffableDataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
+            return collectionView.dequeueConfiguredReusableSupplementary(using: header, for: indexPath)
+        }
+        
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        snapshot.appendSections([.similar])
+        snapshot.appendItems([], toSection: .similar)
+        diffableDataSource?.apply(snapshot)
     }
     
 }
