@@ -145,13 +145,13 @@ private extension MovieHomeViewController {
     }
     
     func configureDataSource() {
-        let bigPoster = UICollectionView.CellRegistration<RoundImageCell, Item> { cell, _, item in
+        let cellType1 = UICollectionView.CellRegistration<RoundImageCell, Item> { cell, _, item in
             if case let .nowPlay(movie) = item {
                 cell.setup(movie.posterPath(size: .big))
             }
         }
         
-        let smallPoster = UICollectionView.CellRegistration<RoundImageCell, Item> { cell, _, item in
+        let cellType2 = UICollectionView.CellRegistration<RoundImageCell, Item> { cell, _, item in
             if case let .popular(movie) = item {
                 cell.setup(movie.posterPath(size: .small))
             } else if case let .topRated(movie) = item {
@@ -164,13 +164,13 @@ private extension MovieHomeViewController {
             cellProvider: { collectionView, indexPath, item in
                 if indexPath.section == 0 {
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: bigPoster,
+                        using: cellType1,
                         for: indexPath,
                         item: item
                     )
                 } else {
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: smallPoster,
+                        using: cellType2,
                         for: indexPath,
                         item: item
                     )
@@ -184,37 +184,35 @@ private extension MovieHomeViewController {
     }
     
     func configureSupplementaryView() {
-        let popular = UICollectionView.SupplementaryRegistration<TitleView>.registration(
+        let popularSectionHeader = UICollectionView.SupplementaryRegistration<TitleView>.registration(
             elementKind: ElementKind.sectionHeader,
             title: Section.popular.description
         )
         
-        let topRated = UICollectionView.SupplementaryRegistration<TitleView>.registration(
+        let topRatedSectionHeader = UICollectionView.SupplementaryRegistration<TitleView>.registration(
             elementKind: ElementKind.sectionHeader,
             title: Section.topRated.description
         )
-
+        
         dataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in
-            guard case ElementKind.sectionHeader = elementKind,
-                  let section = Section(rawValue: indexPath.section)
-            else {
-                fatalError()
+            if let section = Section(rawValue: indexPath.section) {
+                switch section {
+                case .popular:
+                    return collectionView.dequeueConfiguredReusableSupplementary(
+                        using: popularSectionHeader,
+                        for: indexPath
+                    )
+                case .topRated:
+                    return collectionView.dequeueConfiguredReusableSupplementary(
+                        using: topRatedSectionHeader,
+                        for: indexPath
+                    )
+                default:
+                    break
+                }
             }
             
-            switch section {
-            case .popular:
-                return collectionView.dequeueConfiguredReusableSupplementary(
-                    using: popular,
-                    for: indexPath
-                )
-            case .topRated:
-                return collectionView.dequeueConfiguredReusableSupplementary(
-                    using: topRated,
-                    for: indexPath
-                )
-            default:
-                return nil
-            }
+            return nil
         }
     }
     

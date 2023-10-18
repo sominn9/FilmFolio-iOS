@@ -12,14 +12,33 @@ import UIKit
 
 final class SeriesHomeViewController: UIViewController {
     
+    enum Section: Int, CustomStringConvertible, CaseIterable {
+        case trending
+        case onTheAir
+        case topRated
+        
+        var description: String {
+            switch self {
+            case .trending:  return ""
+            case .onTheAir:  return String(localized: "On The Air Series")
+            case .topRated:  return String(localized: "Top Rated Series")
+            }
+        }
+    }
+    
+    enum Item: Hashable {
+        case trending(Series)
+        case onTheAir(Series)
+        case topRated(Series)
+    }
+    
+    
     // MARK: Properties
     
     private let disposeBag = DisposeBag()
     private let seriesHomeView: SeriesHomeView
     private let seriesHomeViewModel: SeriesHomeViewModel
-    private var trendingDataSource: UICollectionViewDiffableDataSource<Int, Series>?
-    private var onTheAirDataSource: UICollectionViewDiffableDataSource<Int, Series>?
-    private var topRatedDataSource: UICollectionViewDiffableDataSource<Int, Series>?
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Item>?
     
     
     // MARK: Initializing
@@ -68,59 +87,47 @@ final class SeriesHomeViewController: UIViewController {
         
         output.trending
             .subscribe(with: self, onNext: { owner, series in
-                owner.applySnapshot(series, to: \.trendingDataSource)
+                let items = series.map { Item.trending($0) }
+                owner.applySnapshot(items, .trending)
             })
             .disposed(by: disposeBag)
         
         output.onTheAir
             .map { $0.count > 6 ? Array($0[0..<6]) : $0 }
             .subscribe(with: self, onNext: { owner, series in
-                owner.applySnapshot(series, to: \.onTheAirDataSource)
+                let items = series.map { Item.onTheAir($0) }
+                owner.applySnapshot(items, .onTheAir)
             })
             .disposed(by: disposeBag)
         
         output.topRated
             .map { $0.count > 6 ? Array($0[0..<6]) : $0 }
             .subscribe(with: self, onNext: { owner, series in
-                owner.applySnapshot(series, to: \.topRatedDataSource)
+                let items = series.map { Item.topRated($0) }
+                owner.applySnapshot(items, .topRated)
             })
             .disposed(by: disposeBag)
         
-        seriesHomeView.trendingCollectionView.rx.itemSelected
+        seriesHomeView.collectionView.rx.itemSelected
             .withUnretained(self)
-            .compactMap { $0.trendingDataSource?.itemIdentifier(for: $1) }
-            .map { $0.id }
+            .compactMap { $0.dataSource?.itemIdentifier(for: $1) }
             .subscribe(with: self, onNext: {
-                $0.route(id: $1)
+                var id: Int? = nil
+                
+                switch $1 {
+                case let .trending(series): id = series.id
+                case let .onTheAir(series): id = series.id
+                case let .topRated(series): id = series.id
+                }
+                
+                guard let id else { return }
+                let view = SeriesDetailView()
+                let vm = SeriesDetailViewModel(id: id)
+                let vc = SeriesDetailViewController(view: view, viewModel: vm)
+                $0.navigationController?.pushViewController(vc, animated: true)
             })
             .disposed(by: disposeBag)
         
-        seriesHomeView.onTheAirCollectionView.rx.itemSelected
-            .withUnretained(self)
-            .compactMap { $0.onTheAirDataSource?.itemIdentifier(for: $1) }
-            .map { $0.id }
-            .subscribe(with: self, onNext: {
-                $0.route(id: $1)
-            })
-            .disposed(by: disposeBag)
-        
-        seriesHomeView.topRatedCollectionView.rx.itemSelected
-            .withUnretained(self)
-            .compactMap { $0.topRatedDataSource?.itemIdentifier(for: $1) }
-            .map { $0.id }
-            .subscribe(with: self, onNext: {
-                $0.route(id: $1)
-            })
-            .disposed(by: disposeBag)
-        
-    }
-    
-    private func route(id: Int) {
-        let seriesDetail = SeriesDetailViewController(
-            view: SeriesDetailView(),
-            viewModel: SeriesDetailViewModel(id: id)
-        )
-        self.navigationController?.pushViewController(seriesDetail, animated: true)
     }
     
 }
@@ -129,92 +136,84 @@ final class SeriesHomeViewController: UIViewController {
 
 private extension SeriesHomeViewController {
     
-    func applySnapshot(
-        _ series: [Series],
-        to keyPath: ReferenceWritableKeyPath<SeriesHomeViewController, UICollectionViewDiffableDataSource<Int, Series>?>
-    ) {
+    func applySnapshot(_ items: [Item], _ section: Section) {
         DispatchQueue.main.async {
-            var snapshot = NSDiffableDataSourceSnapshot<Int, Series>()
-            snapshot.appendSections([0])
-            snapshot.appendItems(series)
-            self[keyPath: keyPath]?.apply(snapshot)
+            if var snapshot = self.dataSource?.snapshot() {
+                snapshot.appendItems(items, toSection: section)
+                self.dataSource?.applySnapshotUsingReloadData(snapshot)
+            }
         }
     }
     
     func configureDataSource() {
-        
-        let bigImageCell = UICollectionView.CellRegistration<RoundImageCell, Series> {
-            $0.setup($2.posterPath(size: .big))
+        let cellType1 = UICollectionView.CellRegistration<RoundImageCell, Item> { cell, _, item in
+            if case let .trending(series) = item {
+                cell.setup(series.posterPath(size: .big))
+            }
         }
         
-        let smallImageCell = UICollectionView.CellRegistration<RoundImageCell, Series> {
-            $0.setup($2.posterPath(size: .small))
+        let cellType2 = UICollectionView.CellRegistration<RoundImageCell, Item> { cell, _, item in
+            if case let .onTheAir(series) = item {
+                cell.setup(series.posterPath(size: .small))
+            } else if case let .topRated(series) = item {
+                cell.setup(series.posterPath(size: .small))
+            }
         }
         
-        trendingDataSource = UICollectionViewDiffableDataSource<Int, Series>(
-            collectionView: seriesHomeView.trendingCollectionView,
-            cellProvider:{ collectionView, indexPath, item in
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: bigImageCell,
-                    for: indexPath,
-                    item: item
-                )
+        dataSource = UICollectionViewDiffableDataSource<Section, Item>(
+            collectionView: seriesHomeView.collectionView,
+            cellProvider: { collectionView, indexPath, item in
+                if indexPath.section == 0 {
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: cellType1,
+                        for: indexPath,
+                        item: item
+                    )
+                } else {
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: cellType2,
+                        for: indexPath,
+                        item: item
+                    )
+                }
             }
         )
         
-        onTheAirDataSource = UICollectionViewDiffableDataSource<Int, Series>(
-            collectionView: seriesHomeView.onTheAirCollectionView,
-            cellProvider: { collectionView, indexPath, item in
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: smallImageCell,
-                    for: indexPath,
-                    item: item
-                )
-            }
-        )
-        
-        topRatedDataSource = UICollectionViewDiffableDataSource<Int, Series>(
-            collectionView: seriesHomeView.topRatedCollectionView,
-            cellProvider: { collectionView, indexPath, item in
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: smallImageCell,
-                    for: indexPath,
-                    item: item
-                )
-            }
-        )
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        snapshot.appendSections(Section.allCases)
+        self.dataSource?.apply(snapshot)
     }
     
     func configureSupplementaryView() {
-        
-        let onTheAir = UICollectionView.SupplementaryRegistration<TitleView>.registration(
+        let onTheAirSectionHeader = UICollectionView.SupplementaryRegistration<TitleView>.registration(
             elementKind: ElementKind.sectionHeader,
-            title: String(localized: "On The Air Series")
-        )
-
-        onTheAirDataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in
-            if case ElementKind.sectionHeader = elementKind {
-                return collectionView.dequeueConfiguredReusableSupplementary(
-                    using: onTheAir,
-                    for: indexPath
-                )
-            }
-            fatalError("\(elementKind) not handled!!")
-        }
-        
-        let topRated = UICollectionView.SupplementaryRegistration<TitleView>.registration(
-            elementKind: ElementKind.sectionHeader,
-            title: String(localized: "Top Rated Series")
+            title: Section.onTheAir.description
         )
         
-        topRatedDataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in
-            if case ElementKind.sectionHeader = elementKind {
-                return collectionView.dequeueConfiguredReusableSupplementary(
-                    using: topRated,
-                    for: indexPath
-                )
+        let topRatedSectionHeader = UICollectionView.SupplementaryRegistration<TitleView>.registration(
+            elementKind: ElementKind.sectionHeader,
+            title: Section.topRated.description
+        )
+        
+        dataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in
+            if let section = Section(rawValue: indexPath.section) {
+                switch section {
+                case .onTheAir:
+                    return collectionView.dequeueConfiguredReusableSupplementary(
+                        using: onTheAirSectionHeader,
+                        for: indexPath
+                    )
+                case .topRated:
+                    return collectionView.dequeueConfiguredReusableSupplementary(
+                        using: topRatedSectionHeader,
+                        for: indexPath
+                    )
+                default:
+                    break
+                }
             }
-            fatalError("\(elementKind) not handled!!")
+            
+            return nil
         }
     }
     

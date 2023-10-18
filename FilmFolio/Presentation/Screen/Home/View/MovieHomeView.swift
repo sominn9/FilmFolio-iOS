@@ -11,7 +11,7 @@ import UIKit
 final class MovieHomeView: UIView {
     
     // MARK: Constants
-
+    
     struct Metric {
         static let interSectionSpacing: CGFloat = 20.0
         static let sectionHeaderHeight: CGFloat = 44.0
@@ -33,7 +33,7 @@ final class MovieHomeView: UIView {
         return collectionView
     }()
     
-
+    
     // MARK: Initializing
     
     override init(frame: CGRect) {
@@ -45,16 +45,15 @@ final class MovieHomeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    // MARK: Methods
+    
     func configure() {
         self.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
             make.edges.equalTo(self.snp.edges)
         }
     }
-    
-}
-
-private extension MovieHomeView {
     
     func collectionViewLayout() -> UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout { [weak self] index, env in
