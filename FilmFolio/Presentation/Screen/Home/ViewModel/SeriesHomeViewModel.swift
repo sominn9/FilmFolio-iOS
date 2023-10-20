@@ -17,9 +17,9 @@ struct SeriesHomeViewModel {
     }
     
     struct Output {
-        let trending: PublishSubject<[Series]>
-        let onTheAir: PublishSubject<[Series]>
-        let topRated: PublishSubject<[Series]>
+        let trending: BehaviorSubject<[Series]>
+        let onTheAir: BehaviorSubject<[Series]>
+        let topRated: BehaviorSubject<[Series]>
     }
     
     
@@ -39,26 +39,32 @@ struct SeriesHomeViewModel {
     // MARK: Methods
     
     func transform(_ input: SeriesHomeViewModel.Input) -> SeriesHomeViewModel.Output {
-        let trending = PublishSubject<[Series]>()
-        let onTheAir = PublishSubject<[Series]>()
-        let topRated = PublishSubject<[Series]>()
+        let trending = BehaviorSubject<[Series]>(value: [])
+        let onTheAir = BehaviorSubject<[Series]>(value: [])
+        let topRated = BehaviorSubject<[Series]>(value: [])
         
         input.fetchSeries
             .flatMap { repository.trending() }
             .catchAndReturn([])
-            .bind(to: trending)
+            .subscribe(onNext: {
+                trending.onNext($0)
+            })
             .disposed(by: disposeBag)
         
         input.fetchSeries
             .flatMap { repository.onTheAir() }
             .catchAndReturn([])
-            .bind(to: onTheAir)
+            .subscribe(onNext: {
+                onTheAir.onNext($0)
+            })
             .disposed(by: disposeBag)
         
         input.fetchSeries
             .flatMap { repository.topRated() }
             .catchAndReturn([])
-            .bind(to: topRated)
+            .subscribe(onNext: {
+                topRated.onNext($0)
+            })
             .disposed(by: disposeBag)
         
         return SeriesHomeViewModel.Output(

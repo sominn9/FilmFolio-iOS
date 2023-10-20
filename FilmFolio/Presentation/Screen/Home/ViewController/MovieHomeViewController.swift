@@ -133,9 +133,9 @@ private extension MovieHomeViewController {
     
     func applySnapshot(_ items: [Item], _ section: Section) {
         DispatchQueue.main.async {
-            if var snapshot = self.dataSource?.snapshot() {
-                snapshot.appendItems(items, toSection: section)
-                self.dataSource?.applySnapshotUsingReloadData(snapshot)
+            if var snapshot = self.dataSource?.snapshot(for: section) {
+                snapshot.append(items)
+                self.dataSource?.apply(snapshot, to: section)
             }
         }
     }
