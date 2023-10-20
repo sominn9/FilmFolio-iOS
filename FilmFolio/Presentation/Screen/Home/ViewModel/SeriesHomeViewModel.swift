@@ -13,9 +13,7 @@ struct SeriesHomeViewModel {
     // MARK: Input & Output
     
     struct Input {
-        let fetchTrendingSeries: Observable<Void>
-        let fetchOnTheAirSeries: Observable<Void>
-        let fetchTopRatedSeries: Observable<Void>
+        let fetchSeries: Observable<Void>
     }
     
     struct Output {
@@ -28,9 +26,6 @@ struct SeriesHomeViewModel {
     // MARK: Properties
     
     private let repository: SeriesRepository
-    private let trending = PublishSubject<[Series]>()
-    private let onTheAir = PublishSubject<[Series]>()
-    private let topRated = PublishSubject<[Series]>()
     private let disposeBag = DisposeBag()
     
     
@@ -44,20 +39,23 @@ struct SeriesHomeViewModel {
     // MARK: Methods
     
     func transform(_ input: SeriesHomeViewModel.Input) -> SeriesHomeViewModel.Output {
+        let trending = PublishSubject<[Series]>()
+        let onTheAir = PublishSubject<[Series]>()
+        let topRated = PublishSubject<[Series]>()
         
-        input.fetchTrendingSeries
+        input.fetchSeries
             .flatMap { repository.trending() }
             .catchAndReturn([])
             .bind(to: trending)
             .disposed(by: disposeBag)
         
-        input.fetchOnTheAirSeries
+        input.fetchSeries
             .flatMap { repository.onTheAir() }
             .catchAndReturn([])
             .bind(to: onTheAir)
             .disposed(by: disposeBag)
         
-        input.fetchTopRatedSeries
+        input.fetchSeries
             .flatMap { repository.topRated() }
             .catchAndReturn([])
             .bind(to: topRated)

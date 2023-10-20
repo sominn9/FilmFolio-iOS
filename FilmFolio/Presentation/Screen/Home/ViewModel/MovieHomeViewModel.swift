@@ -13,9 +13,7 @@ struct MovieHomeViewModel {
     // MARK: Input & Output
     
     struct Input {
-        let fetchNowPlayMovies: Observable<Void>
-        let fetchPopularMovies: Observable<Void>
-        let fetchTopRatedMovies: Observable<Void>
+        let fetchMovies: Observable<Void>
     }
     
     struct Output {
@@ -28,9 +26,6 @@ struct MovieHomeViewModel {
     // MARK: Properties
     
     private let repository: MovieRepository
-    private let nowPlaying = PublishSubject<[Movie]>()
-    private let popular = PublishSubject<[Movie]>()
-    private let topRated = PublishSubject<[Movie]>()
     private let disposeBag = DisposeBag()
     
     
@@ -44,20 +39,23 @@ struct MovieHomeViewModel {
     // MARK: Methods
     
     func transform(_ input: MovieHomeViewModel.Input) -> MovieHomeViewModel.Output {
+        let nowPlaying = PublishSubject<[Movie]>()
+        let popular = PublishSubject<[Movie]>()
+        let topRated = PublishSubject<[Movie]>()
         
-        input.fetchNowPlayMovies
+        input.fetchMovies
             .flatMap { repository.nowPlaying() }
             .catchAndReturn([])
             .bind(to: nowPlaying)
             .disposed(by: disposeBag)
         
-        input.fetchPopularMovies
+        input.fetchMovies
             .flatMap { repository.popular() }
             .catchAndReturn([])
             .bind(to: popular)
             .disposed(by: disposeBag)
         
-        input.fetchTopRatedMovies
+        input.fetchMovies
             .flatMap { repository.topRated() }
             .catchAndReturn([])
             .bind(to: topRated)

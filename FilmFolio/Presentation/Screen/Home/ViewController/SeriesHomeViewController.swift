@@ -77,11 +77,7 @@ final class SeriesHomeViewController: UIViewController {
     
     private func bind() {
         
-        let input = SeriesHomeViewModel.Input(
-            fetchTrendingSeries: Observable.just(()),
-            fetchOnTheAirSeries: Observable.just(()),
-            fetchTopRatedSeries: Observable.just(())
-        )
+        let input = SeriesHomeViewModel.Input(fetchSeries: Observable.just(()))
         
         let output = seriesHomeViewModel.transform(input)
         

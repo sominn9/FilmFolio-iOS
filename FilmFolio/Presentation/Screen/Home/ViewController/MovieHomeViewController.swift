@@ -76,11 +76,7 @@ final class MovieHomeViewController: UIViewController {
     
     private func bind() {
         
-        let input = MovieHomeViewModel.Input(
-            fetchNowPlayMovies: Observable.just(()),
-            fetchPopularMovies: Observable.just(()),
-            fetchTopRatedMovies: Observable.just(())
-        )
+        let input = MovieHomeViewModel.Input(fetchMovies: Observable.just(()))
         
         let output = movieHomeViewModel.transform(input)
         
