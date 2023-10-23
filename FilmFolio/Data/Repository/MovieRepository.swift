@@ -16,6 +16,7 @@ protocol MovieRepository {
     func detail(_ id: Int) -> Observable<MovieDetail>
     func similar(_ id: Int) -> Observable<[Movie]>
     func search(query: String, page: Int) -> Observable<[Movie]>
+    func videos(_ id: Int) -> Observable<[Video]>
 }
 
 struct DefaultMovieRepository: MovieRepository {
@@ -77,4 +78,10 @@ struct DefaultMovieRepository: MovieRepository {
             .map { (r: TMDBResponse) in r.results }
     }
     
+    func videos(_ id: Int) -> Observable<[Video]> {
+        let endpoint = EndpointCollection.movieVideos(id: id)
+        return networkManager.request(endpoint)
+            .map { (r: VideoResponse) in r.results }
+            .map { $0.compactMap { $0.toDomain() } }
+    }
 }
