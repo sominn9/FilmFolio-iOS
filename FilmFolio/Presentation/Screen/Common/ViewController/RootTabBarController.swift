@@ -36,18 +36,19 @@ final class RootTabBarController: UITabBarController {
     }
     
     private func setViewControllers() {
-        let viewControllers = [
-            UINavigationController(rootViewController: HomeTabViewController()),
-            UINavigationController(rootViewController: SearchTabViewController()),
-            UINavigationController(rootViewController: UpcomingViewController(
-                view: UpcomingView(),
-                viewModel: UpcomingViewModel()
-            )),
-            UINavigationController(rootViewController: ReviewListViewController(
-                viewModel: ReviewListViewModel()
-            ))
+        let rootViewControllers = [
+            HomeTabViewController(),
+            SearchTabViewController(),
+            UpcomingViewController(view: UpcomingView(), viewModel: UpcomingViewModel()),
+            ReviewListViewController(viewModel: ReviewListViewModel())
         ]
-        self.setViewControllers(viewControllers, animated: true)
+        
+        self.setViewControllers(
+            rootViewControllers.map {
+                UINavigationController(rootViewController: $0)
+            },
+            animated: true
+        )
     }
     
     private func setTabBarItems() {
