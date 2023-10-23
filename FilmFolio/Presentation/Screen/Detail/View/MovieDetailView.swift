@@ -17,7 +17,6 @@ final class MovieDetailView: UIScrollView {
         static let stackViewSpacing: CGFloat = 16.0
         static let componentSpacing: CGFloat = 20.0
         static let sectionHeaderHeight: CGFloat = 60.0
-        static let collectionViewHeight: CGFloat = 250.0
         static let collectionViewCellInset: CGFloat = 8.0
         static let collectionViewCellSpacing: CGFloat = 8.0
     }
@@ -36,7 +35,7 @@ final class MovieDetailView: UIScrollView {
         let label = UILabel()
         label.textColor = .label
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 19, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
     
@@ -144,7 +143,7 @@ final class MovieDetailView: UIScrollView {
             make.right.equalTo(contentView.snp.right)
             make.top.equalTo(stackView.snp.bottom).offset(Metric.componentSpacing)
             make.bottom.equalTo(contentView.snp.bottom)
-            make.height.equalTo(Metric.collectionViewHeight)
+            make.height.equalTo(100)
         }
         
         self.addSubview(contentView)
@@ -161,57 +160,86 @@ final class MovieDetailView: UIScrollView {
 private extension MovieDetailView {
     
     func collectionViewLayout() -> UICollectionViewCompositionalLayout {
-        
-        let header = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: .init(
-                widthDimension: .fractionalWidth(1),
-                heightDimension: .absolute(Metric.sectionHeaderHeight)
-            ),
-            elementKind: ElementKind.sectionHeader,
-            alignment: .top
-        )
-        
-        return UICollectionViewCompositionalLayout { index, env in
-            
-            let containerWidth = env.container.effectiveContentSize.width
-            let cellWidth = round((containerWidth
-                             - Metric.collectionViewCellInset
-                                   - 3 * Metric.collectionViewCellSpacing) / 3.2)
+        let layout = UICollectionViewCompositionalLayout { [weak self] index, env in
+            // 섹션 생성
+            var section: NSCollectionLayoutSection?
             
             switch index {
-            case 0:
-                let item = NSCollectionLayoutItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .fractionalHeight(1)
-                    )
-                )
-                
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(
-                        widthDimension: .absolute(cellWidth),
-                        heightDimension: .absolute(cellWidth * 3.0 / 2.0)
-                    ),
-                    subitems: [item]
-                )
-                
-                let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
-                section.boundarySupplementaryItems = [header]
-                section.interGroupSpacing = Metric.collectionViewCellSpacing
-                section.contentInsets = .init(
-                    top: 0,
-                    leading: Metric.collectionViewCellInset,
-                    bottom: 0,
-                    trailing: Metric.collectionViewCellInset
-                )
-                
-                return section
-                
-            default:
-                fatalError()
+            case 0: section = self?.makeSimilarSection(env)
+            case 1: section = self?.makeVideoSection()
+            default: section = nil
             }
+            
+            // 모든 섹션이 공통적으로 가지는 속성 설정
+            let header = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: .init(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .absolute(Metric.sectionHeaderHeight)
+                ),
+                elementKind: ElementKind.sectionHeader,
+                alignment: .top
+            )
+            
+            section?.boundarySupplementaryItems = [header]
+            section?.interGroupSpacing = Metric.collectionViewCellSpacing
+            
+            let inset = Metric.collectionViewCellInset
+            section?.contentInsets = .init(top: 0, leading: inset, bottom: 0, trailing: inset)
+            
+            return section
         }
+        
+        let configuration = layout.configuration
+        configuration.interSectionSpacing = Metric.componentSpacing
+        layout.configuration = configuration
+        
+        return layout
+    }
+    
+    func makeSimilarSection(_ env: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem(
+            layoutSize: .init(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .fractionalHeight(1)
+            )
+        )
+        
+        let cellWidth = (env.container.effectiveContentSize.width
+                         - Metric.collectionViewCellInset
+                         - 3 * Metric.collectionViewCellSpacing) / 3.2
+        
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: .init(
+                widthDimension: .absolute(cellWidth),
+                heightDimension: .absolute(cellWidth * 3.0 / 2.0)
+            ),
+            subitems: [item]
+        )
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+        return section
+    }
+    
+    func makeVideoSection() -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem(
+            layoutSize: .init(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .fractionalHeight(1)
+            )
+        )
+
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: .init(
+                widthDimension: .absolute(320),
+                heightDimension: .absolute(180)
+            ),
+            subitems: [item]
+        )
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .groupPaging
+        return section
     }
     
 }

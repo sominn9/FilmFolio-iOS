@@ -14,15 +14,17 @@ final class MovieDetailViewController: BaseViewController {
     
     enum Item: Hashable {
         case similar(Movie)
-        // case video([Video])
+        case video(Video)
     }
     
-    enum Section: Int, Hashable, CustomStringConvertible {
+    enum Section: Int, Hashable, CaseIterable, CustomStringConvertible {
         case similar
+        case video
         
         var description: String {
             switch self {
             case .similar: return "Similar"
+            case .video: return "Video"
             }
         }
     }
@@ -117,13 +119,15 @@ final class MovieDetailViewController: BaseViewController {
         
         output.similarMovies
             .subscribe(with: self) { owner, movies in
-                DispatchQueue.main.async {
-                    if var snapshot = owner.diffableDataSource?.snapshot() {
-                        let items = movies.map { MovieDetailViewController.Item.similar($0) }
-                        snapshot.appendItems(items, toSection: .similar)
-                        owner.diffableDataSource?.apply(snapshot)
-                    }
-                }
+                let items = movies.map { MovieDetailViewController.Item.similar($0) }
+                owner.applySnapshot(items, .similar)
+            }
+            .disposed(by: disposeBag)
+        
+        output.movieVideos
+            .subscribe(with: self) { owner, videos in
+                let items = videos.map { MovieDetailViewController.Item.video($0) }
+                owner.applySnapshot(items, .video)
             }
             .disposed(by: disposeBag)
         
@@ -150,34 +154,66 @@ final class MovieDetailViewController: BaseViewController {
                         let vc = MovieDetailViewController(view: view, viewModel: vm)
                         owner.navigationController?.pushViewController(vc, animated: true)
                     }
+                default:
+                    break
                 }
             }
             .disposed(by: disposeBag)
         
     }
     
+    private func applySnapshot(_ items: [Item], _ section: Section) {
+        DispatchQueue.main.async {
+            if var snapshot = self.diffableDataSource?.snapshot() {
+                snapshot.appendItems(items, toSection: section)
+                self.diffableDataSource?.apply(snapshot)
+                self.movieDetailView.collectionView.layoutIfNeeded()
+                self.movieDetailView.collectionView.snp.updateConstraints {
+                    $0.height.equalTo(self.movieDetailView.collectionView.contentSize.height)
+                }
+            }
+        }
+    }
+    
     private func configureDiffableDataSource() {
-        let cell = UICollectionView.CellRegistration<RoundImageCell, Movie> { cell, indexPath, movie in
+        let movie = UICollectionView.CellRegistration<RoundImageCell, Movie> { cell, indexPath, movie in
             cell.setup(movie.posterPath(size: .small))
         }
         
-        let header = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader) {
-            [weak self] titleView, _, indexPath in
-            let section = self?.diffableDataSource?.sectionIdentifier(for: indexPath.row)
+        let video = UICollectionView.CellRegistration<RoundImageCell, Video> { cell, indexPath, video in
+            cell.setup(video.thumbnailURL.absoluteString)
+        }
+        
+        let header = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader) { titleView, _, indexPath in
+            let section = Section(rawValue: indexPath.section)
             titleView.titleLabel.text = section?.description
+            titleView.titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
         }
         
         diffableDataSource = UICollectionViewDiffableDataSource(
             collectionView: movieDetailView.collectionView,
             cellProvider: { collectionView, indexPath, item in
-                switch item {
-                case let .similar(movie):
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: cell,
-                        for: indexPath,
-                        item: movie
-                    )
+                if let section = Section(rawValue: indexPath.section) {
+                    switch section {
+                    case .similar:
+                        if case let .similar(data) = item {
+                            return collectionView.dequeueConfiguredReusableCell(
+                                using: movie,
+                                for: indexPath,
+                                item: data
+                            )
+                        }
+                    case .video:
+                        if case let .video(data) = item {
+                            return collectionView.dequeueConfiguredReusableCell(
+                                using: video,
+                                for: indexPath,
+                                item: data
+                            )
+                        }
+                    }
                 }
+                return nil
             }
         )
         
@@ -186,8 +222,7 @@ final class MovieDetailViewController: BaseViewController {
         }
         
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-        snapshot.appendSections([.similar])
-        snapshot.appendItems([], toSection: .similar)
+        snapshot.appendSections(Section.allCases)
         diffableDataSource?.apply(snapshot)
     }
     
