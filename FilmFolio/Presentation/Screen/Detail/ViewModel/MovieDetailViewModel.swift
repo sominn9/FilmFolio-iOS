@@ -74,7 +74,9 @@ struct MovieDetailViewModel {
             .flatMap { movieRepository.videos(id) }
             .catchAndReturn([])
             .subscribe(onNext: {
-                movieVideos.onNext($0)
+                movieVideos.onNext($0.sorted(by: {
+                    $0.publishedAt < $1.publishedAt
+                }))
             })
             .disposed(by: disposeBag)
         
