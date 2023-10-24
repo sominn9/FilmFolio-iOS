@@ -166,7 +166,7 @@ final class SeriesDetailViewController: BaseViewController {
             cell.setup(series.posterPath(size: .small))
         }
         
-        let header = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader) {
+        let header = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader.rawValue) {
             [weak self] titleView, _, indexPath in
             let section = self?.diffableDataSource?.sectionIdentifier(for: indexPath.row)
             titleView.titleLabel.text = section?.description

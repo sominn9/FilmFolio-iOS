@@ -181,12 +181,12 @@ private extension MovieHomeViewController {
     
     func configureSupplementaryView() {
         let popularSectionHeader = UICollectionView.SupplementaryRegistration<TitleView>.registration(
-            elementKind: ElementKind.sectionHeader,
+            elementKind: ElementKind.sectionHeader.rawValue,
             title: Section.popular.description
         )
         
         let topRatedSectionHeader = UICollectionView.SupplementaryRegistration<TitleView>.registration(
-            elementKind: ElementKind.sectionHeader,
+            elementKind: ElementKind.sectionHeader.rawValue,
             title: Section.topRated.description
         )
         

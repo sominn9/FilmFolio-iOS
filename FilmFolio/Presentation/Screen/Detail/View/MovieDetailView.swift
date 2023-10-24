@@ -176,7 +176,7 @@ private extension MovieDetailView {
                     widthDimension: .fractionalWidth(1),
                     heightDimension: .absolute(Metric.sectionHeaderHeight)
                 ),
-                elementKind: ElementKind.sectionHeader,
+                elementKind: ElementKind.sectionHeader.rawValue,
                 alignment: .top
             )
             

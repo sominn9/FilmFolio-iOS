@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct ElementKind {
-    static let badge = "badge-element-kind"
-    static let background = "background-element-kind"
-    static let sectionHeader = "section-header-element-kind"
-    static let sectionFooter = "section-footer-element-kind"
-    static let layoutHeader = "layout-header-element-kind"
-    static let layoutFooter = "layout-footer-element-kind"
+enum ElementKind: String {
+    case badge = "badge-element-kind"
+    case background = "background-element-kind"
+    case sectionHeader = "section-header-element-kind"
+    case sectionFooter = "section-footer-element-kind"
+    case layoutHeader = "layout-header-element-kind"
+    case layoutFooter = "layout-footer-element-kind"
 }

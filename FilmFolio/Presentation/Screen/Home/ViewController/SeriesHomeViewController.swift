@@ -182,12 +182,12 @@ private extension SeriesHomeViewController {
     
     func configureSupplementaryView() {
         let onTheAirSectionHeader = UICollectionView.SupplementaryRegistration<TitleView>.registration(
-            elementKind: ElementKind.sectionHeader,
+            elementKind: ElementKind.sectionHeader.rawValue,
             title: Section.onTheAir.description
         )
         
         let topRatedSectionHeader = UICollectionView.SupplementaryRegistration<TitleView>.registration(
-            elementKind: ElementKind.sectionHeader,
+            elementKind: ElementKind.sectionHeader.rawValue,
             title: Section.topRated.description
         )
         

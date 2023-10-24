@@ -15,7 +15,7 @@ extension NSCollectionLayoutBoundarySupplementaryItem {
                 widthDimension: .fractionalWidth(1),
                 heightDimension: .estimated(height)
             ),
-            elementKind: ElementKind.sectionHeader,
+            elementKind: ElementKind.sectionHeader.rawValue,
             alignment: .top
         )
         

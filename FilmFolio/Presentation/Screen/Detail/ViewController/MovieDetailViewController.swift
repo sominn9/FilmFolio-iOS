@@ -184,12 +184,6 @@ final class MovieDetailViewController: BaseViewController {
             cell.setup(video.thumbnailURL.absoluteString)
         }
         
-        let header = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader) { titleView, _, indexPath in
-            let section = Section(rawValue: indexPath.section)
-            titleView.titleLabel.text = section?.description
-            titleView.titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        }
-        
         diffableDataSource = UICollectionViewDiffableDataSource(
             collectionView: movieDetailView.collectionView,
             cellProvider: { collectionView, indexPath, item in
