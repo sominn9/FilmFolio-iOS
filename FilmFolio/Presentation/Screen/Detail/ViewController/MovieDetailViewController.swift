@@ -154,8 +154,11 @@ final class MovieDetailViewController: BaseViewController {
                         let vc = MovieDetailViewController(view: view, viewModel: vm)
                         owner.navigationController?.pushViewController(vc, animated: true)
                     }
-                default:
-                    break
+                case .video:
+                    if case let .video(video) = model {
+                        let vc = WebViewController(video.videoURL)
+                        owner.navigationController?.pushViewController(vc, animated: true)
+                    }
                 }
             }
             .disposed(by: disposeBag)
