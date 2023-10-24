@@ -30,9 +30,13 @@ final class PlayView: UICollectionReusableView {
         self.addSubview(playButton)
         playButton.snp.makeConstraints {
             $0.center.equalTo(self.snp.center)
-            $0.height.equalTo(100)
+            $0.height.equalTo(50)
             $0.width.equalTo(playButton.snp.height)
         }
+    }
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        return nil
     }
     
 }
