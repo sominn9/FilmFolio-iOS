@@ -13,6 +13,7 @@
 		CB14F5352AE6291100EDAA7B /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB14F5342AE6291100EDAA7B /* Video.swift */; };
 		CB14F5372AE62A4700EDAA7B /* VideoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB14F5362AE62A4700EDAA7B /* VideoData.swift */; };
 		CB14F53A2AE62B5100EDAA7B /* VideoData+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB14F5392AE62B5100EDAA7B /* VideoData+Mapping.swift */; };
+		CB14F53C2AE6871F00EDAA7B /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB14F53B2AE6871F00EDAA7B /* WebViewController.swift */; };
 		CB1D1EA32ADD726D00B007CD /* Extension+NSCollectionLayoutSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1D1EA22ADD726D00B007CD /* Extension+NSCollectionLayoutSection.swift */; };
 		CB2D4C472A5DBA8E007B8C39 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2D4C462A5DBA8E007B8C39 /* RootTabBarController.swift */; };
 		CB2D4C492A5DC918007B8C39 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2D4C482A5DC918007B8C39 /* SearchView.swift */; };
@@ -51,6 +52,7 @@
 		CB7A8F662A6463E500DCE0C1 /* SeriesDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A8F652A6463E500DCE0C1 /* SeriesDetailView.swift */; };
 		CB7A8F682A6463FE00DCE0C1 /* SeriesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A8F672A6463FE00DCE0C1 /* SeriesDetailViewController.swift */; };
 		CB7A8F6A2A64640600DCE0C1 /* SeriesDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7A8F692A64640600DCE0C1 /* SeriesDetailViewModel.swift */; };
+		CB81378F2AE7909F0085C0A0 /* PlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB81378E2AE7909F0085C0A0 /* PlayView.swift */; };
 		CB81A1882A8A547600195D37 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB81A1872A8A547600195D37 /* ReviewViewController.swift */; };
 		CB83E84D2A697A08004BE8EE /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB83E84C2A697A08004BE8EE /* Bookmark.swift */; };
 		CB83E84F2A697A10004BE8EE /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB83E84E2A697A10004BE8EE /* Review.swift */; };
@@ -118,6 +120,7 @@
 		CB14F5342AE6291100EDAA7B /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		CB14F5362AE62A4700EDAA7B /* VideoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoData.swift; sourceTree = "<group>"; };
 		CB14F5392AE62B5100EDAA7B /* VideoData+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoData+Mapping.swift"; sourceTree = "<group>"; };
+		CB14F53B2AE6871F00EDAA7B /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		CB1D1EA22ADD726D00B007CD /* Extension+NSCollectionLayoutSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+NSCollectionLayoutSection.swift"; sourceTree = "<group>"; };
 		CB2D4C462A5DBA8E007B8C39 /* RootTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
 		CB2D4C482A5DC918007B8C39 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -157,6 +160,7 @@
 		CB7A8F652A6463E500DCE0C1 /* SeriesDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesDetailView.swift; sourceTree = "<group>"; };
 		CB7A8F672A6463FE00DCE0C1 /* SeriesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesDetailViewController.swift; sourceTree = "<group>"; };
 		CB7A8F692A64640600DCE0C1 /* SeriesDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesDetailViewModel.swift; sourceTree = "<group>"; };
+		CB81378E2AE7909F0085C0A0 /* PlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayView.swift; sourceTree = "<group>"; };
 		CB81A1872A8A547600195D37 /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		CB83E84C2A697A08004BE8EE /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		CB83E84E2A697A10004BE8EE /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
@@ -402,6 +406,7 @@
 			children = (
 				CB2D4C462A5DBA8E007B8C39 /* RootTabBarController.swift */,
 				CB3FA3042A605C87005ADCF0 /* BaseViewController.swift */,
+				CB14F53B2AE6871F00EDAA7B /* WebViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -428,6 +433,7 @@
 		CB3FA3082A6060DF005ADCF0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CB81378E2AE7909F0085C0A0 /* PlayView.swift */,
 				CB3FA30A2A6061A5005ADCF0 /* MovieDetailView.swift */,
 				CB7A8F652A6463E500DCE0C1 /* SeriesDetailView.swift */,
 			);
@@ -855,6 +861,7 @@
 				CB1D1EA32ADD726D00B007CD /* Extension+NSCollectionLayoutSection.swift in Sources */,
 				CB81A1882A8A547600195D37 /* ReviewViewController.swift in Sources */,
 				CB9574562A4F09020091F112 /* NetworkError.swift in Sources */,
+				CB14F53C2AE6871F00EDAA7B /* WebViewController.swift in Sources */,
 				CB14F5352AE6291100EDAA7B /* Video.swift in Sources */,
 				CBE282F62A658F2F0094FE23 /* Upcoming.swift in Sources */,
 				CB0DD7712A373FF9003116CE /* Endpoint.swift in Sources */,
@@ -899,6 +906,7 @@
 				CBCA7A562AA0BC19002DC45E /* ReviewListViewModel.swift in Sources */,
 				CB6AA9332A502A22001D5867 /* TitleView.swift in Sources */,
 				CB962A402A9CC2CB003822F1 /* ReviewRepository.swift in Sources */,
+				CB81378F2AE7909F0085C0A0 /* PlayView.swift in Sources */,
 				CB2F64F42A5424E80007854D /* Extension+UIButton.Configuration.swift in Sources */,
 				CB0DD7732A37439C003116CE /* EndpointCollection.swift in Sources */,
 				CBCA7A582AA0E8BC002DC45E /* ReviewListCell.swift in Sources */,

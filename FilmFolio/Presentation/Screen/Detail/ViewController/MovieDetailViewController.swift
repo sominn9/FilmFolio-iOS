@@ -211,8 +211,28 @@ final class MovieDetailViewController: BaseViewController {
             }
         )
         
+        let header = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader.rawValue) { titleView, _, indexPath in
+            let section = Section(rawValue: indexPath.section)
+            titleView.titleLabel.text = section?.description
+            titleView.titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        }
+        
+        let playBadge = UICollectionView.SupplementaryRegistration<PlayView>(elementKind: ElementKind.badge.rawValue) { playView, _, _ in
+            
+        }
+        
         diffableDataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
-            return collectionView.dequeueConfiguredReusableSupplementary(using: header, for: indexPath)
+            if let kind = ElementKind(rawValue: kind) {
+                switch kind {
+                case .badge:
+                    return collectionView.dequeueConfiguredReusableSupplementary(using: playBadge, for: indexPath)
+                case .sectionHeader:
+                    return collectionView.dequeueConfiguredReusableSupplementary(using: header, for: indexPath)
+                default:
+                    break
+                }
+            }
+            return nil
         }
         
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()

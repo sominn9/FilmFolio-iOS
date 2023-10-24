@@ -222,11 +222,21 @@ private extension MovieDetailView {
     }
     
     func makeVideoSection() -> NSCollectionLayoutSection {
+        let badge = NSCollectionLayoutSupplementaryItem(
+            layoutSize: .init(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .fractionalHeight(1)
+            ),
+            elementKind: ElementKind.badge.rawValue,
+            containerAnchor: .init(edges: .all)
+        )
+        
         let item = NSCollectionLayoutItem(
             layoutSize: .init(
                 widthDimension: .fractionalWidth(1),
                 heightDimension: .fractionalHeight(1)
-            )
+            ),
+            supplementaryItems: [badge]
         )
 
         let group = NSCollectionLayoutGroup.horizontal(
