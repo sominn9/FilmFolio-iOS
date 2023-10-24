@@ -13,18 +13,18 @@ import UIKit
 final class MovieDetailViewController: BaseViewController {
     
     enum Item: Hashable {
-        case similar(Movie)
         case video(Video)
+        case similar(Movie)
     }
     
     enum Section: Int, Hashable, CaseIterable, CustomStringConvertible {
-        case similar
         case video
+        case similar
         
         var description: String {
             switch self {
-            case .similar: return "Similar"
             case .video: return "Video"
+            case .similar: return "Similar"
             }
         }
     }
@@ -117,17 +117,17 @@ final class MovieDetailViewController: BaseViewController {
             .bind(to: movieDetailView.genreLabel.rx.text)
             .disposed(by: disposeBag)
         
-        output.similarMovies
-            .subscribe(with: self) { owner, movies in
-                let items = movies.map { MovieDetailViewController.Item.similar($0) }
-                owner.applySnapshot(items, .similar)
-            }
-            .disposed(by: disposeBag)
-        
         output.movieVideos
             .subscribe(with: self) { owner, videos in
                 let items = videos.map { MovieDetailViewController.Item.video($0) }
                 owner.applySnapshot(items, .video)
+            }
+            .disposed(by: disposeBag)
+        
+        output.similarMovies
+            .subscribe(with: self) { owner, movies in
+                let items = movies.map { MovieDetailViewController.Item.similar($0) }
+                owner.applySnapshot(items, .similar)
             }
             .disposed(by: disposeBag)
         
@@ -147,16 +147,16 @@ final class MovieDetailViewController: BaseViewController {
                 else { return }
                 
                 switch section {
+                case .video:
+                    if case let .video(video) = model {
+                        let vc = WebViewController(video.videoURL)
+                        owner.navigationController?.pushViewController(vc, animated: true)
+                    }
                 case .similar:
                     if case let .similar(movie) = model {
                         let view = MovieDetailView()
                         let vm = MovieDetailViewModel(id: movie.id)
                         let vc = MovieDetailViewController(view: view, viewModel: vm)
-                        owner.navigationController?.pushViewController(vc, animated: true)
-                    }
-                case .video:
-                    if case let .video(video) = model {
-                        let vc = WebViewController(video.videoURL)
                         owner.navigationController?.pushViewController(vc, animated: true)
                     }
                 }
@@ -179,12 +179,12 @@ final class MovieDetailViewController: BaseViewController {
     }
     
     private func configureDiffableDataSource() {
-        let movie = UICollectionView.CellRegistration<RoundImageCell, Movie> { cell, indexPath, movie in
-            cell.setup(movie.posterPath(size: .small))
-        }
-        
         let video = UICollectionView.CellRegistration<RoundImageCell, Video> { cell, indexPath, video in
             cell.setup(video.thumbnailURL.absoluteString)
+        }
+        
+        let movie = UICollectionView.CellRegistration<RoundImageCell, Movie> { cell, indexPath, movie in
+            cell.setup(movie.posterPath(size: .small))
         }
         
         diffableDataSource = UICollectionViewDiffableDataSource(
@@ -192,18 +192,18 @@ final class MovieDetailViewController: BaseViewController {
             cellProvider: { collectionView, indexPath, item in
                 if let section = Section(rawValue: indexPath.section) {
                     switch section {
-                    case .similar:
-                        if case let .similar(data) = item {
-                            return collectionView.dequeueConfiguredReusableCell(
-                                using: movie,
-                                for: indexPath,
-                                item: data
-                            )
-                        }
                     case .video:
                         if case let .video(data) = item {
                             return collectionView.dequeueConfiguredReusableCell(
                                 using: video,
+                                for: indexPath,
+                                item: data
+                            )
+                        }
+                    case .similar:
+                        if case let .similar(data) = item {
+                            return collectionView.dequeueConfiguredReusableCell(
+                                using: movie,
                                 for: indexPath,
                                 item: data
                             )

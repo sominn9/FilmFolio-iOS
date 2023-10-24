@@ -165,8 +165,8 @@ private extension MovieDetailView {
             var section: NSCollectionLayoutSection?
             
             switch index {
-            case 0: section = self?.makeSimilarSection(env)
-            case 1: section = self?.makeVideoSection()
+            case 0: section = self?.makeVideoSection()
+            case 1: section = self?.makeSimilarSection(env)
             default: section = nil
             }
             
@@ -185,40 +185,13 @@ private extension MovieDetailView {
             
             let inset = Metric.collectionViewCellInset
             section?.contentInsets = .init(top: 0, leading: inset, bottom: 0, trailing: inset)
-            
             return section
         }
         
         let configuration = layout.configuration
         configuration.interSectionSpacing = Metric.componentSpacing
         layout.configuration = configuration
-        
         return layout
-    }
-    
-    func makeSimilarSection(_ env: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(
-            layoutSize: .init(
-                widthDimension: .fractionalWidth(1),
-                heightDimension: .fractionalHeight(1)
-            )
-        )
-        
-        let cellWidth = (env.container.effectiveContentSize.width
-                         - Metric.collectionViewCellInset
-                         - 3 * Metric.collectionViewCellSpacing) / 3.2
-        
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: .init(
-                widthDimension: .absolute(cellWidth),
-                heightDimension: .absolute(cellWidth * 3.0 / 2.0)
-            ),
-            subitems: [item]
-        )
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
-        return section
     }
     
     func makeVideoSection() -> NSCollectionLayoutSection {
@@ -249,6 +222,31 @@ private extension MovieDetailView {
         
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .groupPaging
+        return section
+    }
+    
+    func makeSimilarSection(_ env: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem(
+            layoutSize: .init(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .fractionalHeight(1)
+            )
+        )
+        
+        let cellWidth = (env.container.effectiveContentSize.width
+                         - Metric.collectionViewCellInset
+                         - 3 * Metric.collectionViewCellSpacing) / 3.2
+        
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: .init(
+                widthDimension: .absolute(cellWidth),
+                heightDimension: .absolute(cellWidth * 3.0 / 2.0)
+            ),
+            subitems: [item]
+        )
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
         return section
     }
     
