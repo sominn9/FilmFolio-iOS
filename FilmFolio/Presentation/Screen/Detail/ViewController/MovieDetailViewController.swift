@@ -142,18 +142,12 @@ final class MovieDetailViewController: BaseViewController {
 
         movieDetailView.collectionView.rx.itemSelected
             .subscribe(with: self) { owner, indexPath in
-                guard let section = Section(rawValue: indexPath.section),
-                      let model = owner.diffableDataSource?.itemIdentifier(for: indexPath) 
-                else { return }
-                
-                switch section {
-                case .video:
-                    if case let .video(video) = model {
+                if let model = owner.diffableDataSource?.itemIdentifier(for: indexPath) {
+                    switch model {
+                    case let .video(video):
                         let vc = WebViewController(video.videoURL)
                         owner.navigationController?.pushViewController(vc, animated: true)
-                    }
-                case .similar:
-                    if case let .similar(movie) = model {
+                    case let .similar(movie):
                         let view = MovieDetailView()
                         let vm = MovieDetailViewModel(id: movie.id)
                         let vc = MovieDetailViewController(view: view, viewModel: vm)
@@ -189,8 +183,8 @@ final class MovieDetailViewController: BaseViewController {
         
         diffableDataSource = UICollectionViewDiffableDataSource(
             collectionView: movieDetailView.collectionView,
-            cellProvider: { collectionView, indexPath, item in
-                if let section = Section(rawValue: indexPath.section) {
+            cellProvider: { [weak self] collectionView, indexPath, item in
+                if let section = self?.diffableDataSource?.sectionIdentifier(for: indexPath.section) {
                     switch section {
                     case .video:
                         if case let .video(data) = item {
@@ -214,8 +208,8 @@ final class MovieDetailViewController: BaseViewController {
             }
         )
         
-        let header = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader.rawValue) { titleView, _, indexPath in
-            let section = Section(rawValue: indexPath.section)
+        let header = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader.rawValue) { [weak self] titleView, _, indexPath in
+            let section = self?.diffableDataSource?.sectionIdentifier(for: indexPath.section)
             titleView.titleLabel.text = section?.description
             titleView.titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
         }
