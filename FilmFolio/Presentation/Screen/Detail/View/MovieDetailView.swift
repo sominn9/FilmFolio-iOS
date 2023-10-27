@@ -24,6 +24,13 @@ final class MovieDetailView: UIScrollView {
     
     // MARK: Properties
     
+    var indexToSection: ((Int) -> MovieDetailSection?)? {
+        didSet {
+            let layout = collectionViewLayout()
+            self.collectionView.setCollectionViewLayout(layout, animated: true)
+        }
+    }
+    
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -90,6 +97,13 @@ final class MovieDetailView: UIScrollView {
         }
     }
     
+    func updateCollectionViewHeight() {
+        collectionView.layoutIfNeeded()
+        collectionView.snp.updateConstraints {
+            $0.height.equalTo(collectionView.contentSize.height)
+        }
+    }
+    
     func setup(_ urlString: String?) {
         Task {
             guard let urlString else { return }
@@ -102,21 +116,6 @@ final class MovieDetailView: UIScrollView {
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
         contentInset.bottom = Metric.stackViewSpacing
-    }
-    
-    private func createStackView() -> UIStackView {
-        let stackView = UIStackView(
-            arrangedSubviews: [
-                titleLabel,
-                overviewLabel,
-                releaseDateLabel,
-                genreLabel
-            ]
-        )
-        
-        stackView.axis = .vertical
-        stackView.spacing = Metric.stackViewSpacing
-        return stackView
     }
     
     private func configureContentView() {
@@ -153,38 +152,55 @@ final class MovieDetailView: UIScrollView {
         }
     }
     
+    private func createStackView() -> UIStackView {
+        let stackView = UIStackView(
+            arrangedSubviews: [
+                titleLabel,
+                overviewLabel,
+                releaseDateLabel,
+                genreLabel
+            ]
+        )
+        
+        stackView.axis = .vertical
+        stackView.spacing = Metric.stackViewSpacing
+        return stackView
+    }
+    
 }
 
 // MARK: - Private Extension
 
 private extension MovieDetailView {
     
-    func collectionViewLayout() -> UICollectionViewCompositionalLayout {
+    func collectionViewLayout() -> UICollectionViewLayout {
+        guard let indexToSection else { return UICollectionViewLayout() }
+        
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: .init(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .absolute(Metric.sectionHeaderHeight)
+            ),
+            elementKind: ElementKind.sectionHeader.rawValue,
+            alignment: .top
+        )
+        
         let layout = UICollectionViewCompositionalLayout { [weak self] index, env in
-            // 섹션 생성
             var section: NSCollectionLayoutSection?
             
-            switch index {
-            case 0: section = self?.makeVideoSection()
-            case 1: section = self?.makeSimilarSection(env)
-            default: section = nil
+            if let detailViewSection = indexToSection(index) {
+                switch detailViewSection {
+                case .video:
+                    section = self?.makeVideoSection()
+                case .similar:
+                    section = self?.makeSimilarSection(env)
+                }
             }
-            
-            // 모든 섹션이 공통적으로 가지는 속성 설정
-            let header = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: .init(
-                    widthDimension: .fractionalWidth(1),
-                    heightDimension: .absolute(Metric.sectionHeaderHeight)
-                ),
-                elementKind: ElementKind.sectionHeader.rawValue,
-                alignment: .top
-            )
-            
-            section?.boundarySupplementaryItems = [header]
-            section?.interGroupSpacing = Metric.collectionViewCellSpacing
             
             let inset = Metric.collectionViewCellInset
             section?.contentInsets = .init(top: 0, leading: inset, bottom: 0, trailing: inset)
+            section?.boundarySupplementaryItems = [header]
+            section?.interGroupSpacing = Metric.collectionViewCellSpacing
             return section
         }
         

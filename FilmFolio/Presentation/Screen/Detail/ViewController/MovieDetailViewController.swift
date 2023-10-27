@@ -10,23 +10,23 @@ import RxSwift
 import SnapKit
 import UIKit
 
+enum MovieDetailSection: Hashable, CaseIterable, CustomStringConvertible {
+    case video
+    case similar
+    
+    var description: String {
+        switch self {
+        case .video: return "Video"
+        case .similar: return "Similar"
+        }
+    }
+}
+
 final class MovieDetailViewController: BaseViewController {
     
     enum Item: Hashable {
         case video(Video)
         case similar(Movie)
-    }
-    
-    enum Section: Int, Hashable, CaseIterable, CustomStringConvertible {
-        case video
-        case similar
-        
-        var description: String {
-            switch self {
-            case .video: return "Video"
-            case .similar: return "Similar"
-            }
-        }
     }
     
     
@@ -35,7 +35,7 @@ final class MovieDetailViewController: BaseViewController {
     private let disposeBag = DisposeBag()
     private let movieDetailView: MovieDetailView
     private let movieDetailViewModel: MovieDetailViewModel
-    private var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
+    private var diffableDataSource: UICollectionViewDiffableDataSource<MovieDetailSection, Item>?
     
     
     // MARK: Initializing
@@ -44,6 +44,9 @@ final class MovieDetailViewController: BaseViewController {
         self.movieDetailView = view
         self.movieDetailViewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.movieDetailView.indexToSection = { [weak self] index in
+            return self?.diffableDataSource?.sectionIdentifier(for: index)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -71,6 +74,7 @@ final class MovieDetailViewController: BaseViewController {
     
     private func configure() {
         self.view.addSubview(movieDetailView)
+        
         movieDetailView.snp.makeConstraints {
             $0.edges.equalTo(self.view.snp.edges)
         }
@@ -120,14 +124,14 @@ final class MovieDetailViewController: BaseViewController {
         output.movieVideos
             .subscribe(with: self) { owner, videos in
                 let items = videos.map { MovieDetailViewController.Item.video($0) }
-                owner.applySnapshot(items, .video)
+                owner.applySnapshot(items, to: .video)
             }
             .disposed(by: disposeBag)
         
         output.similarMovies
             .subscribe(with: self) { owner, movies in
                 let items = movies.map { MovieDetailViewController.Item.similar($0) }
-                owner.applySnapshot(items, .similar)
+                owner.applySnapshot(items, to: .similar)
             }
             .disposed(by: disposeBag)
         
@@ -159,16 +163,41 @@ final class MovieDetailViewController: BaseViewController {
         
     }
     
-    private func applySnapshot(_ items: [Item], _ section: Section) {
+    private func applySnapshot(_ items: [Item], to section: MovieDetailSection) {
         DispatchQueue.main.async {
-            if var snapshot = self.diffableDataSource?.snapshot() {
-                snapshot.appendItems(items, toSection: section)
-                self.diffableDataSource?.apply(snapshot)
-                self.movieDetailView.collectionView.layoutIfNeeded()
-                self.movieDetailView.collectionView.snp.updateConstraints {
-                    $0.height.equalTo(self.movieDetailView.collectionView.contentSize.height)
+            guard var snapshot = self.diffableDataSource?.snapshot() else  { return }
+            
+            if items.isEmpty {
+                if snapshot.sectionIdentifiers.contains(section) {
+                    snapshot.deleteSections([section])
                 }
+            } else {
+                if !snapshot.sectionIdentifiers.contains(section) {
+                    var beforeSection: MovieDetailSection?
+                    var flag = false
+                    
+                    for s in MovieDetailSection.allCases {
+                        if s == section {
+                            flag = true
+                            continue
+                        }
+                        if flag && snapshot.sectionIdentifiers.contains(s) {
+                            beforeSection = s
+                            break
+                        }
+                    }
+                    
+                    if let beforeSection {
+                        snapshot.insertSections([section], beforeSection: beforeSection)
+                    } else {
+                        snapshot.appendSections([section])
+                    }
+                }
+                snapshot.appendItems(items, toSection: section)
             }
+            
+            self.diffableDataSource?.apply(snapshot)
+            self.movieDetailView.updateCollectionViewHeight()
         }
     }
     
@@ -231,10 +260,6 @@ final class MovieDetailViewController: BaseViewController {
             }
             return nil
         }
-        
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-        snapshot.appendSections(Section.allCases)
-        diffableDataSource?.apply(snapshot)
     }
     
 }
