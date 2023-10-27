@@ -10,18 +10,18 @@ import Foundation
 struct Movie: Decodable, Hashable {
     let adult: Bool
     private let _backdropPath: String?
-    let genreIDS: [Int]
+    let genreIDS: [Int]?
     let id: Int
     let originalLanguage: String
     let originalTitle: String
     let overview: String
-    let popularity: Double
+    let popularity: Double?
     private let _posterPath: String?
-    let releaseDate: String
+    let releaseDate: String?
     let title: String
-    let video: Bool
-    let voteAverage: Double
-    let voteCount: Int
+    let video: Bool?
+    let voteAverage: Double?
+    let voteCount: Int?
     
     enum CodingKeys: String, CodingKey {
         case adult
@@ -73,7 +73,11 @@ extension Movie {
 
 extension Movie {
     
-    func toUpcoming() -> Upcoming {
+    func toUpcoming() -> Upcoming? {
+        guard let releaseDate,
+              let _backdropPath,
+              !overview.isEmpty else { return nil }
+        
         return .init(
             id: id,
             media: .movie,

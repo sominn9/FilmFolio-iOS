@@ -57,8 +57,7 @@ struct DefaultMovieRepository: MovieRepository {
         let endpoint = EndpointCollection.upcomingMovie(date: Date.tomorrow())
         return networkManager.request(endpoint)
             .map { (r: TMDBResponse<Movie>) in r.results }
-            .map { $0.map { $0.toUpcoming() } }
-            .map { $0.filter { $0.backdropPath != nil && !$0.overview.isEmpty } }
+            .map { $0.compactMap { $0.toUpcoming() } }
     }
     
     func detail(_ id: Int) -> Observable<MovieDetail> {
