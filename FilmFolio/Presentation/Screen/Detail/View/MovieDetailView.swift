@@ -98,9 +98,8 @@ final class MovieDetailView: UIScrollView {
     }
     
     func updateCollectionViewHeight() {
-        collectionView.layoutIfNeeded()
-        collectionView.snp.updateConstraints {
-            $0.height.equalTo(collectionView.contentSize.height)
+        self.collectionView.snp.updateConstraints {
+            $0.height.equalTo(self.collectionView.contentSize.height)
         }
     }
     

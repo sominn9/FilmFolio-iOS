@@ -196,8 +196,9 @@ final class MovieDetailViewController: BaseViewController {
                 snapshot.appendItems(items, toSection: section)
             }
             
-            self.diffableDataSource?.apply(snapshot)
-            self.movieDetailView.updateCollectionViewHeight()
+            self.diffableDataSource?.apply(snapshot, completion: { [weak self] in
+                self?.movieDetailView.updateCollectionViewHeight()
+            })
         }
     }
     
