@@ -7,76 +7,24 @@
 
 import Foundation
 
-struct MovieDetail: Decodable {
-    let adult: Bool
-    private let _backdropPath: String?
-    let genres: [Genre]
+struct MovieDetail {
     let id: Int
-    let overview: String
-    private let _posterPath: String?
-    let releaseDate: String
-    let runtime: Int
-    let status: String
-    let tagline: String
     let title: String
-    let video: Bool
-
-    enum CodingKeys: String, CodingKey {
-        case adult
-        case _backdropPath = "backdrop_path"
-        case genres
-        case id
-        case overview
-        case _posterPath = "poster_path"
-        case releaseDate = "release_date"
-        case runtime
-        case status
-        case tagline
-        case title
-        case video
-    }
-}
-
-extension MovieDetail {
-    
-    var backdropPath: String? {
-        guard let _backdropPath else { return nil }
-        return "https://image.tmdb.org/t/p/w780\(_backdropPath)"
-    }
-    
-    var posterPath: String? {
-        guard let _posterPath else { return nil }
-        return "https://image.tmdb.org/t/p/w500\(_posterPath)"
-    }
-    
-    var genre: String {
-        return genres.map { $0.name }.joined(separator: " ∙ ")
-    }
-    
-}
-
-extension MovieDetail {
+    let overview: String
+    let releaseDate: String
+    let genre: String
+    let posterURL: URL?
+    let backdropURL: URL?
     
     static func `default`() -> Self {
-        return .init(
-            adult: false,
-            _backdropPath: nil,
-            genres: [],
+        return MovieDetail(
             id: 0,
-            overview: "",
-            _posterPath: nil,
-            releaseDate: "",
-            runtime: 0,
-            status: "",
-            tagline: "",
             title: "",
-            video: false
+            overview: "",
+            releaseDate: "",
+            genre: "",
+            posterURL: nil,
+            backdropURL: nil
         )
     }
-    
-}
-
-struct Genre: Codable {
-    let id: Int
-    let name: String
 }

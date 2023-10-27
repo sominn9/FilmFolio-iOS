@@ -35,7 +35,7 @@ struct DefaultLoadReviewRepository: LoadReviewRepository {
         }
         
         // 작성된 리뷰가 없으면 새로운 Review 객체 생성해서 리턴
-        let new = Review(id: id, media: media, title: "", content: "", posterPath: nil, publishDate: "")
+        let new = Review(id: id, media: media, title: "", content: "", posterURL: nil, publishDate: "")
         return new
     }
     

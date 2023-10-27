@@ -25,7 +25,7 @@ extension ReviewEntity {
             media: media,
             title: self.title ?? "",
             content: self.content ?? "",
-            posterPath: self.posterPath,
+            posterURL: URL(string: self.posterURLString ?? ""),
             publishDate: formatter.string(from: self.publishDate ?? Date())
         )
     }
@@ -38,7 +38,7 @@ extension Review {
         entity.media = self.media.rawValue
         entity.title = self.title
         entity.content = self.content
-        entity.posterPath = self.posterPath
+        entity.posterURLString = self.posterURL?.absoluteString
         entity.publishDate = formatter.date(from: self.publishDate)
         return entity
     }

@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-struct SearchViewModel<Item: Decodable> {
+struct SearchViewModel<Item: Hashable> {
     
     // MARK: Input & Output
     

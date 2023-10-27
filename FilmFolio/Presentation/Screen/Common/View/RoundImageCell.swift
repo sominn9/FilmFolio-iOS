@@ -41,6 +41,11 @@ final class RoundImageCell: UICollectionViewCell {
     
     // MARK: Methods
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+    }
+    
     func setup(_ urlString: String?) {
         Task {
             guard let urlString else { return }
@@ -48,14 +53,12 @@ final class RoundImageCell: UICollectionViewCell {
         }
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        imageView.image = nil
+    func setup(_ url: URL?) {
+        Task {
+            guard let url else { return }
+            imageView.image = await ImageStorage.shared.image(for: url.absoluteString)
+        }
     }
-    
-}
-
-private extension RoundImageCell {
     
     private func configure() {
         contentView.layer.cornerRadius = Metric.cornerRadius
@@ -67,4 +70,5 @@ private extension RoundImageCell {
             make.edges.equalTo(contentView)
         }
     }
+    
 }

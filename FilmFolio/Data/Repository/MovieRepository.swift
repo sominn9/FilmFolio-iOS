@@ -38,43 +38,49 @@ struct DefaultMovieRepository: MovieRepository {
     func nowPlaying() -> Observable<[Movie]> {
         let endpoint = EndpointCollection.nowPlayingMovies()
         return networkManager.request(endpoint)
-            .map { (r: TMDBResponse) in r.results }
+            .map { (r: TMDBResponse<MovieData>) in r.results }
+            .map { $0.map { $0.toMovie() }}
     }
     
     func popular() -> Observable<[Movie]> {
         let endpoint = EndpointCollection.popularMovies()
         return networkManager.request(endpoint)
-            .map { (r: TMDBResponse) in r.results }
+            .map { (r: TMDBResponse<MovieData>) in r.results }
+            .map { $0.map { $0.toMovie() }}
     }
     
     func topRated() -> Observable<[Movie]> {
         let endpoint = EndpointCollection.topRatedMovies()
         return networkManager.request(endpoint)
-            .map { (r: TMDBResponse) in r.results }
+            .map { (r: TMDBResponse<MovieData>) in r.results }
+            .map { $0.map { $0.toMovie() }}
     }
     
     func upcoming() -> Observable<[Upcoming]> {
         let endpoint = EndpointCollection.upcomingMovie(date: Date.tomorrow())
         return networkManager.request(endpoint)
-            .map { (r: TMDBResponse<Movie>) in r.results }
+            .map { (r: TMDBResponse<MovieData>) in r.results }
             .map { $0.compactMap { $0.toUpcoming() } }
     }
     
     func detail(_ id: Int) -> Observable<MovieDetail> {
         let endpoint = EndpointCollection.movieDetail(id: id)
         return networkManager.request(endpoint)
+            .map { (r: MovieDetailData) in r.toDomain() }
     }
     
     func similar(_ id: Int) -> Observable<[Movie]> {
         let endpoint = EndpointCollection.similarMovies(id: id)
         return networkManager.request(endpoint)
-            .map { (r: TMDBResponse) in r.results }
+            .map { (r: TMDBResponse<MovieData>) in r.results }
+            .map { $0.map { $0.toMovie() }}
     }
     
     func search(query: String, page: Int) -> Observable<[Movie]> {
         let endpoint = EndpointCollection.searchMovie(query: query, page: page)
         return networkManager.request(endpoint)
-            .map { (r: TMDBResponse) in r.results }
+            .map { (r: TMDBResponse<MovieData>) in r.results }
+            .map { $0.map { $0.toMovie() }}
     }
     
     func videos(_ id: Int) -> Observable<[Video]> {

@@ -7,86 +7,29 @@
 
 import Foundation
 
-struct Movie: Decodable, Hashable {
-    let adult: Bool
-    private let _backdropPath: String?
-    let genreIDS: [Int]?
+struct Movie: Hashable {
     let id: Int
-    let originalLanguage: String
-    let originalTitle: String
-    let overview: String
-    let popularity: Double?
-    private let _posterPath: String?
-    let releaseDate: String?
     let title: String
-    let video: Bool?
-    let voteAverage: Double?
-    let voteCount: Int?
+    let overview: String
+    let releaseDate: String?
+    private let _posterPath: String?
     
-    enum CodingKeys: String, CodingKey {
-        case adult
-        case _backdropPath = "backdrop_path"
-        case genreIDS = "genre_ids"
-        case id
-        case originalLanguage = "original_language"
-        case originalTitle = "original_title"
-        case overview
-        case popularity
-        case _posterPath = "poster_path"
-        case releaseDate = "release_date"
-        case title
-        case video
-        case voteAverage = "vote_average"
-        case voteCount = "vote_count"
+    init(id: Int, title: String, overview: String, releaseDate: String?, _posterPath: String?) {
+        self.id = id
+        self.title = title
+        self.overview = overview
+        self.releaseDate = releaseDate
+        self._posterPath = _posterPath
     }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    
-    static func == (_ lhs: Movie, _ rhs: Movie) -> Bool {
-        lhs.id == rhs.id
-    }
-}
-
-extension Movie {
     
     enum Size: String {
         case small = "w200"
         case big = "w500"
         case original
     }
-    
-    func backdropPath(size: Size) -> String? {
-        guard let _backdropPath else { return nil }
-        return "https://image.tmdb.org/t/p/\(size.rawValue)\(_backdropPath)"
-    }
-    
-    func posterPath(size: Size) -> String? {
+
+    func posterURL(size: Size) -> URL? {
         guard let _posterPath else { return nil }
-        return "https://image.tmdb.org/t/p/\(size.rawValue)\(_posterPath)"
+        return URL(string: "https://image.tmdb.org/t/p/\(size.rawValue)\(_posterPath)")
     }
-    
-}
-
-// MARK: - Convert
-
-extension Movie {
-    
-    func toUpcoming() -> Upcoming? {
-        guard let releaseDate,
-              let _backdropPath,
-              !overview.isEmpty else { return nil }
-        
-        return .init(
-            id: id,
-            media: .movie,
-            title: title,
-            overview: overview,
-            releaseDate: releaseDate,
-            _posterPath: _posterPath,
-            _backdropPath: _backdropPath
-        )
-    }
-    
 }

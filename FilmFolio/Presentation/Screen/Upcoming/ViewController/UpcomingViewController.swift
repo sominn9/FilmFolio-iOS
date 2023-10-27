@@ -98,7 +98,7 @@ private extension UpcomingViewController {
     
     func configureDataSource() {
         let cell = UICollectionView.CellRegistration<UpcomingCell, Upcoming> { cell, indexPath, item in
-            cell.setup(item.backdropPath)
+            cell.setup(item.backdropURL)
             cell.titleLabel.text = item.title
             cell.releaseDateLabel.text = item.releaseDate
             cell.overviewLabel.attributedText = item.overview.withLineHeightMultiple(1.25)

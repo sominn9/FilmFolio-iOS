@@ -9,10 +9,10 @@ import Foundation
 
 struct Video: Hashable {
     let id: String
-    let publishedAt: String
     let name: String
     let videoURL: URL
     let thumbnailURL: URL
+    let publishedAt: String
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)

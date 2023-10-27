@@ -73,8 +73,8 @@ final class ReviewListCell: UICollectionViewCell {
         dateLabel.text = review.publishDate
         
         Task {
-            guard let posterPath = review.posterPath else { return }
-            backgroundImageView.image = await ImageStorage.shared.image(for: posterPath)
+            guard let url = review.posterURL else { return }
+            backgroundImageView.image = await ImageStorage.shared.image(for: url.absoluteString)
         }
     }
     

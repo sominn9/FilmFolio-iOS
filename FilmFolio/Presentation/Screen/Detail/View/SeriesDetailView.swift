@@ -97,10 +97,10 @@ final class SeriesDetailView: UIScrollView {
         }
     }
     
-    func setup(_ urlString: String?) {
+    func setup(_ url: URL?) {
         Task {
-            guard let urlString else { return }
-            imageView.image = await ImageStorage.shared.image(for: urlString)
+            guard let url else { return }
+            imageView.image = await ImageStorage.shared.image(for: url.absoluteString)
         }
     }
     

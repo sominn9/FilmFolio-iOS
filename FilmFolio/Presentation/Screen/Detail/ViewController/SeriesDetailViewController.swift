@@ -87,7 +87,7 @@ final class SeriesDetailViewController: BaseViewController {
         let output = seriesDetailViewModel.transform(input)
         
         output.seriesDetail
-            .map { $0.backdropPath }
+            .map { $0.backdropURL }
             .subscribe(with: self, onNext: {
                 $0.seriesDetailView.setup($1)
             })
@@ -163,7 +163,7 @@ final class SeriesDetailViewController: BaseViewController {
     
     private func configureDiffableDataSource() {
         let cell = UICollectionView.CellRegistration<RoundImageCell, Series> { cell, indexPath, series in
-            cell.setup(series.posterPath(size: .small))
+            cell.setup(series.posterURL(size: .small))
         }
         
         let header = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader.rawValue) {

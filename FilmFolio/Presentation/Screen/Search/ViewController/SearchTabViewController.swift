@@ -57,11 +57,11 @@ extension SearchTabViewController: PagerTabBarControllerDataSource {
         let viewControllers = [
             SearchViewController<Movie>(
                 view: SearchView(placeholder: .init(localized: "Search Movie")),
-                viewModel: SearchViewModel<Movie>()
+                viewModel: SearchViewModel()
             ),
             SearchViewController<Series>(
                 view: SearchView(placeholder: .init(localized: "Search TV Series")),
-                viewModel: SearchViewModel<Series>()
+                viewModel: SearchViewModel()
             )
         ]
         return viewControllers

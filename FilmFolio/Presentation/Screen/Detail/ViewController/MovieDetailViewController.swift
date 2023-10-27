@@ -94,7 +94,7 @@ final class MovieDetailViewController: BaseViewController {
         let output = movieDetailViewModel.transform(input)
         
         output.movieDetail
-            .map { $0.backdropPath }
+            .map { $0.backdropURL }
             .subscribe(with: self, onNext: {
                 $0.movieDetailView.setup($1)
             })
@@ -208,7 +208,7 @@ final class MovieDetailViewController: BaseViewController {
         }
         
         let movie = UICollectionView.CellRegistration<RoundImageCell, Movie> { cell, indexPath, movie in
-            cell.setup(movie.posterPath(size: .small))
+            cell.setup(movie.posterURL(size: .small))
         }
         
         diffableDataSource = UICollectionViewDiffableDataSource(

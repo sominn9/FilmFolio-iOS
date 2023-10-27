@@ -69,7 +69,7 @@ struct SeriesDetailViewModel {
                 Task {
                     var review = try await loadReviewRepository.load(id: id, media: .series)
                     review.title = (try? seriesDetail.value().name) ?? ""
-                    review.posterPath = try? seriesDetail.value().posterPath
+                    review.posterURL = try? seriesDetail.value().posterURL
                     loadedReview.onNext(review)
                 }
             })

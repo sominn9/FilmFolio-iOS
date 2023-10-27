@@ -10,7 +10,7 @@ import RxSwift
 import SnapKit
 import UIKit
 
-final class SearchViewController<Item: Hashable & Decodable>: UIViewController {
+final class SearchViewController<Item: Hashable>: UIViewController {
     
     // MARK: Properties
     
@@ -116,11 +116,11 @@ private extension SearchViewController {
     
     func configureDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<RoundImageCell, Item> {
-            if let posterPath = ($2 as? Movie)?.posterPath(size: .small) {
-                $0.setup(posterPath)
+            if let posterURL = ($2 as? Movie)?.posterURL(size: .small) {
+                $0.setup(posterURL)
             }
-            if let posterPath = ($2 as? Series)?.posterPath(size: .small) {
-                $0.setup(posterPath)
+            if let posterURL = ($2 as? Series)?.posterURL(size: .small) {
+                $0.setup(posterURL)
             }
         }
         

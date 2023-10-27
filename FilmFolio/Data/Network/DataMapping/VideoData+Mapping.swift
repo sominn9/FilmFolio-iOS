@@ -20,10 +20,10 @@ extension VideoData {
         
         return Video(
             id: self.id,
-            publishedAt: self.publishedAt,
             name: self.name,
             videoURL: videoURL,
-            thumbnailURL: thumbnailURL
+            thumbnailURL: thumbnailURL,
+            publishedAt: self.publishedAt
         )
     }
 }

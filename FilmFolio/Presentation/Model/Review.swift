@@ -12,7 +12,7 @@ struct Review: Hashable {
     let media: Media
     var title: String
     var content: String
-    var posterPath: String?
+    var posterURL: URL?
     var publishDate: String
     
     func hash(into hasher: inout Hasher) {

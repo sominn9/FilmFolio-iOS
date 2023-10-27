@@ -143,15 +143,15 @@ private extension MovieHomeViewController {
     func configureDataSource() {
         let cellType1 = UICollectionView.CellRegistration<RoundImageCell, Item> { cell, _, item in
             if case let .nowPlay(movie) = item {
-                cell.setup(movie.posterPath(size: .big))
+                cell.setup(movie.posterURL(size: .big))
             }
         }
         
         let cellType2 = UICollectionView.CellRegistration<RoundImageCell, Item> { cell, _, item in
             if case let .popular(movie) = item {
-                cell.setup(movie.posterPath(size: .small))
+                cell.setup(movie.posterURL(size: .small))
             } else if case let .topRated(movie) = item {
-                cell.setup(movie.posterPath(size: .small))
+                cell.setup(movie.posterURL(size: .small))
             }
         }
         

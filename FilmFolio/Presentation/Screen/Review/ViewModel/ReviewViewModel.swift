@@ -20,7 +20,7 @@ final class ReviewViewModel {
     struct Output {
         var title: Observable<String>
         var content: Observable<String>
-        var posterPath: Observable<String?>
+        var posterURL: Observable<URL?>
     }
     
     
@@ -64,7 +64,7 @@ final class ReviewViewModel {
         return Output(
             title: Observable.just(review.title),
             content: Observable.just(review.content),
-            posterPath: Observable.just(review.posterPath)
+            posterURL: Observable.just(review.posterURL)
         )
     }
     

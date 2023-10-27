@@ -144,15 +144,15 @@ private extension SeriesHomeViewController {
     func configureDataSource() {
         let cellType1 = UICollectionView.CellRegistration<RoundImageCell, Item> { cell, _, item in
             if case let .trending(series) = item {
-                cell.setup(series.posterPath(size: .big))
+                cell.setup(series.posterURL(size: .big))
             }
         }
         
         let cellType2 = UICollectionView.CellRegistration<RoundImageCell, Item> { cell, _, item in
             if case let .onTheAir(series) = item {
-                cell.setup(series.posterPath(size: .small))
+                cell.setup(series.posterURL(size: .small))
             } else if case let .topRated(series) = item {
-                cell.setup(series.posterPath(size: .small))
+                cell.setup(series.posterURL(size: .small))
             }
         }
         
