@@ -10,21 +10,21 @@ import RxSwift
 import SnapKit
 import UIKit
 
-final class SeriesHomeViewController: UIViewController {
+enum SeriesHomeSection: CustomStringConvertible, CaseIterable {
+    case trending
+    case onTheAir
+    case topRated
     
-    enum Section: Int, CustomStringConvertible, CaseIterable {
-        case trending
-        case onTheAir
-        case topRated
-        
-        var description: String {
-            switch self {
-            case .trending:  return ""
-            case .onTheAir:  return String(localized: "On The Air Series")
-            case .topRated:  return String(localized: "Top Rated Series")
-            }
+    var description: String {
+        switch self {
+        case .trending:  return ""
+        case .onTheAir:  return String(localized: "On The Air Series")
+        case .topRated:  return String(localized: "Top Rated Series")
         }
     }
+}
+
+final class SeriesHomeViewController: UIViewController {
     
     enum Item: Hashable {
         case trending(Series)
@@ -38,7 +38,7 @@ final class SeriesHomeViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private let seriesHomeView: SeriesHomeView
     private let seriesHomeViewModel: SeriesHomeViewModel
-    private var dataSource: UICollectionViewDiffableDataSource<Section, Item>?
+    private var dataSource: UICollectionViewDiffableDataSource<SeriesHomeSection, Item>?
     
     
     // MARK: Initializing
@@ -47,6 +47,9 @@ final class SeriesHomeViewController: UIViewController {
         self.seriesHomeView = view
         self.seriesHomeViewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.seriesHomeView.indexToSection = { [weak self] index in
+            return self?.dataSource?.sectionIdentifier(for: index)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -66,17 +69,12 @@ final class SeriesHomeViewController: UIViewController {
     // MARK: Methods
     
     private func configure() {
-        view.addSubview(seriesHomeView)
-        seriesHomeView.snp.makeConstraints {
-            $0.edges.equalTo(view)
-        }
-        
+        layout()
         configureDataSource()
         configureSupplementaryView()
     }
     
     private func bind() {
-        
         let input = SeriesHomeViewModel.Input(fetchSeries: Observable.just(()))
         
         let output = seriesHomeViewModel.transform(input)
@@ -84,7 +82,7 @@ final class SeriesHomeViewController: UIViewController {
         output.trending
             .subscribe(with: self, onNext: { owner, series in
                 let items = series.map { Item.trending($0) }
-                owner.applySnapshot(items, .trending)
+                owner.applySnapshot(items, SeriesHomeSection.trending)
             })
             .disposed(by: disposeBag)
         
@@ -92,7 +90,7 @@ final class SeriesHomeViewController: UIViewController {
             .map { $0.count > 6 ? Array($0[0..<6]) : $0 }
             .subscribe(with: self, onNext: { owner, series in
                 let items = series.map { Item.onTheAir($0) }
-                owner.applySnapshot(items, .onTheAir)
+                owner.applySnapshot(items, SeriesHomeSection.onTheAir)
             })
             .disposed(by: disposeBag)
         
@@ -100,7 +98,7 @@ final class SeriesHomeViewController: UIViewController {
             .map { $0.count > 6 ? Array($0[0..<6]) : $0 }
             .subscribe(with: self, onNext: { owner, series in
                 let items = series.map { Item.topRated($0) }
-                owner.applySnapshot(items, .topRated)
+                owner.applySnapshot(items, SeriesHomeSection.topRated)
             })
             .disposed(by: disposeBag)
         
@@ -126,18 +124,24 @@ final class SeriesHomeViewController: UIViewController {
         
     }
     
+    private func layout() {
+        view.addSubview(seriesHomeView)
+        seriesHomeView.snp.makeConstraints {
+            $0.edges.equalTo(view)
+        }
+    }
+    
 }
 
 // MARK: - DiffableDataSource
 
 private extension SeriesHomeViewController {
     
-    func applySnapshot(_ items: [Item], _ section: Section) {
+    func applySnapshot(_ items: [Item], _ section: SeriesHomeSection) {
         DispatchQueue.main.async {
-            if var snapshot = self.dataSource?.snapshot(for: section) {
-                snapshot.append(items)
-                self.dataSource?.apply(snapshot, to: section)
-            }
+            guard var snapshot = self.dataSource?.snapshot() else { return }
+            snapshot.appendItems(items, toSection: section)
+            self.dataSource?.apply(snapshot)
         }
     }
     
@@ -156,54 +160,47 @@ private extension SeriesHomeViewController {
             }
         }
         
-        dataSource = UICollectionViewDiffableDataSource<Section, Item>(
+        dataSource = UICollectionViewDiffableDataSource<SeriesHomeSection, Item>(
             collectionView: seriesHomeView.collectionView,
-            cellProvider: { collectionView, indexPath, item in
-                if indexPath.section == 0 {
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: cellType1,
-                        for: indexPath,
-                        item: item
-                    )
-                } else {
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: cellType2,
-                        for: indexPath,
-                        item: item
-                    )
+            cellProvider: { [weak self] collectionView, indexPath, item in
+                if let section = self?.dataSource?.sectionIdentifier(for: indexPath.section) {
+                    switch section {
+                    case .trending:
+                        return collectionView.dequeueConfiguredReusableCell(
+                            using: cellType1,
+                            for: indexPath,
+                            item: item
+                        )
+                    case .onTheAir, .topRated:
+                        return collectionView.dequeueConfiguredReusableCell(
+                            using: cellType2,
+                            for: indexPath,
+                            item: item
+                        )
+                    }
                 }
+                
+                return nil
             }
         )
         
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-        snapshot.appendSections(Section.allCases)
+        var snapshot = NSDiffableDataSourceSnapshot<SeriesHomeSection, Item>()
+        snapshot.appendSections(SeriesHomeSection.allCases)
         self.dataSource?.apply(snapshot)
     }
     
     func configureSupplementaryView() {
-        let onTheAirSectionHeader = UICollectionView.SupplementaryRegistration<TitleView>.registration(
-            elementKind: ElementKind.sectionHeader.rawValue,
-            title: Section.onTheAir.description
-        )
-        
-        let topRatedSectionHeader = UICollectionView.SupplementaryRegistration<TitleView>.registration(
-            elementKind: ElementKind.sectionHeader.rawValue,
-            title: Section.topRated.description
-        )
+        let header = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader.rawValue) {
+            [weak self] titleView, elementKind, indexPath in
+            let section = self?.dataSource?.sectionIdentifier(for: indexPath.section)
+            titleView.titleLabel.text = section?.description
+        }
         
         dataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in
-            if let section = Section(rawValue: indexPath.section) {
-                switch section {
-                case .onTheAir:
-                    return collectionView.dequeueConfiguredReusableSupplementary(
-                        using: onTheAirSectionHeader,
-                        for: indexPath
-                    )
-                case .topRated:
-                    return collectionView.dequeueConfiguredReusableSupplementary(
-                        using: topRatedSectionHeader,
-                        for: indexPath
-                    )
+            if let elementKind = ElementKind(rawValue: elementKind) {
+                switch elementKind {
+                case .sectionHeader:
+                    return collectionView.dequeueConfiguredReusableSupplementary(using: header, for: indexPath)
                 default:
                     break
                 }

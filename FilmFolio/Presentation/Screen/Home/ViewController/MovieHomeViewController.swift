@@ -9,21 +9,21 @@ import RxCocoa
 import RxSwift
 import UIKit
 
-final class MovieHomeViewController: UIViewController {
+enum MovieHomeSection: CustomStringConvertible, CaseIterable {
+    case nowPlay
+    case popular
+    case topRated
     
-    enum Section: Int, CustomStringConvertible, CaseIterable {
-        case nowPlay
-        case popular
-        case topRated
-        
-        var description: String {
-            switch self {
-            case .nowPlay:  return ""
-            case .popular:  return String(localized: "Popular Movies")
-            case .topRated: return String(localized: "Top Rated Movies")
-            }
+    var description: String {
+        switch self {
+        case .nowPlay:  return ""
+        case .popular:  return String(localized: "Popular Movies")
+        case .topRated: return String(localized: "Top Rated Movies")
         }
     }
+}
+
+final class MovieHomeViewController: UIViewController {
     
     enum Item: Hashable {
         case nowPlay(Movie)
@@ -37,7 +37,7 @@ final class MovieHomeViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private let movieHomeView: MovieHomeView
     private let movieHomeViewModel: MovieHomeViewModel
-    private var dataSource: UICollectionViewDiffableDataSource<Section, Item>?
+    private var dataSource: UICollectionViewDiffableDataSource<MovieHomeSection, Item>?
     
     
     // MARK: Initializing
@@ -46,6 +46,9 @@ final class MovieHomeViewController: UIViewController {
         self.movieHomeView = view
         self.movieHomeViewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.movieHomeView.indexToSection = { [weak self] index in
+            return self?.dataSource?.sectionIdentifier(for: index)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -65,17 +68,12 @@ final class MovieHomeViewController: UIViewController {
     // MARK: Methods
     
     private func configure() {
-        view.addSubview(movieHomeView)
-        movieHomeView.snp.makeConstraints {
-            $0.edges.equalTo(view)
-        }
-        
+        layout()
         configureDataSource()
         configureSupplementaryView()
     }
     
     private func bind() {
-        
         let input = MovieHomeViewModel.Input(fetchMovies: Observable.just(()))
         
         let output = movieHomeViewModel.transform(input)
@@ -83,7 +81,7 @@ final class MovieHomeViewController: UIViewController {
         output.nowPlaying
             .subscribe(with: self, onNext: { owner, movies in
                 let items = movies.map { Item.nowPlay($0) }
-                owner.applySnapshot(items, .nowPlay)
+                owner.applySnapshot(items, MovieHomeSection.nowPlay)
             })
             .disposed(by: disposeBag)
         
@@ -91,7 +89,7 @@ final class MovieHomeViewController: UIViewController {
             .map { $0.count > 6 ? Array($0[0..<6]) : $0 }
             .subscribe(with: self, onNext: { owner, movies in
                 let items = movies.map { Item.popular($0) }
-                owner.applySnapshot(items, .popular)
+                owner.applySnapshot(items, MovieHomeSection.popular)
             })
             .disposed(by: disposeBag)
         
@@ -99,7 +97,7 @@ final class MovieHomeViewController: UIViewController {
             .map { $0.count > 6 ? Array($0[0..<6]) : $0 }
             .subscribe(with: self, onNext: { owner, movies in
                 let items = movies.map { Item.topRated($0) }
-                owner.applySnapshot(items, .topRated)
+                owner.applySnapshot(items, MovieHomeSection.topRated)
             })
             .disposed(by: disposeBag)
         
@@ -124,6 +122,13 @@ final class MovieHomeViewController: UIViewController {
             .disposed(by: disposeBag)
         
     }
+    
+    private func layout() {
+        view.addSubview(movieHomeView)
+        movieHomeView.snp.makeConstraints {
+            $0.edges.equalTo(view)
+        }
+    }
 
 }
 
@@ -131,12 +136,11 @@ final class MovieHomeViewController: UIViewController {
 
 private extension MovieHomeViewController {
     
-    func applySnapshot(_ items: [Item], _ section: Section) {
+    func applySnapshot(_ items: [Item], _ section: MovieHomeSection) {
         DispatchQueue.main.async {
-            if var snapshot = self.dataSource?.snapshot(for: section) {
-                snapshot.append(items)
-                self.dataSource?.apply(snapshot, to: section)
-            }
+            guard var snapshot = self.dataSource?.snapshot() else { return }
+            snapshot.appendItems(items, toSection: section)
+            self.dataSource?.apply(snapshot)
         }
     }
     
@@ -155,54 +159,47 @@ private extension MovieHomeViewController {
             }
         }
         
-        dataSource = UICollectionViewDiffableDataSource<Section, Item>(
+        dataSource = UICollectionViewDiffableDataSource<MovieHomeSection, Item>(
             collectionView: movieHomeView.collectionView,
-            cellProvider: { collectionView, indexPath, item in
-                if indexPath.section == 0 {
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: cellType1,
-                        for: indexPath,
-                        item: item
-                    )
-                } else {
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: cellType2,
-                        for: indexPath,
-                        item: item
-                    )
+            cellProvider: { [weak self] collectionView, indexPath, item in
+                if let section = self?.dataSource?.sectionIdentifier(for: indexPath.section) {
+                    switch section {
+                    case .nowPlay:
+                        return collectionView.dequeueConfiguredReusableCell(
+                            using: cellType1,
+                            for: indexPath,
+                            item: item
+                        )
+                    case .popular, .topRated:
+                        return collectionView.dequeueConfiguredReusableCell(
+                            using: cellType2,
+                            for: indexPath,
+                            item: item
+                        )
+                    }
                 }
+                
+                return nil
             }
         )
         
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-        snapshot.appendSections(Section.allCases)
+        var snapshot = NSDiffableDataSourceSnapshot<MovieHomeSection, Item>()
+        snapshot.appendSections(MovieHomeSection.allCases)
         self.dataSource?.apply(snapshot)
     }
     
     func configureSupplementaryView() {
-        let popularSectionHeader = UICollectionView.SupplementaryRegistration<TitleView>.registration(
-            elementKind: ElementKind.sectionHeader.rawValue,
-            title: Section.popular.description
-        )
-        
-        let topRatedSectionHeader = UICollectionView.SupplementaryRegistration<TitleView>.registration(
-            elementKind: ElementKind.sectionHeader.rawValue,
-            title: Section.topRated.description
-        )
+        let header = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader.rawValue) {
+            [weak self] titleView, elementKind, indexPath in
+            let section = self?.dataSource?.sectionIdentifier(for: indexPath.section)
+            titleView.titleLabel.text = section?.description
+        }
         
         dataSource?.supplementaryViewProvider = { collectionView, elementKind, indexPath in
-            if let section = Section(rawValue: indexPath.section) {
-                switch section {
-                case .popular:
-                    return collectionView.dequeueConfiguredReusableSupplementary(
-                        using: popularSectionHeader,
-                        for: indexPath
-                    )
-                case .topRated:
-                    return collectionView.dequeueConfiguredReusableSupplementary(
-                        using: topRatedSectionHeader,
-                        for: indexPath
-                    )
+            if let elementKind = ElementKind(rawValue: elementKind) {
+                switch elementKind {
+                case .sectionHeader:
+                    return collectionView.dequeueConfiguredReusableSupplementary(using: header, for: indexPath)
                 default:
                     break
                 }

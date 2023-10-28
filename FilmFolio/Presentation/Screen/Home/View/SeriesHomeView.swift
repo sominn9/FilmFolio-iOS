@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-final class SeriesHomeView: UIView {
+final class SeriesHomeView: UIView, SectionConvertible {
     
     // MARK: Constants
 
@@ -23,6 +23,8 @@ final class SeriesHomeView: UIView {
     
     
     // MARK: Properties
+    
+    var indexToSection: ((Int) -> SeriesHomeSection?)?
     
     lazy var collectionView: UICollectionView = {
         let layout = collectionViewLayout()
@@ -55,29 +57,29 @@ final class SeriesHomeView: UIView {
         }
     }
     
-    func collectionViewLayout() -> UICollectionViewCompositionalLayout {
+    func collectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { [weak self] index, env in
-            switch index {
-            case 0:
+            guard let section = self?.indexToSection?(index) else { return nil }
+            
+            switch section {
+            case .trending:
                 if let screenSize = self?.window?.windowScene?.screen.bounds {
                     return NSCollectionLayoutSection.carousel(
                         height: screenSize.height * 3.0 / 7.0,
                         interCardSpacing: Metric.carouselInterCardSpacing,
                         horizontalInset: Metric.carouselHorizontalInset
                     )
-                } else {
-                    return nil
                 }
-            case 1, 2:
+            case .onTheAir, .topRated:
                 return NSCollectionLayoutSection.grid(
                     environment: env,
                     interCardSpacing: Metric.gridInterCardSpacing,
                     horizontalInset: Metric.gridHorizontalInset,
                     boundarySupplementaryItems: [.titleView(height: Metric.sectionHeaderHeight)]
                 )
-            default:
-                fatalError()
             }
+            
+            return nil
         }
                                                          
         let config = layout.configuration
