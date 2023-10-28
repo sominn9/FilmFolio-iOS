@@ -10,7 +10,7 @@ import RxSwift
 import SnapKit
 import UIKit
 
-enum MovieDetailSection: Hashable, CaseIterable, CustomStringConvertible {
+enum MovieDetailSection: CaseIterable, CustomStringConvertible {
     case video
     case similar
     
@@ -73,17 +73,12 @@ final class MovieDetailViewController: BaseViewController {
     }
     
     private func configure() {
-        self.view.addSubview(movieDetailView)
-        
-        movieDetailView.snp.makeConstraints {
-            $0.edges.equalTo(self.view.snp.edges)
-        }
-
+        layout()
         configureDiffableDataSource()
+        configureSupplementaryView()
     }
     
     private func bind() {
-        
         guard let barButton = navigationItem.rightBarButtonItem else { return }
         
         let input = MovieDetailViewModel.Input(
@@ -163,7 +158,20 @@ final class MovieDetailViewController: BaseViewController {
         
     }
     
-    private func applySnapshot(_ items: [Item], to section: MovieDetailSection) {
+    private func layout() {
+        self.view.addSubview(movieDetailView)
+        movieDetailView.snp.makeConstraints {
+            $0.edges.equalTo(self.view.snp.edges)
+        }
+    }
+    
+}
+
+// MARK: - DiffableDataSource
+
+private extension MovieDetailViewController {
+    
+    func applySnapshot(_ items: [Item], to section: MovieDetailSection) {
         DispatchQueue.main.async {
             guard var snapshot = self.diffableDataSource?.snapshot() else  { return }
             
@@ -202,7 +210,7 @@ final class MovieDetailViewController: BaseViewController {
         }
     }
     
-    private func configureDiffableDataSource() {
+    func configureDiffableDataSource() {
         let video = UICollectionView.CellRegistration<RoundImageCell, Video> { cell, indexPath, video in
             cell.setup(video.thumbnailURL.absoluteString)
         }
@@ -234,11 +242,15 @@ final class MovieDetailViewController: BaseViewController {
                         }
                     }
                 }
+                
                 return nil
             }
         )
-        
-        let header = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader.rawValue) { [weak self] titleView, _, indexPath in
+    }
+    
+    func configureSupplementaryView() {
+        let header = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader.rawValue) { 
+            [weak self] titleView, _, indexPath in
             let section = self?.diffableDataSource?.sectionIdentifier(for: indexPath.section)
             titleView.titleLabel.text = section?.description
             titleView.titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
@@ -259,6 +271,7 @@ final class MovieDetailViewController: BaseViewController {
                     break
                 }
             }
+            
             return nil
         }
     }

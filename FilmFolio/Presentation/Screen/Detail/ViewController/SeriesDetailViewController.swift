@@ -10,17 +10,17 @@ import RxSwift
 import SnapKit
 import UIKit
 
-final class SeriesDetailViewController: BaseViewController {
+enum SeriesDetailSection: CaseIterable, CustomStringConvertible {
+    case similar
     
-    enum Section: Int, Hashable, CustomStringConvertible {
-        case similar
-        
-        var description: String {
-            switch self {
-            case .similar: return "Similar"
-            }
+    var description: String {
+        switch self {
+        case .similar: return "Similar"
         }
     }
+}
+
+final class SeriesDetailViewController: BaseViewController {
     
     enum Item: Hashable {
         case similar(Series)
@@ -32,7 +32,7 @@ final class SeriesDetailViewController: BaseViewController {
     private let disposeBag = DisposeBag()
     private let seriesDetailView: SeriesDetailView
     private let seriesDetailViewModel: SeriesDetailViewModel
-    private var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
+    private var diffableDataSource: UICollectionViewDiffableDataSource<SeriesDetailSection, Item>?
     
     
     // MARK: Initializing
@@ -41,6 +41,9 @@ final class SeriesDetailViewController: BaseViewController {
         self.seriesDetailView = view
         self.seriesDetailViewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.seriesDetailView.indexToSection = { [weak self] index in
+            return self?.diffableDataSource?.sectionIdentifier(for: index)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -59,24 +62,20 @@ final class SeriesDetailViewController: BaseViewController {
     
     // MARK: Methods
     
-    private func configure() {
-        self.view.addSubview(seriesDetailView)
-        seriesDetailView.snp.makeConstraints {
-            $0.edges.equalTo(self.view.snp.edges)
-        }
-    }
-    
     override func configureNavigationBar() {
         super.configureNavigationBar()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "square.and.pencil")
         )
-        
+    }
+    
+    private func configure() {
+        layout()
         configureDiffableDataSource()
+        configureSupplementaryView()
     }
     
     private func bind() {
-        
         guard let barButton = navigationItem.rightBarButtonItem else { return }
         
         let input = SeriesDetailViewModel.Input(
@@ -111,13 +110,8 @@ final class SeriesDetailViewController: BaseViewController {
         
         output.similarSeries
             .subscribe(with: self) { owner, series in
-                DispatchQueue.main.async {
-                    if var snapshot = owner.diffableDataSource?.snapshot() {
-                        let items = series.map { SeriesDetailViewController.Item.similar($0) }
-                        snapshot.appendItems(items, toSection: .similar)
-                        owner.diffableDataSource?.apply(snapshot)
-                    }
-                }
+                let items = series.map { SeriesDetailViewController.Item.similar($0) }
+                owner.applySnapshot(items, to: .similar)
             }
             .disposed(by: disposeBag)
         
@@ -143,13 +137,9 @@ final class SeriesDetailViewController: BaseViewController {
         
         seriesDetailView.collectionView.rx.itemSelected
             .subscribe(with: self) { owner, indexPath in
-                guard let section = Section(rawValue: indexPath.section),
-                      let model = owner.diffableDataSource?.itemIdentifier(for: indexPath)
-                else { return }
-                
-                switch section {
-                case .similar:
-                    if case let .similar(series) = model {
+                if let model = owner.diffableDataSource?.itemIdentifier(for: indexPath) {
+                    switch model {
+                    case let .similar(series):
                         let view = SeriesDetailView()
                         let vm = SeriesDetailViewModel(id: series.id)
                         let vc = SeriesDetailViewController(view: view, viewModel: vm)
@@ -161,39 +151,78 @@ final class SeriesDetailViewController: BaseViewController {
         
     }
     
-    private func configureDiffableDataSource() {
-        let cell = UICollectionView.CellRegistration<RoundImageCell, Series> { cell, indexPath, series in
-            cell.setup(series.posterURL(size: .small))
+    private func layout() {
+        self.view.addSubview(seriesDetailView)
+        seriesDetailView.snp.makeConstraints {
+            $0.edges.equalTo(self.view.snp.edges)
         }
-        
-        let header = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader.rawValue) {
-            [weak self] titleView, _, indexPath in
-            let section = self?.diffableDataSource?.sectionIdentifier(for: indexPath.row)
-            titleView.titleLabel.text = section?.description
+    }
+    
+}
+
+// MARK: - DiffableDataSource
+
+private extension SeriesDetailViewController {
+    
+    func applySnapshot(_ items: [Item], to section: SeriesDetailSection) {
+        DispatchQueue.main.async {
+            guard var snapshot = self.diffableDataSource?.snapshot() else { return }
+            snapshot.appendItems(items, toSection: section)
+            self.diffableDataSource?.apply(snapshot, completion: { [weak self] in
+                self?.seriesDetailView.updateCollectionViewHeight()
+            })
+        }
+    }
+    
+    func configureDiffableDataSource() {
+        let series = UICollectionView.CellRegistration<RoundImageCell, Series> { cell, indexPath, series in
+            cell.setup(series.posterURL(size: .small))
         }
         
         diffableDataSource = UICollectionViewDiffableDataSource(
             collectionView: seriesDetailView.collectionView,
-            cellProvider: { collectionView, indexPath, item in
-                switch item {
-                case let .similar(series):
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: cell,
-                        for: indexPath,
-                        item: series
-                    )
+            cellProvider: { [weak self] collectionView, indexPath, item in
+                if let section = self?.diffableDataSource?.sectionIdentifier(for: indexPath.section) {
+                    switch section {
+                    case .similar:
+                        if case let .similar(data) = item {
+                            return collectionView.dequeueConfiguredReusableCell(
+                                using: series,
+                                for: indexPath,
+                                item: data
+                            )
+                        }
+                    }
                 }
+                
+                return nil
             }
         )
         
-        diffableDataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
-            return collectionView.dequeueConfiguredReusableSupplementary(using: header, for: indexPath)
+        var snapshot = NSDiffableDataSourceSnapshot<SeriesDetailSection, Item>()
+        snapshot.appendSections(SeriesDetailSection.allCases)
+        diffableDataSource?.apply(snapshot)
+    }
+    
+    func configureSupplementaryView() {
+        let header = UICollectionView.SupplementaryRegistration<TitleView>(elementKind: ElementKind.sectionHeader.rawValue) {
+            [weak self] titleView, _, indexPath in
+            let section = self?.diffableDataSource?.sectionIdentifier(for: indexPath.section)
+            titleView.titleLabel.text = section?.description
         }
         
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-        snapshot.appendSections([.similar])
-        snapshot.appendItems([], toSection: .similar)
-        diffableDataSource?.apply(snapshot)
+        diffableDataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
+            if let kind = ElementKind(rawValue: kind) {
+                switch kind {
+                case .sectionHeader:
+                    return collectionView.dequeueConfiguredReusableSupplementary(using: header, for: indexPath)
+                default:
+                    break
+                }
+            }
+            
+            return nil
+        }
     }
     
 }

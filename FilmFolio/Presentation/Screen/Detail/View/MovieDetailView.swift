@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-final class MovieDetailView: UIScrollView {
+final class MovieDetailView: UIScrollView, SectionConvertible {
     
     // MARK: Constants
     
@@ -24,12 +24,7 @@ final class MovieDetailView: UIScrollView {
     
     // MARK: Properties
     
-    var indexToSection: ((Int) -> MovieDetailSection?)? {
-        didSet {
-            let layout = collectionViewLayout()
-            self.collectionView.setCollectionViewLayout(layout, animated: true)
-        }
-    }
+    var indexToSection: ((Int) -> MovieDetailSection?)?
     
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -173,8 +168,6 @@ final class MovieDetailView: UIScrollView {
 private extension MovieDetailView {
     
     func collectionViewLayout() -> UICollectionViewLayout {
-        guard let indexToSection else { return UICollectionViewLayout() }
-        
         let header = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: .init(
                 widthDimension: .fractionalWidth(1),
@@ -187,7 +180,7 @@ private extension MovieDetailView {
         let layout = UICollectionViewCompositionalLayout { [weak self] index, env in
             var section: NSCollectionLayoutSection?
             
-            if let detailViewSection = indexToSection(index) {
+            if let detailViewSection = self?.indexToSection?(index) {
                 switch detailViewSection {
                 case .video:
                     section = self?.makeVideoSection()
