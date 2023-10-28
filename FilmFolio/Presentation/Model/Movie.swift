@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Movie: Hashable {
+struct Movie: PosterRepresentable {
     let id: Int
     let title: String
     let overview: String
@@ -20,12 +20,6 @@ struct Movie: Hashable {
         self.overview = overview
         self.releaseDate = releaseDate
         self._posterPath = _posterPath
-    }
-    
-    enum Size: String {
-        case small = "w200"
-        case big = "w500"
-        case original
     }
 
     func posterURL(size: Size) -> URL? {

@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-struct SearchViewModel<Item: Hashable> {
+struct SearchViewModel<Item: PosterRepresentable> {
     
     // MARK: Input & Output
     
@@ -23,18 +23,20 @@ struct SearchViewModel<Item: Hashable> {
     
     // MARK: Properties
     
+    let media: Media
     private let movieRepository: MovieRepository
     private let seriesRepository: SeriesRepository
-    private let items = PublishSubject<[Item]>()
     private let disposeBag = DisposeBag()
     
     
     // MARK: Initializing
     
     init(
+        media: Media,
         movieRepository: MovieRepository = DefaultMovieRepository(),
         seriesRepository: SeriesRepository = DefaultSeriesRepository()
     ) {
+        self.media = media
         self.movieRepository = movieRepository
         self.seriesRepository = seriesRepository
     }
@@ -43,6 +45,7 @@ struct SearchViewModel<Item: Hashable> {
     // MARK: Methods
     
     func transform(_ input: SearchViewModel.Input) -> SearchViewModel.Output {
+        let items = PublishSubject<[Item]>()
         
         input.searchText
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
@@ -55,8 +58,7 @@ struct SearchViewModel<Item: Hashable> {
         
         input.searchText
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
-            .filter { _ in Item.self == Movie.self }
-            .filter { !$0.isEmpty }
+            .filter { (media == .movie) && !$0.isEmpty }
             .flatMap { movieRepository.search(query: $0, page: 1) }
             .catchAndReturn([])
             .subscribe(onNext: { result in
@@ -68,8 +70,7 @@ struct SearchViewModel<Item: Hashable> {
         
         input.searchText
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
-            .filter { _ in Item.self == Series.self }
-            .filter { !$0.isEmpty }
+            .filter { (media == .series) && !$0.isEmpty }
             .flatMap { seriesRepository.search(query: $0, page: 1) }
             .catchAndReturn([])
             .subscribe(onNext: { result in

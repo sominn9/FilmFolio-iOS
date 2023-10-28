@@ -10,7 +10,7 @@ import RxSwift
 import SnapKit
 import UIKit
 
-final class SearchViewController<Item: Hashable>: UIViewController {
+final class SearchViewController<Item: PosterRepresentable>: UIViewController {
     
     // MARK: Properties
     
@@ -74,29 +74,24 @@ final class SearchViewController<Item: Hashable>: UIViewController {
             .disposed(by: disposeBag)
         
         searcheView.collectionView.rx.itemSelected
-            .withUnretained(self)
-            .compactMap { $0.dataSource?.itemIdentifier(for: $1) }
-            .subscribe(with: self, onNext: {
-                $0.route($1)
+            .subscribe(with: self, onNext: { owner, indexPath in
+                if let item = owner.dataSource?.itemIdentifier(for: indexPath) {
+                    switch owner.searchViewModel.media {
+                    case .movie:
+                        let view = MovieDetailView()
+                        let vm = MovieDetailViewModel(id: item.id)
+                        let vc = MovieDetailViewController(view: view, viewModel: vm)
+                        owner.navigationController?.pushViewController(vc, animated: true)
+                    case .series:
+                        let view = SeriesDetailView()
+                        let vm = SeriesDetailViewModel(id: item.id)
+                        let vc = SeriesDetailViewController(view: view, viewModel: vm)
+                        owner.navigationController?.pushViewController(vc, animated: true)
+                    }
+                }
             })
             .disposed(by: disposeBag)
         
-    }
-    
-    private func route(_ item: Item) {
-        if let item = item as? Movie {
-            let movieDetail = MovieDetailViewController(
-                view: MovieDetailView(),
-                viewModel: MovieDetailViewModel(id: item.id)
-            )
-            self.navigationController?.pushViewController(movieDetail, animated: true)
-        } else if let item = item as? Series {
-            let seriesDetail = SeriesDetailViewController(
-                view: SeriesDetailView(),
-                viewModel: SeriesDetailViewModel(id: item.id)
-            )
-            self.navigationController?.pushViewController(seriesDetail, animated: true)
-        }
     }
     
 }
@@ -115,13 +110,8 @@ private extension SearchViewController {
     }
     
     func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<RoundImageCell, Item> {
-            if let posterURL = ($2 as? Movie)?.posterURL(size: .small) {
-                $0.setup(posterURL)
-            }
-            if let posterURL = ($2 as? Series)?.posterURL(size: .small) {
-                $0.setup(posterURL)
-            }
+        let cellRegistration = UICollectionView.CellRegistration<RoundImageCell, Item> { cell, _, item in
+            cell.setup(item.posterURL(size: .small))
         }
         
         dataSource = UICollectionViewDiffableDataSource<Int, Item>(
