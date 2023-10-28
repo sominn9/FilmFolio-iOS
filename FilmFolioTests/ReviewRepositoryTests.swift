@@ -25,7 +25,7 @@ final class ReviewRepositoryTests: XCTestCase {
     func test_리뷰_저장() async throws {
         
         // given
-        let review = Review(id: 1, media: .movie, title: "", content: "", posterPath: nil, publishDate: "2022-03-11")
+        let review = Review(id: 1, media: .movie, title: "", content: "", posterURL: nil, publishDate: "2022-03-11")
         
         // when
         try await repository.save(review)
@@ -39,7 +39,7 @@ final class ReviewRepositoryTests: XCTestCase {
     func test_리뷰_업데이트() async throws {
         
         // given
-        var review = Review(id: 1, media: .movie, title: "", content: "", posterPath: nil, publishDate: "2022-03-11")
+        var review = Review(id: 1, media: .movie, title: "", content: "", posterURL: nil, publishDate: "2022-03-11")
         try await repository.save(review)
         review.title = "new title"
         review.content = "new content"
@@ -57,7 +57,7 @@ final class ReviewRepositoryTests: XCTestCase {
     func test_리뷰_삭제() async throws {
         
         // given
-        let review = Review(id: 1, media: .movie, title: "", content: "", posterPath: nil, publishDate: "2022-03-11")
+        let review = Review(id: 1, media: .movie, title: "", content: "", posterURL: nil, publishDate: "2022-03-11")
         try await repository.save(review)
         
         // when

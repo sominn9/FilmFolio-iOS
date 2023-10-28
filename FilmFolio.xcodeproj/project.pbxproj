@@ -101,7 +101,6 @@
 		CBE4AE132A59AFB5000AC220 /* FilmFolioUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AE122A59AFB5000AC220 /* FilmFolioUITestsLaunchTests.swift */; };
 		CBE4AE1B2A59C23D000AC220 /* PerformanceXCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AE1A2A59C23D000AC220 /* PerformanceXCTests.swift */; };
 		CBF40C3B2A4DE4210083610E /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = CBF40C3A2A4DE4210083610E /* RxCocoa */; };
-		CBF40C3D2A4DE4210083610E /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CBF40C3C2A4DE4210083610E /* RxSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -235,7 +234,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB9574522A4ECA9E0091F112 /* SnapKit in Frameworks */,
-				CBF40C3D2A4DE4210083610E /* RxSwift in Frameworks */,
 				CBF40C3B2A4DE4210083610E /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -759,7 +757,6 @@
 			name = FilmFolio;
 			packageProductDependencies = (
 				CBF40C3A2A4DE4210083610E /* RxCocoa */,
-				CBF40C3C2A4DE4210083610E /* RxSwift */,
 				CB9574512A4ECA9E0091F112 /* SnapKit */,
 			);
 			productName = FilmFolio;
@@ -1322,11 +1319,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CBF40C392A4DE4210083610E /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxCocoa;
-		};
-		CBF40C3C2A4DE4210083610E /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CBF40C392A4DE4210083610E /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 
