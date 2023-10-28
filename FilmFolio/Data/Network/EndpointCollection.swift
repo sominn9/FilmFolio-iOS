@@ -16,7 +16,7 @@ struct EndpointCollection {
             method: .GET,
             urlString: "https://api.themoviedb.org/3/movie/now_playing",
             header: ["Authorization": "Bearer \(API.accessToken)"],
-            query: ["language": "ko", "region": "KR"]
+            query: ["language": "ko", "region": "KR", "page": "1"]
         )
     }
     
@@ -25,7 +25,7 @@ struct EndpointCollection {
             method: .GET,
             urlString: "https://api.themoviedb.org/3/movie/popular",
             header: ["Authorization": "Bearer \(API.accessToken)"],
-            query: ["language": "ko", "region": "KR"]
+            query: ["language": "ko", "region": "KR", "page": "1"]
         )
     }
     
@@ -34,7 +34,7 @@ struct EndpointCollection {
             method: .GET,
             urlString: "https://api.themoviedb.org/3/movie/top_rated",
             header: ["Authorization": "Bearer \(API.accessToken)"],
-            query: ["language": "ko", "region": "KR"]
+            query: ["language": "ko", "region": "KR", "page": "1"]
         )
     }
     
