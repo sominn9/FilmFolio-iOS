@@ -78,14 +78,10 @@ final class SearchViewController<Item: PosterRepresentable>: UIViewController {
                 if let item = owner.dataSource?.itemIdentifier(for: indexPath) {
                     switch owner.searchViewModel.media {
                     case .movie:
-                        let view = MovieDetailView()
-                        let vm = MovieDetailViewModel(id: item.id)
-                        let vc = MovieDetailViewController(view: view, viewModel: vm)
+                        let vc: MovieDetailViewController = DIContainer.shared.resolve(argument: item.id)
                         owner.navigationController?.pushViewController(vc, animated: true)
                     case .series:
-                        let view = SeriesDetailView()
-                        let vm = SeriesDetailViewModel(id: item.id)
-                        let vc = SeriesDetailViewController(view: view, viewModel: vm)
+                        let vc: SeriesDetailViewController = DIContainer.shared.resolve(argument: item.id)
                         owner.navigationController?.pushViewController(vc, animated: true)
                     }
                 }

@@ -41,6 +41,16 @@
 		CB4DA0822A57063500C6FA11 /* SeriesHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4DA0812A57063500C6FA11 /* SeriesHomeViewModel.swift */; };
 		CB4DA0842A57193400C6FA11 /* Series.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4DA0832A57193400C6FA11 /* Series.swift */; };
 		CB4DA0862A573C2600C6FA11 /* Extension+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4DA0852A573C2600C6FA11 /* Extension+Collection.swift */; };
+		CB5273FE2AEF670D008DBCC2 /* Swinject-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = CB5273FD2AEF670D008DBCC2 /* Swinject-Dynamic */; };
+		CB5274002AEF670D008DBCC2 /* Swinject-Dynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = CB5273FD2AEF670D008DBCC2 /* Swinject-Dynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CB5274022AEF9330008DBCC2 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5274012AEF9330008DBCC2 /* DIContainer.swift */; };
+		CB5274052AEF9CA9008DBCC2 /* CoreDataStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5274042AEF9CA9008DBCC2 /* CoreDataStorageType.swift */; };
+		CB52740B2AEFB3F0008DBCC2 /* DataSourceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB52740A2AEFB3F0008DBCC2 /* DataSourceAssembly.swift */; };
+		CB52740D2AEFB419008DBCC2 /* RepositoryAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB52740C2AEFB419008DBCC2 /* RepositoryAssembly.swift */; };
+		CB52740F2AEFB8FF008DBCC2 /* ScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB52740E2AEFB8FF008DBCC2 /* ScreenAssembly.swift */; };
+		CB5274112AEFC043008DBCC2 /* Inject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5274102AEFC043008DBCC2 /* Inject.swift */; };
+		CB5274142AEFEEDB008DBCC2 /* MovieDetailAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5274132AEFEEDB008DBCC2 /* MovieDetailAssembly.swift */; };
+		CB5274162AEFEEE4008DBCC2 /* SeriesDetailAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5274152AEFEEE4008DBCC2 /* SeriesDetailAssembly.swift */; };
 		CB6AA9332A502A22001D5867 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6AA9322A502A22001D5867 /* TitleView.swift */; };
 		CB6AA9352A502C4C001D5867 /* ElementKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6AA9342A502C4C001D5867 /* ElementKind.swift */; };
 		CB6AA9372A502C86001D5867 /* Extension+NSCollectionLayoutBoundarySupplementaryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6AA9362A502C86001D5867 /* Extension+NSCollectionLayoutBoundarySupplementaryItem.swift */; };
@@ -122,6 +132,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		CB5273FF2AEF670D008DBCC2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CB5274002AEF670D008DBCC2 /* Swinject-Dynamic in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		CB0DD7702A373FF9003116CE /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		CB0DD7722A37439C003116CE /* EndpointCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointCollection.swift; sourceTree = "<group>"; };
@@ -158,6 +182,14 @@
 		CB4DA0812A57063500C6FA11 /* SeriesHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesHomeViewModel.swift; sourceTree = "<group>"; };
 		CB4DA0832A57193400C6FA11 /* Series.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Series.swift; sourceTree = "<group>"; };
 		CB4DA0852A573C2600C6FA11 /* Extension+Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Collection.swift"; sourceTree = "<group>"; };
+		CB5274012AEF9330008DBCC2 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		CB5274042AEF9CA9008DBCC2 /* CoreDataStorageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorageType.swift; sourceTree = "<group>"; };
+		CB52740A2AEFB3F0008DBCC2 /* DataSourceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceAssembly.swift; sourceTree = "<group>"; };
+		CB52740C2AEFB419008DBCC2 /* RepositoryAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryAssembly.swift; sourceTree = "<group>"; };
+		CB52740E2AEFB8FF008DBCC2 /* ScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenAssembly.swift; sourceTree = "<group>"; };
+		CB5274102AEFC043008DBCC2 /* Inject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inject.swift; sourceTree = "<group>"; };
+		CB5274132AEFEEDB008DBCC2 /* MovieDetailAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailAssembly.swift; sourceTree = "<group>"; };
+		CB5274152AEFEEE4008DBCC2 /* SeriesDetailAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesDetailAssembly.swift; sourceTree = "<group>"; };
 		CB6AA9322A502A22001D5867 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		CB6AA9342A502C4C001D5867 /* ElementKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementKind.swift; sourceTree = "<group>"; };
 		CB6AA9362A502C86001D5867 /* Extension+NSCollectionLayoutBoundarySupplementaryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+NSCollectionLayoutBoundarySupplementaryItem.swift"; sourceTree = "<group>"; };
@@ -237,6 +269,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB5273FE2AEF670D008DBCC2 /* Swinject-Dynamic in Frameworks */,
 				CB9574522A4ECA9E0091F112 /* SnapKit in Frameworks */,
 				CBF40C3B2A4DE4210083610E /* RxCocoa in Frameworks */,
 			);
@@ -257,9 +290,6 @@
 			children = (
 				CBAB9B462ABDE898000D929A /* Model */,
 				CB14F5382AE62B3800EDAA7B /* DataMapping */,
-				CB9574552A4F09020091F112 /* NetworkError.swift */,
-				CB3719B92A336EAC009D5EA2 /* NetworkManager.swift */,
-				CB0DD7702A373FF9003116CE /* Endpoint.swift */,
 				CB0DD7722A37439C003116CE /* EndpointCollection.swift */,
 			);
 			path = Network;
@@ -472,9 +502,60 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		CB5274032AEF96F1008DBCC2 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				CB5274092AEFB3DC008DBCC2 /* Assembly */,
+				CB5274012AEF9330008DBCC2 /* DIContainer.swift */,
+				CB5274102AEFC043008DBCC2 /* Inject.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
+		CB5274062AEFA069008DBCC2 /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				CB5274072AEFA0A1008DBCC2 /* Network */,
+				CB9E73392A9E195D00F5675C /* Core Data */,
+				CB962A2F2A9CB07B003822F1 /* Image */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		CB5274072AEFA0A1008DBCC2 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				CB9574552A4F09020091F112 /* NetworkError.swift */,
+				CB3719B92A336EAC009D5EA2 /* NetworkManager.swift */,
+				CB0DD7702A373FF9003116CE /* Endpoint.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		CB5274092AEFB3DC008DBCC2 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				CB5274122AEFEECD008DBCC2 /* Screen */,
+				CB52740A2AEFB3F0008DBCC2 /* DataSourceAssembly.swift */,
+				CB52740C2AEFB419008DBCC2 /* RepositoryAssembly.swift */,
+				CB52740E2AEFB8FF008DBCC2 /* ScreenAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		CB5274122AEFEECD008DBCC2 /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				CB5274132AEFEEDB008DBCC2 /* MovieDetailAssembly.swift */,
+				CB5274152AEFEEE4008DBCC2 /* SeriesDetailAssembly.swift */,
+			);
+			path = Screen;
+			sourceTree = "<group>";
+		};
 		CB6AA93A2A50866D001D5867 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				CB5274032AEF96F1008DBCC2 /* DI */,
 				CBCEEED92A0A85E400CF7186 /* AppDelegate.swift */,
 				CBCEEEDB2A0A85E400CF7186 /* SceneDelegate.swift */,
 				CBCEEEE42A0A85E500CF7186 /* LaunchScreen.storyboard */,
@@ -562,10 +643,10 @@
 		CB962A2D2A9CB003003822F1 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				CB5274062AEFA069008DBCC2 /* Infrastructure */,
 				CB962A3E2A9CC2BB003822F1 /* Repository */,
 				CB0DD76F2A373FCF003116CE /* Network */,
 				CB962A302A9CB326003822F1 /* Persistent Storage */,
-				CB962A2F2A9CB07B003822F1 /* Image */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -590,7 +671,6 @@
 		CB962A302A9CB326003822F1 /* Persistent Storage */ = {
 			isa = PBXGroup;
 			children = (
-				CB9E73392A9E195D00F5675C /* Core Data */,
 				CB962A362A9CB489003822F1 /* EntityMapping */,
 			);
 			path = "Persistent Storage";
@@ -630,6 +710,7 @@
 				CB962A332A9CB3E6003822F1 /* Model.xcdatamodeld */,
 				CB962A312A9CB389003822F1 /* CoreDataStorage.swift */,
 				CB9E73352A9E192600F5675C /* CoreDataStorageError.swift */,
+				CB5274042AEF9CA9008DBCC2 /* CoreDataStorageType.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -763,6 +844,7 @@
 				CBCEEED22A0A85E400CF7186 /* Sources */,
 				CBCEEED32A0A85E400CF7186 /* Frameworks */,
 				CBCEEED42A0A85E400CF7186 /* Resources */,
+				CB5273FF2AEF670D008DBCC2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -772,6 +854,7 @@
 			packageProductDependencies = (
 				CBF40C3A2A4DE4210083610E /* RxCocoa */,
 				CB9574512A4ECA9E0091F112 /* SnapKit */,
+				CB5273FD2AEF670D008DBCC2 /* Swinject-Dynamic */,
 			);
 			productName = FilmFolio;
 			productReference = CBCEEED62A0A85E400CF7186 /* FilmFolio.app */;
@@ -831,6 +914,7 @@
 			packageReferences = (
 				CBF40C392A4DE4210083610E /* XCRemoteSwiftPackageReference "RxSwift" */,
 				CB9574502A4ECA9E0091F112 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				CB5273FC2AEF66CD008DBCC2 /* XCRemoteSwiftPackageReference "Swinject" */,
 			);
 			productRefGroup = CBCEEED72A0A85E400CF7186 /* Products */;
 			projectDirPath = "";
@@ -901,6 +985,8 @@
 				CB0DD7712A373FF9003116CE /* Endpoint.swift in Sources */,
 				CB9574542A4ECE0C0091F112 /* MovieHomeView.swift in Sources */,
 				CBE282F82A65A1690094FE23 /* UpcomingCell.swift in Sources */,
+				CB52740B2AEFB3F0008DBCC2 /* DataSourceAssembly.swift in Sources */,
+				CB52740D2AEFB419008DBCC2 /* RepositoryAssembly.swift in Sources */,
 				CBCEEEDA2A0A85E400CF7186 /* AppDelegate.swift in Sources */,
 				CBC3C86A2AEC39E500CA0283 /* SeriesDetailData+Mapping.swift in Sources */,
 				CB7BA5A22AECDBE700BE4003 /* Size.swift in Sources */,
@@ -916,6 +1002,7 @@
 				CB7A8F682A6463FE00DCE0C1 /* SeriesDetailViewController.swift in Sources */,
 				CB2D4C492A5DC918007B8C39 /* SearchView.swift in Sources */,
 				CB83E84D2A697A08004BE8EE /* Bookmark.swift in Sources */,
+				CB5274162AEFEEE4008DBCC2 /* SeriesDetailAssembly.swift in Sources */,
 				CBAB9B482ABDE8EB000D929A /* SeriesRepository.swift in Sources */,
 				CB962A3D2A9CBD25003822F1 /* ReviewEntity+Mapping.swift in Sources */,
 				CB6AA9392A505DB4001D5867 /* ImageStorage.swift in Sources */,
@@ -947,11 +1034,14 @@
 				CB4DA0842A57193400C6FA11 /* Series.swift in Sources */,
 				CBCA7A562AA0BC19002DC45E /* ReviewListViewModel.swift in Sources */,
 				CB6AA9332A502A22001D5867 /* TitleView.swift in Sources */,
+				CB5274112AEFC043008DBCC2 /* Inject.swift in Sources */,
+				CB5274022AEF9330008DBCC2 /* DIContainer.swift in Sources */,
 				CBC3C8682AEC39DA00CA0283 /* SeriesDetailData.swift in Sources */,
 				CBC3C8622AEC300D00CA0283 /* MovieDetailData+Mapping.swift in Sources */,
 				CB962A402A9CC2CB003822F1 /* ReviewRepository.swift in Sources */,
 				CB81378F2AE7909F0085C0A0 /* PlayView.swift in Sources */,
 				CB2F64F42A5424E80007854D /* Extension+UIButton.Configuration.swift in Sources */,
+				CB5274052AEF9CA9008DBCC2 /* CoreDataStorageType.swift in Sources */,
 				CB0DD7732A37439C003116CE /* EndpointCollection.swift in Sources */,
 				CBCA7A582AA0E8BC002DC45E /* ReviewListCell.swift in Sources */,
 				CB6AA9352A502C4C001D5867 /* ElementKind.swift in Sources */,
@@ -960,7 +1050,9 @@
 				CB4060E22A9F8B2B005C2A43 /* SaveReviewRepository.swift in Sources */,
 				CB2D4C472A5DBA8E007B8C39 /* RootTabBarController.swift in Sources */,
 				CBC3C8642AEC368E00CA0283 /* SeriesData.swift in Sources */,
+				CB52740F2AEFB8FF008DBCC2 /* ScreenAssembly.swift in Sources */,
 				CB36559A2A52FAA900C2ACEF /* HomeTabViewController.swift in Sources */,
+				CB5274142AEFEEDB008DBCC2 /* MovieDetailAssembly.swift in Sources */,
 				CB83E84F2A697A10004BE8EE /* Review.swift in Sources */,
 				CBAB9B452ABDDE39000D929A /* API.swift in Sources */,
 				CB4060E42A9F96D2005C2A43 /* DateFormat.swift in Sources */,
@@ -1304,6 +1396,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CB5273FC2AEF66CD008DBCC2 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
 		CB9574502A4ECA9E0091F112 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -1323,6 +1423,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CB5273FD2AEF670D008DBCC2 /* Swinject-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB5273FC2AEF66CD008DBCC2 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = "Swinject-Dynamic";
+		};
 		CB9574512A4ECA9E0091F112 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CB9574502A4ECA9E0091F112 /* XCRemoteSwiftPackageReference "SnapKit" */;

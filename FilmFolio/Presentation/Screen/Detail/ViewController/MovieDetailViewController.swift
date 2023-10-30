@@ -32,17 +32,16 @@ final class MovieDetailViewController: BaseViewController {
     
     // MARK: Properties
     
-    private let disposeBag = DisposeBag()
-    private let movieDetailView: MovieDetailView
-    private let movieDetailViewModel: MovieDetailViewModel
+    @Inject private var movieDetailView: MovieDetailView
+    @Inject private var movieDetailViewModel: MovieDetailViewModel
     private var diffableDataSource: UICollectionViewDiffableDataSource<MovieDetailSection, Item>?
+    private let disposeBag = DisposeBag()
     
     
     // MARK: Initializing
     
-    init(view: MovieDetailView, viewModel: MovieDetailViewModel) {
-        self.movieDetailView = view
-        self.movieDetailViewModel = viewModel
+    init(id: Int) {
+        self._movieDetailViewModel = Inject(argument: id)
         super.init(nibName: nil, bundle: nil)
         self.movieDetailView.indexToSection = { [weak self] index in
             return self?.diffableDataSource?.sectionIdentifier(for: index)
@@ -147,9 +146,7 @@ final class MovieDetailViewController: BaseViewController {
                         let vc = WebViewController(video.videoURL)
                         owner.navigationController?.pushViewController(vc, animated: true)
                     case let .similar(movie):
-                        let view = MovieDetailView()
-                        let vm = MovieDetailViewModel(id: movie.id)
-                        let vc = MovieDetailViewController(view: view, viewModel: vm)
+                        let vc: MovieDetailViewController = DIContainer.shared.resolve(argument: movie.id)
                         owner.navigationController?.pushViewController(vc, animated: true)
                     }
                 }

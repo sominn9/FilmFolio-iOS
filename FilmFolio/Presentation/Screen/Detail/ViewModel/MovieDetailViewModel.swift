@@ -27,22 +27,16 @@ struct MovieDetailViewModel {
     
     // MARK: Properties
     
-    private let id: Int
-    private let movieRepository: MovieRepository
-    private let loadReviewRepository: LoadReviewRepository
+    @Inject private var movieRepository: MovieRepository
+    @Inject private var loadReviewRepository: LoadReviewRepository
     private let disposeBag = DisposeBag()
+    private let id: Int
     
     
     // MARK: Initializing
     
-    init(
-        id: Int,
-        movieRepository: MovieRepository = DefaultMovieRepository(),
-        loadReviewRepository: LoadReviewRepository = DefaultLoadReviewRepository()
-    ) {
+    init(id: Int) {
         self.id = id
-        self.movieRepository = movieRepository
-        self.loadReviewRepository = loadReviewRepository
     }
     
     

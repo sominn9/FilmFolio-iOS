@@ -29,17 +29,16 @@ final class SeriesDetailViewController: BaseViewController {
     
     // MARK: Properties
     
-    private let disposeBag = DisposeBag()
-    private let seriesDetailView: SeriesDetailView
-    private let seriesDetailViewModel: SeriesDetailViewModel
+    @Inject private var seriesDetailView: SeriesDetailView
+    @Inject private var seriesDetailViewModel: SeriesDetailViewModel
     private var diffableDataSource: UICollectionViewDiffableDataSource<SeriesDetailSection, Item>?
+    private let disposeBag = DisposeBag()
     
     
     // MARK: Initializing
     
-    init(view: SeriesDetailView, viewModel: SeriesDetailViewModel) {
-        self.seriesDetailView = view
-        self.seriesDetailViewModel = viewModel
+    init(id: Int) {
+        self._seriesDetailViewModel = .init(argument: id)
         super.init(nibName: nil, bundle: nil)
         self.seriesDetailView.indexToSection = { [weak self] index in
             return self?.diffableDataSource?.sectionIdentifier(for: index)
@@ -140,9 +139,7 @@ final class SeriesDetailViewController: BaseViewController {
                 if let model = owner.diffableDataSource?.itemIdentifier(for: indexPath) {
                     switch model {
                     case let .similar(series):
-                        let view = SeriesDetailView()
-                        let vm = SeriesDetailViewModel(id: series.id)
-                        let vc = SeriesDetailViewController(view: view, viewModel: vm)
+                        let vc: SeriesDetailViewController = DIContainer.shared.resolve(argument: series.id)
                         owner.navigationController?.pushViewController(vc, animated: true)
                     }
                 }

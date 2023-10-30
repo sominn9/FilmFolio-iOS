@@ -115,9 +115,7 @@ final class SeriesHomeViewController: UIViewController {
                 }
                 
                 guard let id else { return }
-                let view = SeriesDetailView()
-                let vm = SeriesDetailViewModel(id: id)
-                let vc = SeriesDetailViewController(view: view, viewModel: vm)
+                let vc: SeriesDetailViewController = DIContainer.shared.resolve(argument: id)
                 $0.navigationController?.pushViewController(vc, animated: true)
             })
             .disposed(by: disposeBag)

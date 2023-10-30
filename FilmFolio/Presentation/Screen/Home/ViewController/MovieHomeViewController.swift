@@ -114,9 +114,7 @@ final class MovieHomeViewController: UIViewController {
                 }
                 
                 guard let id else { return }
-                let view = MovieDetailView()
-                let vm = MovieDetailViewModel(id: id)
-                let vc = MovieDetailViewController(view: view, viewModel: vm)
+                let vc: MovieDetailViewController = DIContainer.shared.resolve(argument: id)
                 $0.navigationController?.pushViewController(vc, animated: true)
             })
             .disposed(by: disposeBag)

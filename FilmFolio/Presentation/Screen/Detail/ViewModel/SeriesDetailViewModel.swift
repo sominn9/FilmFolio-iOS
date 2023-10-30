@@ -26,22 +26,16 @@ struct SeriesDetailViewModel {
     
     // MARK: Properties
     
-    private let id: Int
-    private let seriesRepository: SeriesRepository
-    private let loadReviewRepository: LoadReviewRepository
+    @Inject var seriesRepository: SeriesRepository
+    @Inject var loadReviewRepository: LoadReviewRepository
     private let disposeBag = DisposeBag()
+    private let id: Int
     
     
     // MARK: Initializing
     
-    init(
-        id: Int,
-        seriesRepository: SeriesRepository = DefaultSeriesRepository(),
-        loadReviewRepository: LoadReviewRepository = DefaultLoadReviewRepository()
-    ) {
+    init(id: Int) {
         self.id = id
-        self.seriesRepository = seriesRepository
-        self.loadReviewRepository = loadReviewRepository
     }
     
     

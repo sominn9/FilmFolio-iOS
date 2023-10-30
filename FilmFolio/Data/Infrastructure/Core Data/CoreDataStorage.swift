@@ -8,11 +8,6 @@
 import CoreData
 import Foundation
 
-enum CoreDataStorageType {
-    case sqlite
-    case inMemory
-}
-
 final class CoreDataStorage {
     
     static let shared: CoreDataStorage = {
