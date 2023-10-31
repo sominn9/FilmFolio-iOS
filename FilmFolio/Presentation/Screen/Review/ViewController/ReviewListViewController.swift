@@ -78,8 +78,29 @@ final class ReviewListViewController: BaseViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
     }
     
+    private func bind() {
+        let input = ReviewListViewModel.Input(fetchReviews: fetchReviews.asObservable())
+        let output = reviewListViewModel.transform(input)
+        
+        output.reviewList
+            .subscribe(with: self) { owner, reviews in
+                owner.applySnapshot(reviews)
+            }
+            .disposed(by: disposeBag)
+        
+        collectionView.rx.itemSelected
+            .subscribe(with: self, onNext: { owner, indexPath in
+                guard let review = owner.dataSource?.itemIdentifier(for: indexPath) else { return }
+                let vm = ReviewViewModel(review: review)
+                let vc = ReviewViewController(viewModel: vm)
+                owner.navigationController?.pushViewController(vc, animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
+    
     private func configureDataSource() {
-        let cell = UICollectionView.CellRegistration<ReviewListCell, Review> { cell, _, review in
+        let cell = UICollectionView.CellRegistration<ReviewListCell, Review> { cell, indexPath, review in
+            print(indexPath, review)
             cell.setup(review)
         }
         
@@ -101,32 +122,13 @@ final class ReviewListViewController: BaseViewController {
         }
     }
     
-    private func appendReviews(_ newReviews: [Review]) {
+    private func applySnapshot(_ newReviews: [Review]) {
         DispatchQueue.main.async {
-            guard var snapshot = self.dataSource?.snapshot() else { return }
+            var snapshot = NSDiffableDataSourceSnapshot<Int, Review>()
+            snapshot.appendSections([0])
             snapshot.appendItems(newReviews)
             self.dataSource?.apply(snapshot)
         }
-    }
-    
-    private func bind() {
-        let input = ReviewListViewModel.Input(fetchReviews: fetchReviews.asObservable())
-        let output = reviewListViewModel.transform(input)
-        
-        output.reviewList
-            .subscribe(with: self) { owner, reviews in
-                owner.appendReviews(reviews)
-            }
-            .disposed(by: disposeBag)
-        
-        collectionView.rx.itemSelected
-            .subscribe(with: self, onNext: { owner, indexPath in
-                guard let review = owner.dataSource?.itemIdentifier(for: indexPath) else { return }
-                let vm = ReviewViewModel(review: review)
-                let vc = ReviewViewController(viewModel: vm)
-                owner.navigationController?.pushViewController(vc, animated: true)
-            })
-            .disposed(by: disposeBag)
     }
     
 }

@@ -44,13 +44,14 @@ final class ReviewListViewModel {
         let reviewList = PublishSubject<[Review]>()
         
         input.fetchReviews
+            .delay(.milliseconds(500), scheduler: ConcurrentDispatchQueueScheduler(queue: .global()))
             .subscribe(with: self, onNext: { owner, _ in
                 Task {
                     let list = try await owner.reviewRepository.fetch(
                         offset: owner.offset,
                         count: owner.limit
                     )
-                    owner.offset += list.count
+                    // owner.offset += list.count
                     reviewList.onNext(list)
                 }
             })

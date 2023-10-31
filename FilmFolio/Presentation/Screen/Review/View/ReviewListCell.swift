@@ -13,7 +13,7 @@ final class ReviewListCell: UICollectionViewCell {
     struct Metric {
         static let cornerRadius = 16.0
         static let contentInset = 16.0
-        static let backgroundAlpha = 0.75
+        static let backgroundAlpha = 0.65
     }
     
     
