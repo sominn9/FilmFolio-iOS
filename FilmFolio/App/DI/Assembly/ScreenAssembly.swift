@@ -10,7 +10,7 @@ import Swinject
 final class ScreenAssembly: Assembly {
     
     func assemble(container: Container) {
-        let asseblies: [Assembly] = [
+        let assemblies: [Assembly] = [
             MovieHomeAssembly(),
             SeriesHomeAssembly(),
             MovieDetailAssembly(),
@@ -20,8 +20,8 @@ final class ScreenAssembly: Assembly {
             UpcomingListAssembly(),
             SearchAssembly()
         ]
-        for assebly in asseblies {
-            assebly.assemble(container: container)
+        for assembly in assemblies {
+            assembly.assemble(container: container)
         }
     }
     
