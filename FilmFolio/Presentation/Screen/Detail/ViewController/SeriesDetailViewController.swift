@@ -38,7 +38,7 @@ final class SeriesDetailViewController: BaseViewController {
     // MARK: Initializing
     
     init(id: Int) {
-        self._seriesDetailViewModel = .init(argument: id)
+        self._seriesDetailViewModel = Inject(argument: id)
         super.init(nibName: nil, bundle: nil)
         self.seriesDetailView.indexToSection = { [weak self] index in
             return self?.diffableDataSource?.sectionIdentifier(for: index)
@@ -128,8 +128,7 @@ final class SeriesDetailViewController: BaseViewController {
         output.loadedReview
             .observe(on: MainScheduler.instance)
             .subscribe(with: self, onNext: { owner, review in
-                let vm = ReviewViewModel(review: review)
-                let vc = ReviewViewController(viewModel: vm)
+                let vc: ReviewViewController = DIContainer.shared.resolve(argument: review)
                 owner.navigationController?.pushViewController(vc, animated: true)
             })
             .disposed(by: disposeBag)

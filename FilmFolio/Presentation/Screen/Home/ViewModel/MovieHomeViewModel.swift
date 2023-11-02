@@ -25,20 +25,13 @@ struct MovieHomeViewModel {
     
     // MARK: Properties
     
-    private let repository: MovieRepository
+    @Inject private var repository: MovieRepository
     private let disposeBag = DisposeBag()
-    
-    
-    // MARK: Initializing
-    
-    init(repository: MovieRepository = DefaultMovieRepository()) {
-        self.repository = repository
-    }
     
     
     // MARK: Methods
     
-    func transform(_ input: MovieHomeViewModel.Input) -> MovieHomeViewModel.Output {
+    func transform(_ input: Input) -> Output {
         let nowPlaying = BehaviorSubject<[Movie]>(value: [])
         let popular = BehaviorSubject<[Movie]>(value: [])
         let topRated = BehaviorSubject<[Movie]>(value: [])

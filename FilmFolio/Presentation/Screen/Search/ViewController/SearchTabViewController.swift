@@ -54,14 +54,12 @@ extension SearchTabViewController: PagerTabBarControllerDataSource {
     }
     
     func viewControllers(_ pagerTabBarController: PagerTabBarController) -> [UIViewController] {
-        let view1 = SearchView(placeholder: .init(localized: "Search Movie"))
-        let vm1 = SearchViewModel<Movie>(media: .movie)
-        let vc1 = SearchViewController(view: view1, viewModel: vm1)
-        
-        let view2 = SearchView(placeholder: .init(localized: "Search TV Series"))
-        let vm2 = SearchViewModel<Series>(media: .series)
-        let vc2 = SearchViewController(view: view2, viewModel: vm2)
-        
+        let vc1: SearchViewController<Movie> = DIContainer.shared.resolve(
+            argument: String(localized: "Search Movie")
+        )
+        let vc2: SearchViewController<Series> = DIContainer.shared.resolve(
+            argument: String(localized: "Search TV Series")
+        )
         return [vc1, vc2]
     }
 }

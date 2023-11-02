@@ -25,20 +25,13 @@ struct SeriesHomeViewModel {
     
     // MARK: Properties
     
-    private let repository: SeriesRepository
+    @Inject private var repository: SeriesRepository
     private let disposeBag = DisposeBag()
-    
-    
-    // MARK: Initializing
-    
-    init(repository: SeriesRepository = DefaultSeriesRepository()) {
-        self.repository = repository
-    }
     
     
     // MARK: Methods
     
-    func transform(_ input: SeriesHomeViewModel.Input) -> SeriesHomeViewModel.Output {
+    func transform(_ input: Input) -> Output {
         let trending = BehaviorSubject<[Series]>(value: [])
         let onTheAir = BehaviorSubject<[Series]>(value: [])
         let topRated = BehaviorSubject<[Series]>(value: [])

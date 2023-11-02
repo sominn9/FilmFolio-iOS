@@ -1,5 +1,5 @@
 //
-//  UpcomingView.swift
+//  UpcomingListView.swift
 //  FilmFolio
 //
 //  Created by 신소민 on 2023/07/17.
@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-final class UpcomingView: UIView {
+final class UpcomingListView: UIView {
     
     // MARK: Properties
     

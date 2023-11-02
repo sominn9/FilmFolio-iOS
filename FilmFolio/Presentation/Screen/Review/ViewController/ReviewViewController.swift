@@ -26,15 +26,15 @@ final class ReviewViewController: BaseViewController {
     
     // MARK: Properties
     
+    @Inject private var reviewViewModel: ReviewViewModel
     private lazy var textView = UITextView()
     private let disposeBag = DisposeBag()
-    private var reviewViewModel: ReviewViewModel
     
     
     // MARK: Initializing
     
-    init(viewModel: ReviewViewModel) {
-        self.reviewViewModel = viewModel
+    init(review: Review) {
+        self._reviewViewModel = Inject(argument: review)
         super.init(nibName: nil, bundle: nil)
     }
     

@@ -24,7 +24,7 @@ enum SeriesHomeSection: CustomStringConvertible, CaseIterable {
     }
 }
 
-final class SeriesHomeViewController: UIViewController {
+final class SeriesHomeViewController: BaseViewController {
     
     enum Item: Hashable {
         case trending(Series)
@@ -35,17 +35,15 @@ final class SeriesHomeViewController: UIViewController {
     
     // MARK: Properties
     
-    private let disposeBag = DisposeBag()
-    private let seriesHomeView: SeriesHomeView
-    private let seriesHomeViewModel: SeriesHomeViewModel
+    @Inject private var seriesHomeView: SeriesHomeView
+    @Inject private var seriesHomeViewModel: SeriesHomeViewModel
     private var dataSource: UICollectionViewDiffableDataSource<SeriesHomeSection, Item>?
+    private let disposeBag = DisposeBag()
     
     
     // MARK: Initializing
     
-    init(view: SeriesHomeView, viewModel: SeriesHomeViewModel) {
-        self.seriesHomeView = view
-        self.seriesHomeViewModel = viewModel
+    init() {
         super.init(nibName: nil, bundle: nil)
         self.seriesHomeView.indexToSection = { [weak self] index in
             return self?.dataSource?.sectionIdentifier(for: index)

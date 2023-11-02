@@ -1,5 +1,5 @@
 //
-//  UpcomingCell.swift
+//  UpcomingListCell.swift
 //  FilmFolio
 //
 //  Created by 신소민 on 2023/07/18.
@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-final class UpcomingCell: UICollectionViewCell {
+final class UpcomingListCell: UICollectionViewCell {
     
     // MARK: Constants
     

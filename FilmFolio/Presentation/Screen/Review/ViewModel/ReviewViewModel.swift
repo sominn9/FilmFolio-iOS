@@ -26,19 +26,15 @@ final class ReviewViewModel {
     
     // MARK: Properties
     
+    @Inject private var saveReviewRepository: SaveReviewRepository
     private var review: Review
-    private let saveReviewRepository: SaveReviewRepository
     private let disposeBag = DisposeBag()
     
     
     // MARK: Initializing
     
-    init(
-        review: Review,
-        saveReviewRepository: SaveReviewRepository = DefaultSaveReviewRepository()
-    ) {
+    init(review: Review) {
         self.review = review
-        self.saveReviewRepository = saveReviewRepository
     }
     
     

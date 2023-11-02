@@ -23,22 +23,16 @@ struct SearchViewModel<Item: PosterRepresentable> {
     
     // MARK: Properties
     
-    let media: Media
-    private let movieRepository: MovieRepository
-    private let seriesRepository: SeriesRepository
+    @Inject private var movieRepository: MovieRepository
+    @Inject private var seriesRepository: SeriesRepository
     private let disposeBag = DisposeBag()
+    let media: Media
     
     
     // MARK: Initializing
     
-    init(
-        media: Media,
-        movieRepository: MovieRepository = DefaultMovieRepository(),
-        seriesRepository: SeriesRepository = DefaultSeriesRepository()
-    ) {
+    init(media: Media) {
         self.media = media
-        self.movieRepository = movieRepository
-        self.seriesRepository = seriesRepository
     }
     
     

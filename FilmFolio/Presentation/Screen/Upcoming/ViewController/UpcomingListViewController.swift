@@ -1,5 +1,5 @@
 //
-//  UpcomingViewController.swift
+//  UpcomingListViewController.swift
 //  FilmFolio
 //
 //  Created by 신소민 on 2023/07/17.
@@ -10,21 +10,19 @@ import RxSwift
 import SnapKit
 import UIKit
 
-final class UpcomingViewController: BaseViewController {
+final class UpcomingListViewController: BaseViewController {
     
     // MARK: Properties
     
-    private let disposeBag = DisposeBag()
-    private let upcomingView: UpcomingView
-    private let upcomingViewModel: UpcomingViewModel
+    @Inject private var upcomingListView: UpcomingListView
+    @Inject private var upcomingListViewModel: UpcomingListViewModel
     private var dataSource: UICollectionViewDiffableDataSource<Int, Upcoming>?
+    private let disposeBag = DisposeBag()
     
     
     // MARK: Initializing
     
-    init(view: UpcomingView, viewModel: UpcomingViewModel) {
-        self.upcomingView = view
-        self.upcomingViewModel = viewModel
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -51,8 +49,8 @@ final class UpcomingViewController: BaseViewController {
     }
     
     private func configureUpcomingView() {
-        view.addSubview(upcomingView)
-        upcomingView.snp.makeConstraints { make in
+        view.addSubview(upcomingListView)
+        upcomingListView.snp.makeConstraints { make in
             make.edges.equalTo(view.snp.edges)
         }
     }
@@ -69,9 +67,9 @@ final class UpcomingViewController: BaseViewController {
     
     private func bind() {
         
-        let input = UpcomingViewModel.Input(fetchUpcomings: Observable.just(()))
+        let input = UpcomingListViewModel.Input(fetchUpcomings: Observable.just(()))
         
-        let output = upcomingViewModel.transform(input)
+        let output = upcomingListViewModel.transform(input)
         
         output.upcomings
             .subscribe(with: self, onNext: {
@@ -85,7 +83,7 @@ final class UpcomingViewController: BaseViewController {
 
 // MARK: - DiffableDataSource
 
-private extension UpcomingViewController {
+private extension UpcomingListViewController {
  
     func applySnapshot(_ upcomings: [Upcoming]) {
         DispatchQueue.main.async {
@@ -97,7 +95,7 @@ private extension UpcomingViewController {
     }
     
     func configureDataSource() {
-        let cell = UICollectionView.CellRegistration<UpcomingCell, Upcoming> { cell, indexPath, item in
+        let cell = UICollectionView.CellRegistration<UpcomingListCell, Upcoming> { cell, indexPath, item in
             cell.setup(item.backdropURL)
             cell.titleLabel.text = item.title
             cell.releaseDateLabel.text = item.releaseDate
@@ -105,7 +103,7 @@ private extension UpcomingViewController {
         }
         
         dataSource = UICollectionViewDiffableDataSource(
-            collectionView: upcomingView.collectionView,
+            collectionView: upcomingListView.collectionView,
             cellProvider: { collectionView, indexPath, item in
                 return collectionView.dequeueConfiguredReusableCell(using: cell, for: indexPath, item: item)
             }

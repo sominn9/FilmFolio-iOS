@@ -21,7 +21,7 @@ final class ReviewListViewController: BaseViewController {
         return collectionView
     }()
     
-    private let reviewListViewModel: ReviewListViewModel
+    @Inject private var reviewListViewModel: ReviewListViewModel
     private var dataSource: UICollectionViewDiffableDataSource<Int, Review>?
     private let fetchReviews = PublishSubject<Void>()
     private let disposeBag = DisposeBag()
@@ -29,8 +29,7 @@ final class ReviewListViewController: BaseViewController {
     
     // MARK: Initializing
     
-    init(viewModel: ReviewListViewModel) {
-        self.reviewListViewModel = viewModel
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -91,8 +90,7 @@ final class ReviewListViewController: BaseViewController {
         collectionView.rx.itemSelected
             .subscribe(with: self, onNext: { owner, indexPath in
                 guard let review = owner.dataSource?.itemIdentifier(for: indexPath) else { return }
-                let vm = ReviewViewModel(review: review)
-                let vc = ReviewViewController(viewModel: vm)
+                let vc: ReviewViewController = DIContainer.shared.resolve(argument: review)
                 owner.navigationController?.pushViewController(vc, animated: true)
             })
             .disposed(by: disposeBag)
@@ -100,7 +98,6 @@ final class ReviewListViewController: BaseViewController {
     
     private func configureDataSource() {
         let cell = UICollectionView.CellRegistration<ReviewListCell, Review> { cell, indexPath, review in
-            print(indexPath, review)
             cell.setup(review)
         }
         

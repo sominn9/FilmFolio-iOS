@@ -37,6 +37,13 @@ final class DIContainer {
         return service
     }
     
+    func resolve<T>(_ serviceType: T.Type) -> T {
+        guard let service = container.resolve(serviceType) else {
+            fatalError()
+        }
+        return service
+    }
+    
     func resolve<T>(name: String?) -> T {
         guard let service = container.resolve(T.self, name: name) else {
             fatalError()

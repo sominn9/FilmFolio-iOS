@@ -39,8 +39,8 @@ final class RootTabBarController: UITabBarController {
         let rootViewControllers = [
             HomeTabViewController(),
             SearchTabViewController(),
-            UpcomingViewController(view: UpcomingView(), viewModel: UpcomingViewModel()),
-            ReviewListViewController(viewModel: ReviewListViewModel())
+            DIContainer.shared.resolve(UpcomingListViewController.self),
+            DIContainer.shared.resolve(ReviewListViewController.self)
         ]
         
         self.setViewControllers(

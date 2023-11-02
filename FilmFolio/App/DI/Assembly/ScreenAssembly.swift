@@ -11,8 +11,14 @@ final class ScreenAssembly: Assembly {
     
     func assemble(container: Container) {
         let asseblies: [Assembly] = [
+            MovieHomeAssembly(),
+            SeriesHomeAssembly(),
             MovieDetailAssembly(),
-            SeriesDetailAssembly()
+            SeriesDetailAssembly(),
+            ReviewListAssembly(),
+            ReviewAssembly(),
+            UpcomingListAssembly(),
+            SearchAssembly()
         ]
         for assebly in asseblies {
             assebly.assemble(container: container)

@@ -1,5 +1,5 @@
 //
-//  UpcomingViewModel.swift
+//  UpcomingListViewModel.swift
 //  FilmFolio
 //
 //  Created by 신소민 on 2023/07/17.
@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-struct UpcomingViewModel {
+struct UpcomingListViewModel {
     
     // MARK: Input & Output
     
@@ -23,26 +23,15 @@ struct UpcomingViewModel {
     
     // MARK: Properties
     
-    private let movieRepository: MovieRepository
-    private let seriesRepository: SeriesRepository
-    private let disposeBag = DisposeBag()
+    @Inject private var movieRepository: MovieRepository
+    @Inject private var seriesRepository: SeriesRepository
     private let upcomings = PublishSubject<[Upcoming]>()
-    
-    
-    // MARK: Initializing
-    
-    init(
-        movieRepository: MovieRepository = DefaultMovieRepository(),
-        seriesRepository: SeriesRepository = DefaultSeriesRepository()
-    ) {
-        self.movieRepository = movieRepository
-        self.seriesRepository = seriesRepository
-    }
+    private let disposeBag = DisposeBag()
     
     
     // MARK: Methods
     
-    func transform(_ input: UpcomingViewModel.Input) -> UpcomingViewModel.Output {
+    func transform(_ input: Input) -> Output {
         
         input.fetchUpcomings
             .flatMap { movieRepository.upcoming() }
@@ -54,7 +43,7 @@ struct UpcomingViewModel {
             .bind(to: upcomings)
             .disposed(by: disposeBag)
         
-        return UpcomingViewModel.Output(upcomings: upcomings)
+        return Output(upcomings: upcomings)
     }
     
 }

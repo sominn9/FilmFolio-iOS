@@ -10,21 +10,20 @@ import RxSwift
 import SnapKit
 import UIKit
 
-final class SearchViewController<Item: PosterRepresentable>: UIViewController {
+final class SearchViewController<Item: PosterRepresentable>: BaseViewController {
     
     // MARK: Properties
     
-    private let disposeBag = DisposeBag()
-    private let searcheView: SearchView
-    private let searchViewModel: SearchViewModel<Item>
+    @Inject private var searcheView: SearchView
+    @Inject private var searchViewModel: SearchViewModel<Item>
     private var dataSource: UICollectionViewDiffableDataSource<Int, Item>?
+    private let disposeBag = DisposeBag()
     
     
     // MARK: Initializing
     
-    init(view: SearchView, viewModel: SearchViewModel<Item>) {
-        self.searcheView = view
-        self.searchViewModel = viewModel
+    init(placeholder: String) {
+        self._searcheView = Inject<SearchView>(argument: placeholder)
         super.init(nibName: nil, bundle: nil)
     }
     

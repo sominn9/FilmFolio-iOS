@@ -132,8 +132,7 @@ final class MovieDetailViewController: BaseViewController {
         output.loadedReview
             .observe(on: MainScheduler.instance)
             .subscribe(with: self, onNext: { owner, review in
-                let vm = ReviewViewModel(review: review)
-                let vc = ReviewViewController(viewModel: vm)
+                let vc: ReviewViewController = DIContainer.shared.resolve(argument: review)
                 owner.navigationController?.pushViewController(vc, animated: true)
             })
             .disposed(by: disposeBag)

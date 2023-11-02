@@ -23,7 +23,7 @@ enum MovieHomeSection: CustomStringConvertible, CaseIterable {
     }
 }
 
-final class MovieHomeViewController: UIViewController {
+final class MovieHomeViewController: BaseViewController {
     
     enum Item: Hashable {
         case nowPlay(Movie)
@@ -34,17 +34,15 @@ final class MovieHomeViewController: UIViewController {
     
     // MARK: Properties
     
-    private let disposeBag = DisposeBag()
-    private let movieHomeView: MovieHomeView
-    private let movieHomeViewModel: MovieHomeViewModel
+    @Inject private var movieHomeView: MovieHomeView
+    @Inject private var movieHomeViewModel: MovieHomeViewModel
     private var dataSource: UICollectionViewDiffableDataSource<MovieHomeSection, Item>?
+    private let disposeBag = DisposeBag()
     
     
     // MARK: Initializing
     
-    init(view: MovieHomeView, viewModel: MovieHomeViewModel) {
-        self.movieHomeView = view
-        self.movieHomeViewModel = viewModel
+    init() {
         super.init(nibName: nil, bundle: nil)
         self.movieHomeView.indexToSection = { [weak self] index in
             return self?.dataSource?.sectionIdentifier(for: index)

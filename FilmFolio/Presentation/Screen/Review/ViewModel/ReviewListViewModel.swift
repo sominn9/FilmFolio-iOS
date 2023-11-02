@@ -24,17 +24,10 @@ final class ReviewListViewModel {
     
     // MARK: Properties
     
-    private let reviewRepository: ReviewRepository
+    @Inject private var reviewRepository: ReviewRepository
     private let disposeBag = DisposeBag()
     private var offset: Int = 0
     private let limit: Int = 10
-    
-    
-    // MARK: Initializing
-    
-    init(reviewRepository: ReviewRepository = DefaultReviewRepository()) {
-        self.reviewRepository = reviewRepository
-    }
     
     
     // MARK: Methods

@@ -65,15 +65,9 @@ final class HomeTabViewController: BaseViewController {
         
         switch media {
         case .movie:
-            viewController = MovieHomeViewController(
-                view: MovieHomeView(),
-                viewModel: MovieHomeViewModel()
-            )
+            viewController = DIContainer.shared.resolve(MovieHomeViewController.self)
         case .series:
-            viewController = SeriesHomeViewController(
-                view: SeriesHomeView(),
-                viewModel: SeriesHomeViewModel()
-            )
+            viewController = DIContainer.shared.resolve(SeriesHomeViewController.self)
         }
         
         deleteChildView()
