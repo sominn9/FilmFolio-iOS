@@ -1,6 +1,14 @@
 # Created by https://www.toptal.com/developers/gitignore/api/xcode,macos,swift,cocoapods
 # Edit at https://www.toptal.com/developers/gitignore?templates=xcode,macos,swift,cocoapods
 
+# Tuist
+Tuist/Dependencies/graph.json
+Tuist/Dependencies/Carthage
+Tuist/Dependencies/SwiftPackageManager
+*.xcodeproj
+*.xcworkspace
+
+# Custom
 API.swift
 
 ### CocoaPods ###
