@@ -9,14 +9,14 @@ import UIKit
 
 extension PagerTabBarController {
     
-    struct Configuration {
-        var tabBarHeight: CGFloat
-        var tabBarItemWidth: CGFloat
-        var tabBarItemConfiguration: TabBarItem.Configuration
-        var indicatorHeight: CGFloat
-        var indicatorColor: UIColor
+    public struct Configuration {
+        public var tabBarHeight: CGFloat
+        public var tabBarItemWidth: CGFloat
+        public var tabBarItemConfiguration: TabBarItem.Configuration
+        public var indicatorHeight: CGFloat
+        public var indicatorColor: UIColor
         
-        static func `default`() -> PagerTabBarController.Configuration {
+        public static func `default`() -> PagerTabBarController.Configuration {
             Configuration(
                 tabBarHeight: 40.0,
                 tabBarItemWidth: 80.0,

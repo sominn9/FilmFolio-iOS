@@ -5,9 +5,10 @@
 //  Created by 신소민 on 2023/07/17.
 //
 
+import Common
+import Resource
 import SnapKit
 import UIKit
-import Utils
 
 final class SeriesDetailView: UIScrollView, SectionConvertible {
     
@@ -30,7 +31,7 @@ final class SeriesDetailView: UIScrollView, SectionConvertible {
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = UIColor(named: "darkColor")
+        imageView.backgroundColor = FFColor.darkColor
         return imageView
     }()
     

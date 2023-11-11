@@ -5,10 +5,11 @@
 //  Created by 신소민 on 2023/05/09.
 //
 
+import Common
+import Resource
 import RxCocoa
 import RxSwift
 import UIKit
-import Utils
 
 enum MovieHomeSection: CustomStringConvertible, CaseIterable {
     case nowPlay

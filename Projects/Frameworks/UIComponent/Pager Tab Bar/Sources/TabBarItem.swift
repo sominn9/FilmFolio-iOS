@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-final class TabBarItem: UICollectionViewCell {
+public final class TabBarItem: UICollectionViewCell {
     
     // MARK: Properties
     
@@ -20,13 +20,13 @@ final class TabBarItem: UICollectionViewCell {
         return label
     }()
     
-    override var isSelected: Bool {
+    public override var isSelected: Bool {
         didSet {
             configure()
         }
     }
     
-    var configuration: Configuration = .default() {
+    public var configuration: Configuration = .default() {
         didSet {
             configure()
         }

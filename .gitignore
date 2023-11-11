@@ -5,6 +5,7 @@
 Tuist/Dependencies/graph.json
 Tuist/Dependencies/Carthage
 Tuist/Dependencies/SwiftPackageManager
+Derived/
 *.xcodeproj
 *.xcworkspace
 

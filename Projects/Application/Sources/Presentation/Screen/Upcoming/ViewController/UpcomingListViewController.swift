@@ -5,11 +5,11 @@
 //  Created by 신소민 on 2023/07/17.
 //
 
+import Resource
 import RxCocoa
 import RxSwift
 import SnapKit
 import UIKit
-import Utils
 
 final class UpcomingListViewController: BaseViewController {
     
@@ -67,7 +67,6 @@ final class UpcomingListViewController: BaseViewController {
     }
     
     private func bind() {
-        
         let input = UpcomingListViewModel.Input(fetchUpcomings: Observable.just(()))
         
         let output = upcomingListViewModel.transform(input)
@@ -77,7 +76,6 @@ final class UpcomingListViewController: BaseViewController {
                 $0.applySnapshot($1)
             })
             .disposed(by: disposeBag)
-        
     }
     
 }

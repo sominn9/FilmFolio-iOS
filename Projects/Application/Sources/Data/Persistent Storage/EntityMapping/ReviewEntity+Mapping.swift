@@ -7,7 +7,6 @@
 
 import CoreData
 import Foundation
-import Utils
 
 private var formatter: DateFormatter = {
     let formatter = DateFormatter()

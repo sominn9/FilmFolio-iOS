@@ -9,14 +9,14 @@ import UIKit
 
 extension TabBarItem {
     
-    struct Configuration {
-        var title: String?
-        var font: UIFont
-        var textColor: UIColor
-        var selectedFont: UIFont
-        var selectedTextColor: UIColor
+    public struct Configuration {
+        public var title: String?
+        public var font: UIFont
+        public var textColor: UIColor
+        public var selectedFont: UIFont
+        public var selectedTextColor: UIColor
         
-        static func `default`() -> TabBarItem.Configuration {
+        public static func `default`() -> TabBarItem.Configuration {
             Configuration (
                 title: nil,
                 font: .systemFont(ofSize: 17),

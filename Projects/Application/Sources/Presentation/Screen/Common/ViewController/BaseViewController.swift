@@ -5,6 +5,7 @@
 //  Created by 신소민 on 2023/07/14.
 //
 
+import Resource
 import UIKit
 
 class BaseViewController: UIViewController {
@@ -21,7 +22,7 @@ class BaseViewController: UIViewController {
         appearance.configureWithOpaqueBackground()
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.tintColor = UIColor.accentColor
+        navigationController?.navigationBar.tintColor = FFColor.accentColor
     }
     
     func configureTabBar() {
@@ -29,7 +30,7 @@ class BaseViewController: UIViewController {
         appearance.configureWithOpaqueBackground()
         tabBarController?.tabBar.standardAppearance = appearance
         tabBarController?.tabBar.scrollEdgeAppearance = appearance
-        tabBarController?.tabBar.tintColor = UIColor.accentColor
+        tabBarController?.tabBar.tintColor = FFColor.accentColor
     }
     
 }

@@ -7,7 +7,7 @@
 
 import SnapKit
 import UIKit
-import Utils
+import UIKitExtension
 
 final class SearchView: UIView {
     

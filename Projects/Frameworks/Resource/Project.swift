@@ -1,18 +1,16 @@
 import ProjectDescription
 
 let project = Project(
-    name: "Utils",
+    name: "Resource",
     targets: [
         Target(
-            name: "Utils",
+            name: "Resource",
             platform: .iOS,
             product: .framework,
-            bundleId: "com.ss9.utils",
+            bundleId: "com.ss9.resource",
             infoPlist: .default,
             sources: ["Sources/**"],
-            dependencies: [
-                .external(name: "SnapKit")
-            ]
+            resources: ["Resources/**"]
         )
     ]
 )

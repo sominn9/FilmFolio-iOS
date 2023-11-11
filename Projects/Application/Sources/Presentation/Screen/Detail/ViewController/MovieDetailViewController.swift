@@ -5,11 +5,13 @@
 //  Created by 신소민 on 2023/07/16.
 //
 
+import Common
+import FoundationExtension
+import Resource
 import RxCocoa
 import RxSwift
 import SnapKit
 import UIKit
-import Utils
 
 enum MovieDetailSection: CaseIterable, CustomStringConvertible {
     case video

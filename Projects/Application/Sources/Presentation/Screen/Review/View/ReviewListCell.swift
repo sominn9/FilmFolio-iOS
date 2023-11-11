@@ -5,6 +5,8 @@
 //  Created by 신소민 on 2023/09/01.
 //
 
+import FoundationExtension
+import Resource
 import SnapKit
 import UIKit
 
@@ -80,7 +82,7 @@ final class ReviewListCell: UICollectionViewCell {
     
     private func configure() {
         contentView.layer.cornerRadius = Metric.cornerRadius
-        contentView.backgroundColor = UIColor(named: "darkColor")
+        contentView.backgroundColor = FFColor.darkColor
         contentView.addSubview(backgroundImageView)
         configureContentStackView()
     }

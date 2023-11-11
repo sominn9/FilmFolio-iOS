@@ -5,6 +5,7 @@
 //  Created by 신소민 on 2023/05/10.
 //
 
+import Resource
 import SnapKit
 import UIKit
 
@@ -21,7 +22,7 @@ final class RoundImageCell: UICollectionViewCell {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = UIColor(named: "darkColor")
+        imageView.backgroundColor = FFColor.darkColor
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()

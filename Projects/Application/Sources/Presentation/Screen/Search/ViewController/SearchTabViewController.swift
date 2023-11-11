@@ -5,9 +5,10 @@
 //  Created by 신소민 on 2023/07/12.
 //
 
+import PagerTabBar
+import Resource
 import SnapKit
 import UIKit
-import Utils
 
 final class SearchTabViewController: BaseViewController {
     
@@ -41,8 +42,8 @@ final class SearchTabViewController: BaseViewController {
         let pagerTabBarController = PagerTabBarController()
         
         var configuration = pagerTabBarController.configuration
-        configuration.indicatorColor = UIColor.accentColor
-        configuration.tabBarItemConfiguration.selectedTextColor = UIColor.accentColor
+        configuration.indicatorColor = FFColor.accentColor
+        configuration.tabBarItemConfiguration.selectedTextColor = FFColor.accentColor
         
         pagerTabBarController.dataSource = self
         pagerTabBarController.configuration = configuration
@@ -69,4 +70,5 @@ extension SearchTabViewController: PagerTabBarControllerDataSource {
         )
         return [vc1, vc2]
     }
+    
 }

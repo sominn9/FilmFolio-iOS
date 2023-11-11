@@ -5,6 +5,7 @@
 //  Created by 신소민 on 2023/07/12.
 //
 
+import Resource
 import UIKit
 
 final class RootTabBarController: UITabBarController {

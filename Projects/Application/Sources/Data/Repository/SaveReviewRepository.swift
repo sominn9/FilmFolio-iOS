@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Utils
 
 protocol SaveReviewRepository {
     func save(_ review: Review) async throws

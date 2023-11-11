@@ -5,6 +5,7 @@
 //  Created by 신소민 on 2023/07/18.
 //
 
+import Resource
 import SnapKit
 import UIKit
 
@@ -23,7 +24,7 @@ final class UpcomingListCell: UICollectionViewCell {
     
     lazy var releaseDateLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.accentColor
+        label.textColor = FFColor.accentColor
         label.font = UIFont.systemFont(ofSize: 25, weight: .bold)
         return label
     }()
@@ -32,7 +33,7 @@ final class UpcomingListCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = UIColor(named: "darkColor")
+        imageView.backgroundColor = FFColor.darkColor
         imageView.layer.cornerRadius = Metric.cornerRadius
         return imageView
     }()

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Resource
 
 enum Media: String, CaseIterable {
     case movie

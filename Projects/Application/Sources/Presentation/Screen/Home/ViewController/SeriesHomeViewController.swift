@@ -5,11 +5,12 @@
 //  Created by 신소민 on 2023/07/06.
 //
 
+import Common
+import Resource
 import RxCocoa
 import RxSwift
 import SnapKit
 import UIKit
-import Utils
 
 enum SeriesHomeSection: CustomStringConvertible, CaseIterable {
     case trending

@@ -8,23 +8,23 @@
 import SnapKit
 import UIKit
 
-protocol PagerTabBarControllerDataSource: AnyObject {
+public protocol PagerTabBarControllerDataSource: AnyObject {
     func tabBarTitles(_ pagerTabBarController: PagerTabBarController) -> [String]
     func viewControllers(_ pagerTabBarController: PagerTabBarController) -> [UIViewController]
 }
 
-final class PagerTabBarController: UIViewController {
+public final class PagerTabBarController: UIViewController {
 
     // MARK: - Public Properties
     
-    weak var dataSource: PagerTabBarControllerDataSource? {
+    public weak var dataSource: PagerTabBarControllerDataSource? {
         didSet {
             addChildViewControllers()
             configureTabBarDataSource()
         }
     }
     
-    var configuration: Configuration = .default() {
+    public var configuration: Configuration = .default() {
         didSet {
             updateConfiguration()
         }
@@ -66,12 +66,12 @@ final class PagerTabBarController: UIViewController {
     
     // MARK: - View Life Cycle
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         layout()
     }
     
-    override func viewDidLayoutSubviews() {
+    public override func viewDidLayoutSubviews() {
         configureChildViewControllers()
         updateIndicatorHeight()
         updateIndicatorPosition(index: 0, animated: false)
@@ -226,7 +226,7 @@ final class PagerTabBarController: UIViewController {
 
 extension PagerTabBarController: UICollectionViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
         updateIndicatorPosition(index: indexPath.row, animated: true)
         UIView.animate(withDuration: 0.3) { [weak self] in
@@ -235,7 +235,7 @@ extension PagerTabBarController: UICollectionViewDelegate {
         }
     }
     
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         guard scrollView == self.scrollView else { return }
         let index = targetContentOffset.pointee.x / scrollView.frame.width
         let roundedIndex = Int(round(index))
