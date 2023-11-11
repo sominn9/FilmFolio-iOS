@@ -108,8 +108,8 @@ final class MovieDetailViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         output.movieDetail
-            .map { "\(String(localized: "Release"))  \($0.releaseDate)" }
-            .map { $0.withBold(target: String(localized: "Release"), UIColor.darkGray) }
+            .map { "\(DetailSceneLocalization.Movie.release.text)  \($0.releaseDate)" }
+            .map { $0.withBold(target: DetailSceneLocalization.Movie.release.text, UIColor.darkGray) }
             .bind(to: movieDetailView.releaseDateLabel.rx.attributedText)
             .disposed(by: disposeBag)
         

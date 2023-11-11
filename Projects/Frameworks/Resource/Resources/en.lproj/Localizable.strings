@@ -6,34 +6,40 @@
   
 */
 
-// 미디어 종류
-"Movie" = "Movie";
-"Series" = "Series";
-"Animation" = "Animation";
+// media
+"media.movie" = "Movie";
+"media.series" = "Series";
+"media.animation" = "Animation";
 
-// 탭 목록
-"Home" = "Home";
-"Search" = "Search";
-"Upcoming" = "Upcoming";
-"Review" = "Review";
+// tab-bar-items
+"tab-bar-items.home" = "Home";
+"tab-bar-items.search" = "Search";
+"tab-bar-items.upcoming" = "Upcoming";
+"tab-bar-items.review" = "Review";
 
-// 홈 화면 (영화, 시리즈)
-"Now Playing Movies" = "Now Playing";
-"Popular Movies" = "Popular";
-"Top Rated Movies" = "Top Rated";
+// home-scene.movie
+"home-scene.movie.nowPlaying" = "Now Playing";
+"home-scene.movie.popular" = "Popular";
+"home-scene.movie.topRated" = "Top Rated";
 
-"On The Air Movies" = "On The Air";
-"Popular Series" = "Popular";
-"Top Rated Series" = "Top Rated";
+// home-scene.series
+"home-scene.series.onTheAir" = "On The Air";
+"home-scene.series.popular" = "Popular";
+"home-scene.series.topRated" = "Top Rated";
 
-// 검색 화면
-"Search Movie" = "Search Movie";
-"Search TV Series" = "Search TV Series";
+// search-scene
+"search-scene.title" = "Search";
+"search-scene.movie.placeholder" = "Search Movie";
+"search-scene.series.placeholder" = "Search TV Series";
 
-// 영화/시리즈 상세 화면
-"Release" = "Release";
-"First Air" = "First Air";
-"Episodes" = "Episodes" ;
+// detail-scene
+"detail-scene.movie.release" = "Release";
+"detail-scene.series.firstAir" = "First Air";
+"detail-scene.series.episodes" = "Episodes" ;
 
-// 리뷰 화면
-"Write a review." = "Write a review.";
+// review-scene
+"review-scene.title" = "Review";
+"review-scene.placeholder" = "Write a review.";
+
+// upcoming-scene
+"upcoming-scene.title" = "Upcoming";

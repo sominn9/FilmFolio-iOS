@@ -20,8 +20,8 @@ enum SeriesHomeSection: CustomStringConvertible, CaseIterable {
     var description: String {
         switch self {
         case .trending:  return ""
-        case .onTheAir:  return String(localized: "On The Air Series")
-        case .topRated:  return String(localized: "Top Rated Series")
+        case .onTheAir:  return HomeSceneLocalization.Series.onTheAir.text
+        case .topRated:  return HomeSceneLocalization.Series.topRated.text
         }
     }
 }

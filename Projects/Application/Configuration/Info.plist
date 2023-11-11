@@ -38,6 +38,6 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<string>ko</string>
 </dict>
 </plist>

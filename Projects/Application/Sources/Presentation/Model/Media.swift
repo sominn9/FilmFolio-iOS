@@ -14,8 +14,8 @@ enum Media: String, CaseIterable {
     
     var description: String {
         switch self {
-        case .movie: return String(localized: "Movie")
-        case .series: return String(localized: "Series")
+        case .movie: return MediaLocalization.movie.text
+        case .series: return MediaLocalization.series.text
         }
     }
 }

@@ -55,22 +55,22 @@ final class RootTabBarController: UITabBarController {
     private func setTabBarItems() {
         guard let viewControllers else { return }
         viewControllers[0].tabBarItem = UITabBarItem(
-            title: String(localized: "Home"),
+            title: TabBarItemsLocalization.home.text,
             image: UIImage(systemName: "house.fill"),
             tag: 0
         )
         viewControllers[1].tabBarItem = UITabBarItem(
-            title: String(localized: "Search"),
+            title: TabBarItemsLocalization.search.text,
             image: UIImage(systemName: "magnifyingglass"),
             tag: 1
         )
         viewControllers[2].tabBarItem = UITabBarItem(
-            title: String(localized: "Upcoming"),
+            title: TabBarItemsLocalization.upcoming.text,
             image: UIImage(systemName: "play.rectangle"),
             tag: 2
         )
         viewControllers[3].tabBarItem = UITabBarItem(
-            title: String(localized: "Review"),
+            title: TabBarItemsLocalization.review.text,
             image: UIImage(systemName: "text.book.closed"),
             tag: 3
         )

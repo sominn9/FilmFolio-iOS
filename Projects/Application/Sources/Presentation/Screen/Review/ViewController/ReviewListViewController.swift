@@ -70,7 +70,7 @@ final class ReviewListViewController: BaseViewController {
     
     private func configureNavigationTitle() {
         let button = UIButton(configuration: .titleMenu(
-            String(localized: "Review"),
+            ReviewSceneLocalization.title.text,
             fontSize: 19,
             showChevron: false
         ))

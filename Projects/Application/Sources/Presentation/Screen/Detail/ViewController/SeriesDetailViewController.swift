@@ -104,8 +104,8 @@ final class SeriesDetailViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         output.seriesDetail
-            .map { "\(String(localized: "First Air"))  \($0.firstAirDate)" }
-            .map { $0.withBold(target: String(localized: "First Air"), UIColor.darkGray) }
+            .map { "\(DetailSceneLocalization.Series.firstAir.text)  \($0.firstAirDate)" }
+            .map { $0.withBold(target: DetailSceneLocalization.Series.firstAir.text, UIColor.darkGray) }
             .bind(to: seriesDetailView.firstAirDateLabel.rx.attributedText)
             .disposed(by: disposeBag)
         
@@ -117,8 +117,8 @@ final class SeriesDetailViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         output.seriesDetail
-            .map { "\(String(localized: "Episodes"))  \($0.numberOfEpisodes)"}
-            .map { $0.withBold(target: String(localized: "Episodes"), UIColor.darkGray) }
+            .map { "\(DetailSceneLocalization.Series.episodes.text)  \($0.numberOfEpisodes)"}
+            .map { $0.withBold(target: DetailSceneLocalization.Series.episodes.text, UIColor.darkGray) }
             .bind(to: seriesDetailView.numberOfEpisodesLabel.rx.attributedText)
             .disposed(by: disposeBag)
         

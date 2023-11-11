@@ -19,8 +19,8 @@ enum MovieHomeSection: CustomStringConvertible, CaseIterable {
     var description: String {
         switch self {
         case .nowPlay:  return ""
-        case .popular:  return String(localized: "Popular Movies")
-        case .topRated: return String(localized: "Top Rated Movies")
+        case .popular:  return HomeSceneLocalization.Movie.popular.text
+        case .topRated: return HomeSceneLocalization.Movie.topRated.text
         }
     }
 }

@@ -6,34 +6,39 @@
   
 */
 
-// 미디어 종류
-"Movie" = "영화";
-"Series" = "시리즈";
-"Animation" = "애니메이션";
+// media
+"media.movie" = "영화";
+"media.series" = "시리즈";
+"media.animation" = "애니메이션";
 
-// 탭 목록
-"Home" = "홈";
-"Search" = "검색";
-"Upcoming" = "개봉 예정";
-"Review" = "리뷰";
+// tab-bar-items
+"tab-bar-items.home" = "홈";
+"tab-bar-items.search" = "검색";
+"tab-bar-items.upcoming" = "개봉 예정";
+"tab-bar-items.review" = "리뷰";
 
-// 홈 화면 (영화, 시리즈)
-"Now Playing Movies" = "현재 상영 중인 영화";
-"Popular Movies" = "인기 영화";
-"Top Rated Movies" = "높은 평점의 영화";
+// home-scene.movie
+"home-scene.movie.nowPlaying" = "현재 상영 중인 영화";
+"home-scene.movie.popular" = "인기 영화";
+"home-scene.movie.topRated" = "높은 평점의 영화";
 
-"On The Air Series" = "현재 방영 중인 TV 시리즈";
-"Popular Series" = "인기 TV 시리즈";
-"Top Rated Series" = "높은 평점의 TV 시리즈";
+"home-scene.series.onTheAir" = "현재 방영 중인 TV 시리즈";
+"home-scene.series.popular" = "인기 TV 시리즈";
+"home-scene.series.topRated" = "높은 평점의 TV 시리즈";
 
-// 검색 화면
-"Search Movie" = "영화를 검색해보세요";
-"Search TV Series" = "시리즈를 검색해보세요";
+// search-scene
+"search-scene.title" = "검색";
+"search-scene.movie.placeholder" = "영화를 검색해보세요";
+"search-scene.series.placeholder" = "시리즈를 검색해보세요";
 
-// 상세 화면
-"Release" = "개봉";
-"First Air" = "첫 방영";
-"Episodes" = "에피소드" ;
+// detail-scene
+"detail-scene.movie.release" =  "개봉";
+"detail-scene.series.firstAir" = "첫 방영";
+"detail-scene.series.episodes" = "에피소드" ;
 
-// 리뷰 화면
-"Write a review." = "감상한 내용을 작성하세요.";
+// review-scene
+"review-scene.title" = "리뷰";
+"review-scene.placeholder" = "감상한 내용을 작성하세요.";
+
+// upcoming-scene
+"upcoming-scene.title" = "개봉 예정";

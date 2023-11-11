@@ -30,7 +30,7 @@ final class SearchTabViewController: BaseViewController {
     
     private func configureNavigationTitle() {
         let button = UIButton(configuration: .titleMenu(
-            String(localized: "Search"),
+            SearchSceneLocalization.title.text,
             fontSize: 19,
             showChevron: false
         ))
@@ -57,16 +57,19 @@ final class SearchTabViewController: BaseViewController {
 extension SearchTabViewController: PagerTabBarControllerDataSource {
     
     func tabBarTitles(_ pagerTabBarController: PagerTabBarController) -> [String] {
-        let titles = [String(localized: "Movie"), String(localized: "Series")]
+        let titles = [
+            MediaLocalization.movie.text,
+            MediaLocalization.series.text
+        ]
         return titles
     }
     
     func viewControllers(_ pagerTabBarController: PagerTabBarController) -> [UIViewController] {
         let vc1: SearchViewController<Movie> = DIContainer.shared.resolve(
-            argument: String(localized: "Search Movie")
+            argument: SearchSceneLocalization.Movie.placeholder.text
         )
         let vc2: SearchViewController<Series> = DIContainer.shared.resolve(
-            argument: String(localized: "Search TV Series")
+            argument: SearchSceneLocalization.Series.placeholder.text
         )
         return [vc1, vc2]
     }

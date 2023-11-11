@@ -58,7 +58,7 @@ final class UpcomingListViewController: BaseViewController {
     
     private func configureNavigationTitle() {
         let button = UIButton(configuration: .titleMenu(
-            String(localized: "Upcoming"),
+            UpcomingSceneLocalization.title.text,
             fontSize: 19,
             showChevron: false
         ))

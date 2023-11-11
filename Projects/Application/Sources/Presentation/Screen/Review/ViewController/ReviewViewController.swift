@@ -21,7 +21,7 @@ final class ReviewViewController: BaseViewController {
     }
     
     struct Text {
-        static let placeholder = String(localized: "Write a review.")
+        static let placeholder = ReviewSceneLocalization.placeholder.text
     }
     
     
