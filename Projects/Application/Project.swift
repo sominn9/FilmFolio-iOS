@@ -1,9 +1,5 @@
 import ProjectDescription
 
-let targetSettings = Settings.settings(base: [
-    "ASSETCATALOG_COMPILER_APPICON_NAME": "../Frameworks/Resource/Resources/Assets.xcassets/AppIcon"
-])
-
 let project = Project(
     name: "Application",
     targets: [
@@ -25,7 +21,6 @@ let project = Project(
                 .external(name: "RxSwift"),
                 .external(name: "RxCocoa")
             ],
-            settings: targetSettings,
             coreDataModels: [
                 CoreDataModel("Sources/Data/Infrastructure/CoreData/Model.xcdatamodeld")
             ]

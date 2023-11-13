@@ -40,7 +40,8 @@ public final class PagerTabBarController: UIViewController {
         collectionView.delegate = self
         collectionView.decelerationRate = .fast
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.contentInset = .init(top: 0, left: 8, bottom: 0, right: 8)
+        let inset = configuration.tabBarHorizontalInset
+        collectionView.contentInset = .init(top: 0, left: inset, bottom: 0, right: inset)
         return collectionView
     }()
     
@@ -179,6 +180,10 @@ public final class PagerTabBarController: UIViewController {
         let newItemWidth = configuration.tabBarItemWidth
         let newLayout = tabBarLayout(itemWidth: newItemWidth)
         tabBarCollectionView.collectionViewLayout = newLayout
+        
+        // Update the collection view inset.
+        let inset = configuration.tabBarHorizontalInset
+        tabBarCollectionView.contentInset = .init(top: 0, left: inset, bottom: 0, right: inset)
         
         // Update the collection view height.
         tabBarCollectionView.snp.updateConstraints { make in

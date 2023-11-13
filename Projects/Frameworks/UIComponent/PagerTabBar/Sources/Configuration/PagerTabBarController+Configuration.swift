@@ -12,6 +12,7 @@ extension PagerTabBarController {
     public struct Configuration {
         public var tabBarHeight: CGFloat
         public var tabBarItemWidth: CGFloat
+        public var tabBarHorizontalInset: CGFloat
         public var tabBarItemConfiguration: TabBarItem.Configuration
         public var indicatorHeight: CGFloat
         public var indicatorColor: UIColor
@@ -20,6 +21,7 @@ extension PagerTabBarController {
             Configuration(
                 tabBarHeight: 40.0,
                 tabBarItemWidth: 80.0,
+                tabBarHorizontalInset: 0.0,
                 tabBarItemConfiguration: .default(),
                 indicatorHeight: 3.0,
                 indicatorColor: .tintColor

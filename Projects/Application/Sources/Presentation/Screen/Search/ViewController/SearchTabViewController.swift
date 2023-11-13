@@ -42,6 +42,7 @@ final class SearchTabViewController: BaseViewController {
         let pagerTabBarController = PagerTabBarController()
         
         var configuration = pagerTabBarController.configuration
+        configuration.tabBarHorizontalInset = 8.0
         configuration.indicatorColor = FFColor.accentColor
         configuration.tabBarItemConfiguration.selectedTextColor = FFColor.accentColor
         
